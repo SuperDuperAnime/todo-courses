@@ -3,9 +3,11 @@ import ninja from "../../ninja.svg";
 import React from "react";
 
 
-export const Header = () => {
+export const Header = ({setIsMenuOpen}) => {
     return <HeaderWrapper>
-	   <Icon src={ninja}/>
+	   <Icon src={ninja} onClick={()=>{
+	   setIsMenuOpen(prev => !prev)
+	   }}/>
 	   <AppTitle> ANIME APP</AppTitle>
     </HeaderWrapper>
 }

@@ -1,12 +1,13 @@
 import styled, {css} from "styled-components";
-import React from "react";
+import React, {useState} from "react";
 import {Categories} from "./Categories/Categories";
 import {Search} from "./Search";
 import {Card} from "./Card/Cards";
 
-export const Body = () => {
+export const Body = ({isMenuOpen}) => {
+
     return <BodyWrapper>
-	   <Panel open={false}>
+	   <Panel open={isMenuOpen}>
 		  <Categories/>
 		  <Search/>
 	   </Panel>
@@ -29,9 +30,10 @@ const Panel = styled.div`
   display: grid;
   background: lightblue;
   grid-template-columns:1fr 1fr;
+  transition: all 0.3s;
   @media (max-width: 1365px) {
-    width: 0;
-    ${props => props.open && css`
-      width: 100vw;`}
+    transition: all 0.4s;
+    width: ${props=>props.open? "100vw": "0vw"};
+
   }
 `
