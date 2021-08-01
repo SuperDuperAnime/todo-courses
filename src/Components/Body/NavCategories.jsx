@@ -32,6 +32,8 @@ const Categories = () => {
 	   <CategoriesItem/>
     </CategoriesWrapper>
 }
+
+
 const CategoriesWrapper = styled.div`
   display: flex;
   flex-direction: column;
