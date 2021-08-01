@@ -4,9 +4,14 @@ import ninja from './ninja.svg'
 import {Header} from "./Components/Header/Header";
 import {Body} from "./Components/Body/Body";
 import {Categories} from "./Components/Body/Categories/Categories";
-
+import {Hentai} from "./store/q=Boku_Genre=12";
+import {Yaoi} from "./store/q=6loverGenre=33";
 
 function App() {
+
+    console.log(Hentai)
+    console.log(Yaoi)
+
     return (
 	   <AppWrapper>
 		  <Header/>
