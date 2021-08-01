@@ -1,48 +1,37 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import React from "react";
-import {NavCategories} from "./NavCategories";
+import {Categories} from "./Categories/Categories";
+import {Search} from "./Search";
+import {Card} from "./Card/Cards";
 
 export const Body = () => {
     return <BodyWrapper>
-	   <NavCategories/>
-	   <Content>
+	   <Panel open={false}>
+		  <Categories/>
 		  <Search/>
-		  <Card/>
-	   </Content>
-
+	   </Panel>
+	   <Card/>
     </BodyWrapper>
 }
 
 const BodyWrapper = styled.div`
   height: 100%;
   width: 100%;
-  background: lightblue;
   display: grid;
-  grid-template-columns:minmax(0, auto) 1fr;`
-
-
-const Content = styled.div`
-  width: 100%;
-  height: 100%;
-  background: aqua;
-  display: grid;
-  grid-template-columns:3fr 7fr;
+  grid-template-columns:minmax(0, auto) 1fr;
 `
 
-const Search = () => {
-    return <SearchWrapper>
 
-    </SearchWrapper>
-}
-const SearchWrapper = styled.div`
-
-  background: coral`
-
-
-const Card = () => {
-    return <CardWrapper>
-
-    </CardWrapper>
-}
-const CardWrapper = styled.div`
-  background: green`
+const Panel = styled.div`
+  max-width: 800px;
+  width: 60vw;
+  height: 100%;
+  display: grid;
+  background: lightblue;
+  grid-template-columns:1fr 1fr;
+  @media (max-width: 1365px) {
+    width: 0;
+    ${props => props.open && css`
+      width: 100vw;`}
+  }
+`

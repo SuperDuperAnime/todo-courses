@@ -3,14 +3,13 @@ import styled from "styled-components";
 import ninja from './ninja.svg'
 import {Header} from "./Components/Header/Header";
 import {Body} from "./Components/Body/Body";
-import {NavCategories} from "./Components/Body/NavCategories";
+import {Categories} from "./Components/Body/Categories/Categories";
 
 
 function App() {
     return (
 	   <AppWrapper>
 		  <Header/>
-
 		  <Body/>
 	   </AppWrapper>
     );
@@ -23,5 +22,13 @@ const AppWrapper = styled.div`
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 15fr 85fr;`
+  grid-template-rows: 15fr 85fr;
+overflow: hidden`
 
+
+
+export const Typography = styled.div`
+font-size: ${props=>props.fontSize||"40px"};
+font-family: Roboto ;
+font-weight:  ${props=>props.fontWeight||"100"};
+color:  ${props=>props.color||'rgba(255,255,255,1)'}`
