@@ -17,6 +17,7 @@ export const Card = ({img, title, descr}) => {
       </CardWrapperBlock>
         <CardShape src = {Shape} />
       </CardWrapper>
+
 }
 const CardWrapper = styled.div`
   background: green;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components";
 import ninja from './ninja.svg'
 import {Header} from "./Components/Header/Header";
@@ -8,14 +8,14 @@ import {Hentai} from "./store/q=Boku_Genre=12";
 import {Yaoi} from "./store/q=6loverGenre=33";
 
 function App() {
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     console.log(Hentai)
     console.log(Yaoi)
 
     return (
 	   <AppWrapper>
-		  <Header/>
-		  <Body/>
+		  <Header setIsMenuOpen={setIsMenuOpen} />
+		  <Body isMenuOpen={isMenuOpen}/>
 	   </AppWrapper>
     );
 }
