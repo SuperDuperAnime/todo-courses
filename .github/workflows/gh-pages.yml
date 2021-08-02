@@ -20,7 +20,7 @@ jobs:
           node-version: 14.x
 
       - name: Install YARN packages
-        run: yarn ci
+        run: yarn install
 
       - name: Build project
         run: yarn build
