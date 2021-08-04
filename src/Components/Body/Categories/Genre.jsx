@@ -7,7 +7,7 @@ export const Genre = () => {
 		  <Typography> Hentai</Typography>
 	   </GenreItem>
 	   <GenreItem>
-		  <Typography> Hentai</Typography>
+		  <Typography> Characters</Typography>
 	   </GenreItem>
     </GenreWrapper>
 }

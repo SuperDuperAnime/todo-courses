@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {Hentai} from "../../../store/q=Boku_Genre=12";
 import Shape from '../../../Shape.svg'
 
-export const Card = ({img, title, descr}) => {
+export const Card = ({img, title, descr, isFavorite}) => {
   const cardImg = Hentai.results[0].image_url;
   const cardTitle = Hentai.results[0].title;
   const cardDescr = Hentai.results[0].synopsis;

@@ -4,16 +4,27 @@ import {Genre} from "./Categories/Genre";
 import {Result} from "./Result/Result"
 import {Hentai} from "../../store/q=Boku_Genre=12";
 import {Yaoi} from "../../store/q=6loverGenre=33";
+import {Naruto} from "../../store/Character/q=Naruto";
+
 export const Search = () => {
     return <SearchWrapper>
 	    <Input/>
         <ResultsBlock>
+          {<Result 
+              key = {Math.random()}
+              img = {Naruto.results[0].image_url}
+              title = {Naruto.results[0].name}
+              isFavorite = {false}
+            />
+          }
+
           {Hentai.results.map(item => {
             return <Result 
               key = {Math.random()}
               img = {item.image_url}
               title = {item.title}
               synopsis = {item.synopsis}
+              isFavorite = {true}
             />
           })}
 
@@ -23,6 +34,7 @@ export const Search = () => {
               img = {item.image_url}
               title = {item.title}
               synopsis = {item.synopsis}
+              isFavorite = {true}
             />
           })} 
         </ResultsBlock>
