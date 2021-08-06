@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Typography} from "../../../App";
+import {Typography} from "../../App";
 
 export const Favorite = () => {
     return <FavoriteWrapper>
