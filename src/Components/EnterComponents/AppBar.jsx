@@ -3,8 +3,9 @@ import {Box} from "rebass/styled-components"
 import ninja from "../../ninja.svg";
 import styled from "styled-components";
 import store from "../../store/store";
+import {observer} from "mobx-react-lite";
 
-export const AppBar = ({setIsMenuOpen}) => {
+export const AppBar = observer( ({setIsMenuOpen}) => {
     return (
 	   <Box width={"100%"} height={"100%"} bg={'red'}>
 		  <AppBarWrapper>
@@ -25,7 +26,7 @@ export const AppBar = ({setIsMenuOpen}) => {
 	   </Box>
 
     );
-};
+});
 const AppBarWrapper = styled.div`
   height: 100%;
   background: lightcoral;
