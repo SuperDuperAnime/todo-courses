@@ -8,20 +8,10 @@ import styled from "styled-components";
 import {observer} from "mobx-react-lite";
 import {CardSmall} from "../Search/CardSmall";
 
-export const Search =observer(() => {
+export const Results =observer(() => {
     return (
         <Box width={"100%"} height={"100%"} bg={'rgba(0,0,255,0.3)'}>
-            <SearchWrapper>
-                <Input value={store.textInput}
-                       onKeyUp={(e) => {
-                           if (e.key === "Enter") {
-                               store.startSearch()
-                           }
-                       }}
-                       onChange={(e) => {
-                           store.setTextInput(e.target.value)
-                       }}
-                />
+            <ResultsWrapper>
                 <ResultsBlock>
                     {<CardSmall
                         key={Math.random()}
@@ -51,24 +41,19 @@ export const Search =observer(() => {
                         />
                     })}
                 </ResultsBlock>
-            </SearchWrapper>
+            </ResultsWrapper>
         </Box>
     );
 }
 )
 
-const SearchWrapper = styled.div`
+const ResultsWrapper = styled.div`
   background: coral;
   overflow-x: hidden;
   height: 85vh;`
 
 
-const Input = styled.input`
-  width: 100%;
-  height: 50px;
-  font-family: Roboto;
-  font-size: 30px;
-`
+
 
 const ResultsBlock = styled.div`
 

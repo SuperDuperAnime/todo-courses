@@ -2,27 +2,27 @@ import styled from "styled-components";
 import {Typography} from "../../App";
 import {observer} from "mobx-react-lite";
 
-export const Genre = observer(() => {
+export const Categories = observer(() => {
 
-	   return <GenreWrapper>
-		  <GenreItem>
+	   return <CategoriesWrapper>
+		  <CategoryItem>
 			 <Typography> Hentai</Typography>
-		  </GenreItem>
-		  <GenreItem>
+		  </CategoryItem>
+		  <CategoryItem>
 			 <Typography> Characters</Typography>
-		  </GenreItem>
-	   </GenreWrapper>
+		  </CategoryItem>
+	   </CategoriesWrapper>
     }
 )
 
 
-const GenreWrapper = styled.div`
+const CategoriesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: fit-content;`
 
 
-const GenreItem = styled.div`
+const CategoryItem = styled.div`
   margin: 0.5rem;
   height: 64px;
 `
