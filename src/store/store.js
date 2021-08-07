@@ -6,7 +6,7 @@ class store {
     textInput = ''
     action = 'search'
     category = "anime"
-    card = ''
+    content = null
     data = null
 
     constructor() {
@@ -24,14 +24,16 @@ class store {
         
     }
 
-    setCard(id) {
-	   this.card = id
-	   console.log(this.card)
+    setContent(content) {
+	   this.content = content
+	   console.log(this.content)
     }
+
+
 
     startSearch() {
         console.log(111)
-       axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q="${this.textInput}"`).then(res=> {this.data = res.data.results
+       axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=3&page=1`).then(res=> {this.data = res.data.results
         console.log(toJS(this.data))
     }).catch(error => console.log(error))
     }
