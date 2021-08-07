@@ -2,6 +2,7 @@ import React from 'react';
 import {Box} from "rebass/styled-components"
 import ninja from "../../ninja.svg";
 import styled from "styled-components";
+import store from "../../store/store";
 
 export const AppBar = ({setIsMenuOpen}) => {
     return (
@@ -10,7 +11,16 @@ export const AppBar = ({setIsMenuOpen}) => {
 			 <Icon src={ninja} width={"64px"} onClick={() => {
 				setIsMenuOpen(prev => !prev)
 			 }}/>
-			 <AppTitle> ANdwadawME APP</AppTitle>
+			 <Toolbar>  <Input value={store.textInput}
+							onKeyUp={(e) => {
+							    if (e.key === "Enter") {
+								   store.startSearch()
+							    }
+							}}
+							onChange={(e) => {
+							    store.setTextInput(e.target.value)
+							}}
+			 /></Toolbar>
 		  </AppBarWrapper>
 	   </Box>
 
@@ -24,11 +34,11 @@ const AppBarWrapper = styled.div`
   align-items: center;
   padding: 0 2rem`
 
-const AppTitle = styled.div`
-  font-size: calc(20px + 2vw);
-  font-family: Roboto, serif;
-  font-weight: 600;
-  margin-left: 2rem;
+const Toolbar = styled.div`
+  flex-grow: 1;
+    display: flex;
+  justify-content: flex-end;
+
 `
 const Icon = styled.div`
   height: ${props => props.width|| "auto"};
@@ -37,3 +47,9 @@ const Icon = styled.div`
   background-size: cover;
   border: 2px solid black;
   border-radius: 50%;`
+const Input = styled.input`
+  width: 100%;
+  height: 50px;
+  font-family: Roboto;
+  font-size: 30px;
+`

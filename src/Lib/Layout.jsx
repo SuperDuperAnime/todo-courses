@@ -1,8 +1,8 @@
 import React from 'react';
 import {GridSystem} from "./Grid";
 import {AppBar} from "../Components/EnterComponents/AppBar";
-import {Categories} from "../Components/EnterComponents/Categories";
-import {Search} from "../Components/EnterComponents/Search";
+import {Filter} from "../Components/EnterComponents/Filter";
+import {Results} from "../Components/EnterComponents/Results";
 import {Content} from "../Components/EnterComponents/Content";
 
 export const Layout = () => {
@@ -19,13 +19,13 @@ export const Layout = () => {
                     <GridSystem.Cell zIndex={2} zIndex952={2} zIndex576={2} areaCol={[1, 4]}
                                      areaCol952={[1, 5]} areaCol576={[1, -1]} areaRow={[1, 2]}
                                      areaRow952={[1, 2]} areaRow576={[1, 2]}>
-                        <Categories/>
+                        <Filter/>
 
                     </GridSystem.Cell>
                     <GridSystem.Cell zIndex={3} zIndex952={3} zIndex576={3}
                                      areaCol={[4, 7]} areaCol952={[1, 5]} areaCol576={[1, -1]}
                                      areaRow={[1, 2]} areaRow952={[1, 2]} areaRow576={[1, 2]}>
-                        <Search/>
+                        <Results/>
 
                     </GridSystem.Cell>
                     <GridSystem.Cell zIndex={1} zIndex952={1} zIndex576={1}
