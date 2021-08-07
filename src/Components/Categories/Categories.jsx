@@ -5,7 +5,7 @@ import store from "../../store/store"
 import {Favorite} from "./Favorite"
 
 export const Categories = observer(() => {
-		const arr = ['anime', 'characters']
+		const arr = ['anime', 'character']
 	   return <CategoriesWrapper>
 	   <Favorite/>
 	   {arr.map(item => {

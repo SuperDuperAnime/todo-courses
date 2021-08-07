@@ -13,7 +13,7 @@ export const Results =observer(() => {
 const cardList = store.data===null? null : store.data.map(item=> <CardSmall
     key={Math.random()}
     img={item.image_url}
-    title={item.title}
+    title={item.title || item.name}
     subtitle={item.synopsis || item.alternative_names}
     isFavorite={true}
 />)

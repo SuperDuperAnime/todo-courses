@@ -6,7 +6,7 @@ export const CardSmall = ({img, title, subtitle, isFavorite}) => {
     return <CardWrapper>
         <CardImg src = {img}/>
         <CardBlockDescr>
-            <CardTitle> {title.length > 31 ? title.slice(0, 30) + '...' : title} </CardTitle>
+            <CardTitle> {title} </CardTitle>
             <CardDescr> {subtitle} </CardDescr>
         </CardBlockDescr>
         <CardImgWrap>
