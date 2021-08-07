@@ -16,7 +16,7 @@ export const Layout = () => {
                     </GridSystem.Cell>
                 </GridSystem.Line>
                 <GridSystem.Line height={"100%"} width={"100%"}>
-                    <GridSystem.Cell zIndex={2} zIndex952={2} zIndex576={2} areaCol={[1, 4]}
+                    <GridSystem.Cell  areaCol={[1, 4]}
                                      areaCol952={[1, 5]} areaCol576={[1, -1]} areaRow={[1, 2]}
                                      areaRow952={[1, 2]} areaRow576={[1, 2]}>
                         <Filter/>
