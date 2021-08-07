@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import Shape from '../../Shape.svg';
 
-export const CardSmall = ({img, title, synopsis, isFavorite}) => {
+export const CardSmall = ({img, title, subtitle, isFavorite}) => {
     console.log(isFavorite)
     return <CardWrapper>
         <CardImg src = {img}/>
         <CardBlockDescr>
             <CardTitle> {title.length > 31 ? title.slice(0, 30) + '...' : title} </CardTitle>
-            <CardDescr> {synopsis && synopsis.length > 58 ? synopsis.slice(0, 57) + '...' : synopsis} </CardDescr>
+            <CardDescr> {subtitle} </CardDescr>
         </CardBlockDescr>
         <CardImgWrap>
             <CardFavoriteImg isFavorite={isFavorite}>
@@ -41,12 +41,14 @@ const CardDescr = styled.div `
     float: left;
     font-size: 12px;
     color: #000000;
+    text-overflow: ellipsis;
 `
 
 const CardBlockDescr = styled.div `
     width: 250px;
     position: relative;
     margin-left: 9px;
+    overflow: hidden;
 `
 
 const CardFavoriteImg = styled.div `
