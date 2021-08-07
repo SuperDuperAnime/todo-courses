@@ -2,10 +2,11 @@ import {makeAutoObservable} from "mobx";
 import axios from "axios";
 
 class store {
-    textInput = 'test'
+    textInput = ''
     action = 'search'
     category = "anime"
-    card = 'test'
+    card = ''
+    data = []
 
     constructor() {
 	   makeAutoObservable(this)
@@ -17,8 +18,9 @@ class store {
     }
 
     setCategory(select) {
-	   this.category = select
-	   console.log(this.category)
+	    this.category = select
+        console.log(this.category)
+        
     }
 
     setCard(id) {
@@ -27,8 +29,12 @@ class store {
     }
 
     startSearch() {
-	   axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q="${this.textInput}"`).then(res=> console.log(res))
+	   axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q="${this.textInput}"`).then(res=> this.data = res)
     }
+
+    // clickOnCategory(value) {
+    //     this.category = value
+    // }
 
 
 }
