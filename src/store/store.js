@@ -26,7 +26,7 @@ class store {
 
     setContent(content) {
 	   this.content = content
-	   console.log(this.content)
+	   console.log(toJS(this.content))
     }
 
 
