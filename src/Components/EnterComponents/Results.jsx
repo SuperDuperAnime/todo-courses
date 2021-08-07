@@ -10,20 +10,14 @@ import {CardSmall} from "../Search/CardSmall";
 import { toJS } from 'mobx'
 
 export const Results =observer(() => {
-    // const cardList = 
-    //     store.data ? 
-    //     store.data.results.map(item => {
-    //         return <CardSmall
-    //             key={Math.random()}
-    //             img={item.image_url}
-    //             title={item.title}
-    //             subtitle={item.synopsis || item.alternative_names}
-    //             isFavorite={true}
-    //         />
-    //     }) : null
-    store.data.map(item => {
-        console.log(toJS(item))
-    })
+const cardList = store.data===null? null : store.data.map(item=> <CardSmall
+    key={Math.random()}
+    img={item.image_url}
+    title={item.title}
+    subtitle={item.synopsis || item.alternative_names}
+    isFavorite={true}
+/>)
+
 
     return (
         <Box width={"100%"} height={"100%"} bg={'rgba(0,0,255,0.3)'}>
@@ -31,7 +25,7 @@ export const Results =observer(() => {
                 <ResultsBlock>
                    
 
-                    {/* {cardList} */}
+                     {cardList}
 
                 </ResultsBlock>
             </ResultsWrapper>
