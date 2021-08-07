@@ -4,13 +4,15 @@ import ninja from "../../ninja.svg";
 import styled from "styled-components";
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
+import layoutStore from "../../store/layoutStore";
+
 
 export const AppBar = observer( ({setIsMenuOpen}) => {
     return (
 	   <Box width={"100%"} height={"100%"} bg={'red'}>
 		  <AppBarWrapper>
 			 <Icon src={ninja} width={"64px"} onClick={() => {
-				setIsMenuOpen(prev => !prev)
+				layoutStore.setMenuOpen(true)
 			 }}/>
 			 <Toolbar>  <Input value={store.textInput}
 							onKeyUp={(e) => {
