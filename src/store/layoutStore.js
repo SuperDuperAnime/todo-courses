@@ -1,14 +1,20 @@
 import {makeAutoObservable} from "mobx";
 
 class layoutStore {
-    isMenuOpen = true
+    isFilterOpen = false
+    isResultsOpen = false
 
     constructor() {
         makeAutoObservable(this)
     }
 
-    setMenuOpen(state) {
-        this.isMenuOpen=state
+    setFilterOpen(state) {
+        this.isFilterOpen=state
+        console.log(  "isFilterOpen: " + this.isFilterOpen)
+    }
+    setResultsOpen(state) {
+        this.isResultsOpen=state
+        console.log(  "isResultsOpen: " + this.isResultsOpen)
     }
 }
 
