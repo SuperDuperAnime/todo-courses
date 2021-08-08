@@ -10,7 +10,7 @@ export const Categories = observer((props) => {
 	   <Favorite/>
 	   {arr.map(item => {
 			return <CategoryItem key = {item}>
-			 	<Typography onClick = {() => store.setCategory(item)}> {item[0].toUpperCase() + item.slice(1)}</Typography>
+			 	<Typography isFocus = {store.category == item} onClick = {() => store.setCategory(item)}> {item[0].toUpperCase() + item.slice(1)}</Typography>
 		  </CategoryItem>
 	   })}
 

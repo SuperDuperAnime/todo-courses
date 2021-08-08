@@ -14,6 +14,7 @@ const App=observer(()=> {
         }, 4000)
     }, [store.canIStartSearch]);
     useEffect(() => {
+        store.apiDelay4second()
         store.startProgram();
       }, []);
        return (
@@ -28,4 +29,6 @@ font-size: ${props=>props.fontSize||"40px"};
 font-family: Roboto ;
 cursor: pointer;
 font-weight:  ${props=>props.fontWeight||"100"};
-color:  ${props=>props.color||'rgba(255,255,255,1)'}`
+color:  ${props=>props.color||'rgba(255,255,255,1)'};
+background-color: ${props => props.isFocus ? 'red' : null};
+`
