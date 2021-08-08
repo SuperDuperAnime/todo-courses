@@ -13,9 +13,10 @@ const App=observer(()=> {
             store.apiDelay4second()
         }, 4000)
     }, [store.canIStartSearch]);
-
-
-    return (
+    useEffect(() => {
+        store.startProgram();
+      }, []);
+       return (
         <Layout/>
     );
 })
