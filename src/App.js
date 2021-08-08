@@ -30,5 +30,8 @@ font-family: Roboto ;
 cursor: pointer;
 font-weight:  ${props=>props.fontWeight||"100"};
 color:  ${props=>props.color||'rgba(255,255,255,1)'};
-background-color: ${props => props.isFocus ? 'red' : null};
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+
 `

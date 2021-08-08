@@ -71,7 +71,15 @@ class store {
             return
         }
 	   if (this.canIStartSearch===false) return
-	   console.log('запрос отправлен')
+       console.log('запрос отправлен')
+       
+       array.forEach(e => {
+                    this.favorite.map(event => {return event.mal_id}).includes(e.mal_id)
+                    ? e.isFavorite = true
+                    : e.isFavorite = false
+                })
+
+
 	   this.data = array
 	   console.log(toJS(this.data))
 	   console.log('ответ получен')

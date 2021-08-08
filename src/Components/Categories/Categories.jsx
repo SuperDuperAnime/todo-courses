@@ -9,8 +9,8 @@ export const Categories = observer((props) => {
 	   return <CategoriesWrapper {...props}>
 	   <Favorite/>
 	   {arr.map(item => {
-			return <CategoryItem key = {item}>
-			 	<Typography isFocus = {store.category == item} onClick = {() => store.setCategory(item)}> {item[0].toUpperCase() + item.slice(1)}</Typography>
+			return <CategoryItem onClick = {() => store.setCategory(item)} isFocus = {store.category == item} key = {item}>
+			 	<Typography> {item[0].toUpperCase() + item.slice(1)}</Typography>
 		  </CategoryItem>
 	   })}
 
@@ -27,6 +27,8 @@ const CategoriesWrapper = styled.div`
 
 
 const CategoryItem = styled.div`
+	position: relative;
   margin: 0.5rem;
   height: 64px;
+  background-color: ${props => props.isFocus ? 'red' : null};
 `
