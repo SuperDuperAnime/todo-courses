@@ -1,14 +1,20 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './norm.css'
 import styled from "styled-components";
 import {Hentai} from "./store/q=Boku_Genre=12";
 import {Yaoi} from "./store/q=6loverGenre=33";
 import {Layout} from "./Lib/Layout";
+import store from "./store/store";
 
 function App() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     console.log(Hentai)
     console.log(Yaoi)
+
+    useEffect(() => {
+        store.startProgram();
+      }, []);
+    
 
     return (
         <Layout/>

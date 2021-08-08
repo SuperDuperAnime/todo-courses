@@ -4,8 +4,9 @@ import store from "../../store/store";
 import {observer} from "mobx-react-lite";
 
 export const CardSmall = observer(({img, title, subtitle, isFavorite, card}) => {
-    console.log(isFavorite)
+    
     return <CardWrapper onClick={() => store.setContent(card)}>
+        
         <CardImg src = {img}/>
         <CardBlockDescr>
             <CardTitle> {title} </CardTitle>
@@ -47,7 +48,8 @@ const CardDescr = styled.div `
 `
 
 const CardBlockDescr = styled.div `
-    width: 250px;
+    max-width: 200px;
+    height: 70px;
     position: relative;
     margin-left: 9px;
     overflow: hidden;

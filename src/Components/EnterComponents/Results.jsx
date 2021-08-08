@@ -15,7 +15,7 @@ const cardList = store.data===null? null : store.data.map(item=> <CardSmall
     img={item.image_url}
     title={item.title || item.name}
     subtitle={item.synopsis || item.alternative_names}
-    isFavorite={true}
+    isFavorite={item.isFavorite}
     card = {item}
 />)
 
