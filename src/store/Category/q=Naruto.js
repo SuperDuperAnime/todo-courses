@@ -1,7 +1,7 @@
 // результаты поиска по get запросу https://api.jikan.moe/v3/search/character?q="naruto"
 
 
-export const Naruto = {
+export const naruto = {
     request_hash: "request:search:6058e6dd4f6573019d002ddb28e94c9cbbf35b95",
     request_cached: false,
     request_cache_expiry: 432000,

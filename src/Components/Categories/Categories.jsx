@@ -13,6 +13,7 @@ export const Categories = observer((props) => {
 			 	<Typography onClick = {() => store.setCategory(item)}> {item[0].toUpperCase() + item.slice(1)}</Typography>
 		  </CategoryItem>
 	   })}
+
 	   </CategoriesWrapper>
     }
 )
