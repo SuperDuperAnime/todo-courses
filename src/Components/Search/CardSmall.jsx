@@ -2,10 +2,12 @@ import styled from "styled-components";
 import Shape from '../../Shape.svg';
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
+import {toJS} from 'mobx'
 
 export const CardSmall = observer(({img, title, subtitle, isFavorite, card}) => {
-    
-    return <CardWrapper onClick={() => store.setContent(card)}>
+    console.log(toJS(store.content))
+    const isFocus = store.content? card.mal_id === store.content.mal_id : false
+    return <CardWrapper onClick={() => store.setContent(card)} isFocus = {isFocus}>
         
         <CardImg src = {img}/>
         <CardBlockDescr>
@@ -30,6 +32,7 @@ const CardWrapper = styled.div `
     padding: 18px 14px 13px 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.26);
     cursor: pointer;
+    background-color: ${props => props.isFocus ? 'yellow' : null};
 `
 const CardImg = styled.img `
     width: 50px;
