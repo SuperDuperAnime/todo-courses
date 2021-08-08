@@ -4,24 +4,18 @@ import ninja from "../../ninja.svg";
 import styled from "styled-components";
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
+import layoutStore from "../../store/layoutStore";
+import {Input} from "../Input";
+
 
 export const AppBar = observer( ({setIsMenuOpen}) => {
     return (
-	   <Box width={"100%"} height={"100%"} bg={'red'}>
+	   <Box width={"100%"} style={{zIndex: "9999"}} height={"100%"} bg={'red'}>
 		  <AppBarWrapper>
-			 <Icon src={ninja} width={"64px"} onClick={() => {
-				setIsMenuOpen(prev => !prev)
-			 }}/>
-			 <Toolbar>  <Input value={store.textInput}
-							onKeyUp={(e) => {
-							    if (e.key === "Enter") {
-								   store.startSearch()
-							    }
-							}}
-							onChange={(e) => {
-							    store.setTextInput(e.target.value)
-							}}
-			 /></Toolbar>
+			 <Icon src={ninja} width={"64px"} />
+			 <Toolbar>
+				<Input  hideLG hideMD/>
+			 </Toolbar>
 		  </AppBarWrapper>
 	   </Box>
 
@@ -48,9 +42,3 @@ const Icon = styled.div`
   background-size: cover;
   border: 2px solid black;
   border-radius: 50%;`
-const Input = styled.input`
-  width: 100%;
-  height: 50px;
-  font-family: Roboto;
-  font-size: 30px;
-`

@@ -1,6 +1,8 @@
 import {makeAutoObservable} from "mobx";
 import axios from "axios";
-import { toJS } from 'mobx'
+import {toJS} from 'mobx'
+import {animeData} from "./Category/anime";
+import {naruto} from "./Category/q=Naruto";
 
 class store {
     textInput = 'naruto'
@@ -9,6 +11,7 @@ class store {
     content = null
     data = null
     favorite = []
+    canIStartSearch = true
 
     constructor() {
 	   makeAutoObservable(this)
@@ -35,6 +38,9 @@ class store {
 	   console.log(toJS(this.content))
     }
 
+  
+  
+
     setFavorite() {
         let pos = this.favorite.map(function(e) { return e.mal_id; }).indexOf(this.content.mal_id)
         //let indexOfCheck2 = this.favorite.filter(item => item.mal_id !== this.content.mal_id)
@@ -54,27 +60,39 @@ class store {
         console.log(toJS(this.favorite))
     }
 
-    startSearch() {
+   
+
+    apiDelay4second() {
+	   this.canIStartSearch = true
+    }
+
+    startSearch(array) {
         if (this.category === 'favorite') {
             return
         }
-
-       axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=3&page=1`).then(res=> {
-        res.data.results.forEach(e => {
-            console.log(e)
-            this.favorite.map(event => {return event.mal_id}).includes(e.mal_id)
-            ? e.isFavorite = true
-            : e.isFavorite = false
-        })
-            this.data = res.data.results
-            console.log(toJS(this.data))
-    }).catch(error => console.log(error.response))
+	   if (this.canIStartSearch===false) return
+	   console.log('запрос отправлен')
+	   this.data = array
+	   console.log(toJS(this.data))
+	   console.log('ответ получен')
+	   this.canIStartSearch = false
     }
 
-    // clickOnCategory(value) {
-    //     this.category = value
-    // }
+//  startSearch() {
+//         if (this.category === 'favorite') {
+//             return
+//         }
 
+//        axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=3&page=1`).then(res=> {
+//         res.data.results.forEach(e => {
+//             console.log(e)
+//             this.favorite.map(event => {return event.mal_id}).includes(e.mal_id)
+//             ? e.isFavorite = true
+//             : e.isFavorite = false
+//         })
+//             this.data = res.data.results
+//             console.log(toJS(this.data))
+//     }).catch(error => console.log(error.response))
 
 }
 

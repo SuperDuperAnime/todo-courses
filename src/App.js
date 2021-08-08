@@ -1,25 +1,25 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import './norm.css'
 import styled from "styled-components";
 import {Hentai} from "./store/q=Boku_Genre=12";
 import {Yaoi} from "./store/q=6loverGenre=33";
 import {Layout} from "./Lib/Layout";
 import store from "./store/store";
+import {observer} from "mobx-react-lite";
 
-function App() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    console.log(Hentai)
-    console.log(Yaoi)
-
+const App=observer(()=> {
+    useEffect(() => {
+        setTimeout(() => {
+            store.apiDelay4second()
+        }, 4000)
+    }, [store.canIStartSearch]);
     useEffect(() => {
         store.startProgram();
       }, []);
-    
-
-    return (
+       return (
         <Layout/>
     );
-}
+})
 
 export default App;
 
