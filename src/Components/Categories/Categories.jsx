@@ -6,6 +6,7 @@ import {Favorite} from "./Favorite"
 import layoutStore from "../../store/layoutStore";
 
 export const Categories = observer((props) => {
+
 	   const arr = ['anime', 'character']
 	   return <CategoriesWrapper {...props}  >
 		  <Favorite/>
@@ -17,7 +18,6 @@ export const Categories = observer((props) => {
 				<Typography> {item[0].toUpperCase() + item.slice(1)}</Typography>
 			 </CategoryItem>
 		  })}
-
 	   </CategoriesWrapper>
     }
 )
@@ -33,6 +33,8 @@ const CategoriesWrapper = styled.div`
 
 
 const CategoryItem = styled.div`
+	position: relative;
   margin: 0.5rem;
   height: 64px;
+  background-color: ${props => props.isFocus ? 'red' : null};
 `

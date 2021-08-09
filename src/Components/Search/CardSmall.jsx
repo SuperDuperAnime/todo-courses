@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Shape from '../../Shape.svg';
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
+import {toJS} from 'mobx'
+
 import layoutStore from "../../store/layoutStore";
 
 export const CardSmall = observer(({img, title, subtitle, isFavorite, card}) => {
@@ -25,9 +27,11 @@ export const CardSmall = observer(({img, title, subtitle, isFavorite, card}) => 
 	   </CardImgWrap>
 
 
+
     </CardWrapper>
 
 })
+
 
 const CardWrapper = styled.div`
   display: grid;
@@ -36,6 +40,7 @@ const CardWrapper = styled.div`
   padding: 18px 14px 13px 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.26);
   cursor: pointer;
+
 `
 const CardImg = styled.img`
   width: 50px;

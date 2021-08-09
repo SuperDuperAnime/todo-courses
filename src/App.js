@@ -52,14 +52,17 @@ const App = observer(() => {
 
 
 	   </div>
+
     );
 })
 
 export default App;
 
 export const Typography = styled.div`
+
   font-size: ${props => props.fontSize || "40px"};
   font-family: Roboto;
   cursor: pointer;
   font-weight: ${props => props.fontWeight || "100"};
   color: ${props => props.color || 'rgba(255,255,255,1)'}`
+

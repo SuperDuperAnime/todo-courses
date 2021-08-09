@@ -8,8 +8,20 @@ import {Typography} from "../../App";
 import layoutStore from "../../store/layoutStore";
 
 
+
 import {IconButton, Input, makeStyles, Paper} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+
+// пока не работает api используем фейковый
+const cardList = store.data===null? 'Введите поиск!!!' : store.data.map(item=> <CardSmall
+    key={Math.random()}
+    img={item.image_url}
+    title={item.title || item.name}
+    subtitle={item.synopsis || item.alternative_names}
+    isFavorite={item.isFavorite}
+    card = {item}
+/>)
+
 
 
 const useStyles = makeStyles((theme) => ({

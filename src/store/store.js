@@ -65,6 +65,7 @@ class store {
 	   this.canIStartSearch = true
     }
 
+
     // startSearch(array) {
     //     if (this.category === 'favorite') {
     //         return
@@ -95,6 +96,7 @@ class store {
 		  this.data = res.data.results
 		  console.log(toJS(this.data))
 	   }).catch(error => console.log(error.response))
+
 	   this.canIStartSearch = false
     }
 }
