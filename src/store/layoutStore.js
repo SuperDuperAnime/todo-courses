@@ -1,20 +1,29 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, toJS} from "mobx";
 
 class layoutStore {
-    isFilterOpen = false
-    isResultsOpen = false
+    resultsOpen = true
+    modalOpen = false
+    filterOpen = false
+    contentOpen = false
 
     constructor() {
-        makeAutoObservable(this)
+	   makeAutoObservable(this)
     }
 
-    setFilterOpen(state) {
-        this.isFilterOpen=state
-        console.log(  "isFilterOpen: " + this.isFilterOpen)
+    setModalOpen(isOpen) {
+	   this.modalOpen = isOpen
     }
-    setResultsOpen(state) {
-        this.isResultsOpen=state
-        console.log(  "isResultsOpen: " + this.isResultsOpen)
+
+    setResultsOpen(isOpen) {
+	   this.resultsOpen = isOpen
+    }
+
+    setFilterOpen(isOpen) {
+	   this.filterOpen = isOpen
+    }
+
+    setContentOpen(isOpen) {
+	   this.contentOpen = isOpen
     }
 }
 
