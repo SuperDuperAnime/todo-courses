@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Fab, makeStyles} from "@material-ui/core";
+import {Card, Fab, makeStyles, Grid} from "@material-ui/core";
 import {observer} from "mobx-react-lite";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -12,10 +12,16 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles((theme) => ({
     root: {
-	   maxWidth: "40%",
-    },
+	   maxWidth: "100%",
+	   height: "100vh",
+	   padding: "15px"
+	},
+	grid: {
+		marginTop: "20px"
+	},
     media: {
-	   minHeight: 600
+	   minHeight: 300,
+	   width: "200px"
     },}))
 
 export const Content = observer((props) => {
@@ -33,13 +39,17 @@ export const Content = observer((props) => {
 		  <Fab onClick={() => store.setFavorite()}>
 			 {favorite}
 		  </Fab>
-		  <CardActionArea>
 
+		  
+		  <Grid container spacing={2} className={classes.grid}>
+		  	<Grid item xs={5}>
 			 <CardMedia
 				className={classes.media}
 				image={store.content.image_url}
 				title="Contemplative Reptile"
 			 />
+			 </Grid>
+			 <Grid item xs={7}>
 			 <CardContent>
 				<Typography gutterBottom variant="h5" component="h2">
 				    {store.content.title || store.content.name}
@@ -48,7 +58,8 @@ export const Content = observer((props) => {
 				    {store.content.synopsis || store.content.alternative_names}
 				</Typography>
 			 </CardContent>
-		  </CardActionArea>
+			 </Grid>
+		  </Grid>
 	   </Card>
     );
 })

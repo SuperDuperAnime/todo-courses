@@ -7,11 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 
 import SearchIcon from '@material-ui/icons/Search';
 import DeleteIcon from '@material-ui/icons/Delete';
-import store from "../../store/store";
+import store from "../../../store/store";
 import {observer} from "mobx-react-lite";
-import {animeData} from "../../store/Category/anime";
-import {naruto} from "../../store/Category/q=Naruto";
-import layoutStore from "../../store/layoutStore";
+import {animeData} from "../../../store/Category/anime";
+import {naruto} from "../../../store/Category/q=Naruto";
+import layoutStore from "../../../store/layoutStore";
 
 const useStyles = makeStyles((theme) =>
     createStyles({

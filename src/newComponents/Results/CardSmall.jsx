@@ -1,5 +1,6 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
+import { Grid, Fab} from "@material-ui/core";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,22 +11,27 @@ import Typography from '@material-ui/core/Typography';
 import {observer} from "mobx-react-lite";
 import store from "../../store/store";
 import layoutStore from "../../store/layoutStore";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles({
     root: {
-	   maxWidth: 250,
-	   minWidth: 250,
-	   height: 450,
-	   margin: '0 auto',
+		position: "relative",
+	   maxWidth: 300,
+	  // minWidth: 250,
+	   height: 70,
+	   cursor: "pointer"
     },
     card: {
-	   display: "flex",
-	   flexDirection: "column",
+		position: "relative",
 	   height: '100%',
+	   
     },
     media: {
-	   width: "100%",
-	   flexGrow: 1,
+	//	position: "absolute",
+	   height: "50px",
+	   borderRadius: "100%",
+	   
     },
     textWrapper: {
 	   height: 120,
@@ -42,18 +48,21 @@ const useStyles = makeStyles({
 
 export const CardSmall = observer(({img, title, subtitle, isFavorite, card}) => {
     const classes = useStyles();
-
+	const favorite= isFavorite ? <FavoriteIcon/>: <FavoriteBorderIcon/>
     return (
 	   <Card className={classes.root}>
-		  <CardActionArea className={classes.card} onClick={() => {
+		  <Grid container spacing={3} className={classes.card} onClick={() => {
 			 store.setContent(card)
 			 layoutStore.toggleActiveView('content')
 		  }}>
+		  	<Grid item xs={3}>
 			 <CardMedia
 				className={classes.media}
 				image={img}
 				title="Contemplative Reptile"
 			 />
+			 </Grid>
+			 <Grid item xs={6}>
 			 <CardContent className={classes.textWrapper}>
 				<Typography gutterBottom variant="h5" component="h2">
 				    {title}
@@ -62,7 +71,14 @@ export const CardSmall = observer(({img, title, subtitle, isFavorite, card}) => 
 				    {subtitle}
 				</Typography>
 			 </CardContent>
-		  </CardActionArea>
+			 </Grid>
+
+			 <Grid item xs={3}>
+			 <Fab >
+			 	{favorite}
+		  		</Fab>
+				</Grid>
+		  </Grid>
 	   </Card>
     );
 })
