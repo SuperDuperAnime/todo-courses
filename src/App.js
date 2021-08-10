@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 }))
-function App (){
+const App = observer(() => {
     const classes = useStyles()
 
     useEffect(() => {
@@ -46,7 +46,6 @@ function App (){
     useEffect(() => {
 	   store.startProgram();
     }, []);
-
 
     return (
 	   <div className={classes.root}>
@@ -74,7 +73,7 @@ function App (){
 	   </div>
 
     );
-}
+})
 
 export default App;
 

@@ -9,6 +9,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import DeleteIcon from '@material-ui/icons/Delete';
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
+import {animeData} from "../../store/Category/anime";
+import {naruto} from "../../store/Category/q=Naruto";
+import layoutStore from "../../store/layoutStore";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-export const AnimeSearchInput =observer( () => {
+export const AnimeSearchInput = observer(() => {
     const classes = useStyles();
 
     return (
@@ -48,8 +51,9 @@ export const AnimeSearchInput =observer( () => {
 		  <IconButton className={classes.iconButton}
 				    aria-label="search"
 				    onClick={() => {
-					   store.startSearch()}}				    >
-			 <SearchIcon   />
+					   store.category === 'anime' ? store.startSearch(animeData.results) :store.category ==='character'? store.startSearch(naruto.results): store.startSearch(null)
+				    }}>
+			 <SearchIcon/>
 		  </IconButton>
 
 	   </Paper>
