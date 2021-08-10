@@ -8,6 +8,7 @@ import {Appbar} from "./newComponents/AppBar";
 import layoutStore from "./store/layoutStore";
 import {Results} from "./newComponents/Results/Results";
 import {Content} from "./newComponents/Content/Content";
+import {Viewer} from "./newComponents/Viewer";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,15 +30,12 @@ const useStyles = makeStyles((theme) => ({
     categories: {
 	   background: "green"
     },
-    viewer: {
-	   flexGrow: 1,
-	   padding: 20
-    },
+
     button: {},
 
 
 }))
-const App = observer(() => {
+function App (){
     const classes = useStyles()
 
     useEffect(() => {
@@ -49,8 +47,7 @@ const App = observer(() => {
 	   store.startProgram();
     }, []);
 
-    const viewer = layoutStore.activeView === 'results' ? <Results/> : layoutStore.activeView === 'content' ?
-	   <Content/> : null
+
     return (
 	   <div className={classes.root}>
 		  <CssBaseline/>
@@ -70,16 +67,14 @@ const App = observer(() => {
 						  store.setCategory('character')
 					   }}>Characters</Button>
 			 </ButtonGroup>
-			 <Box className={classes.viewer}>
-				{viewer}
-			 </Box>
+			 <Viewer/>
 		  </Container>
 
 
 	   </div>
 
     );
-})
+}
 
 export default App;
 
