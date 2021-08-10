@@ -1,29 +1,14 @@
 import {makeAutoObservable, toJS} from "mobx";
 
 class layoutStore {
-    resultsOpen = true
-    modalOpen = false
-    filterOpen = false
-    contentOpen = false
+    activeView = 'results'
 
     constructor() {
-	   makeAutoObservable(this)
+        makeAutoObservable(this)
     }
 
-    setModalOpen(isOpen) {
-	   this.modalOpen = isOpen
-    }
-
-    setResultsOpen(isOpen) {
-	   this.resultsOpen = isOpen
-    }
-
-    setFilterOpen(isOpen) {
-	   this.filterOpen = isOpen
-    }
-
-    setContentOpen(isOpen) {
-	   this.contentOpen = isOpen
+    toggleActiveView(activeView) {
+        this.activeView = activeView
     }
 }
 
