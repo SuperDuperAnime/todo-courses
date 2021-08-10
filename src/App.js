@@ -3,9 +3,11 @@ import './norm.css'
 import styled from "styled-components";
 import store from "./store/store";
 import {observer} from "mobx-react-lite";
-import {CssBaseline, makeStyles} from "@material-ui/core";
-import {Appbar} from "./REFACTOR/AppBar";
-import {Body} from "./REFACTOR/Body";
+import {Box, Button, ButtonGroup, Container, CssBaseline, makeStyles} from "@material-ui/core";
+import {Appbar} from "./newComponents/AppBar";
+import layoutStore from "./store/layoutStore";
+import {Results} from "./newComponents/Results/Results";
+import {Content} from "./newComponents/Content/Content";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,14 +21,20 @@ const useStyles = makeStyles((theme) => ({
 	   display: "flex",
 	   flexDirection: "column",
     },
-    flexWrapper: {
-	   position: "relative",
+    container: {
 	   display: "flex",
-	   width: "100vw",
-	   maxHeight: '100%',
-	   flexGrow: 1,
+	   flexDirection: "column",
+	   height: "100%"
     },
-    navSpace: {},
+    categories: {
+	   background: "green"
+    },
+    viewer: {
+	   flexGrow: 1,
+	   padding: 20
+    },
+    button: {},
+
 
 }))
 const App = observer(() => {
@@ -41,14 +49,31 @@ const App = observer(() => {
 	   store.startProgram();
     }, []);
 
-
+    const viewer = layoutStore.activeView === 'results' ? <Results/> : layoutStore.activeView === 'content' ?
+	   <Content/> : null
     return (
 	   <div className={classes.root}>
 		  <CssBaseline/>
-		  <Appbar />
-		  <div className={classes.flexWrapper}>
-			 <Body />
-		  </div>
+		  <Appbar/>
+		  <Container maxWidth="lg" className={classes.container}>
+			 <ButtonGroup className={classes.categories}>
+				<Button color={store.category === "favorite" ? 'primary' : null} className={classes.button}
+					   onClick={(e) => {
+						  store.setCategory("favorite")
+					   }}>Favorite</Button>
+				<Button color={store.category === 'anime' ? 'primary' : null} className={classes.button}
+					   onClick={(e) => {
+						  store.setCategory('anime')
+					   }}>Anime</Button>
+				<Button color={store.category === 'character' ? 'primary' : null} className={classes.button}
+					   onClick={(e) => {
+						  store.setCategory('character')
+					   }}>Characters</Button>
+			 </ButtonGroup>
+			 <Box className={classes.viewer}>
+				{viewer}
+			 </Box>
+		  </Container>
 
 
 	   </div>

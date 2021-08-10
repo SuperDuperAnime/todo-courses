@@ -66,39 +66,43 @@ class store {
     }
 
 
-    // startSearch(array) {
-    //     if (this.category === 'favorite') {
-    //         return
-    //     }
-    //    if (this.canIStartSearch===false) return
-    //    console.log('запрос отправлен')
-    //    this.data = array
-    //    console.log(toJS(this.data))
-    //    console.log('ответ получен')
-    //    this.canIStartSearch = false
-    // }
-
     startSearch() {
-	   if (this.category === 'favorite') {
-		  return
-	   }
-	   if (this.canIStartSearch === false) return
-	   console.log('запрос отправлен')
-	   axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=3&page=1`).then(res => {
-		  res.data.results.forEach(e => {
-			 console.log(e)
-			 this.favorite.map(event => {
-				return event.mal_id
-			 }).includes(e.mal_id)
-				? e.isFavorite = true
-				: e.isFavorite = false
-		  })
-		  this.data = res.data.results
-		  console.log(toJS(this.data))
-	   }).catch(error => console.log(error.response))
-
-	   this.canIStartSearch = false
+        if (this.category === 'favorite') {
+            return
+        }
+       if (this.canIStartSearch===false) return
+       console.log('запрос отправлен')
+       // this.data = array
+       console.log(toJS(this.data))
+       console.log('ответ получен')
+       this.canIStartSearch = false
     }
+
+//     startSearch() {
+// 	   console.log('кнопка нажата')
+// 	   if (this.category === 'favorite') {
+// 		  return
+// 	   }
+// 	   console.log('не favorite')
+// 	   if (this.canIStartSearch === false) return
+// 	   console.log('4 секунды уже прошло')
+// 	   console.log('запрос отправлен')
+// 	   axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=3&page=1`).then(res => {
+// 		  res.data.results.forEach(e => {
+// 			 console.log(e)
+// 			 this.favorite.map(event => {
+// 				return event.mal_id
+// 			 }).includes(e.mal_id)
+// 				? e.isFavorite = true
+// 				: e.isFavorite = false
+// 		  })
+// 		  this.data = res.data.results
+// 		  console.log(toJS(this.data))
+// 	   }).catch(error => console.log(error.response))
+// console.log('циклы завершен')
+// 	   this.canIStartSearch = false
+// 	   debugger
+//     }
 }
 
 export default new store()
