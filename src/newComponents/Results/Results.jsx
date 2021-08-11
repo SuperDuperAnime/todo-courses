@@ -3,22 +3,31 @@ import {Box} from "rebass/styled-components";
 import store from "../../store/store";
 import styled from "styled-components";
 import {observer} from "mobx-react-lite";
-import {IconButton, Input, makeStyles, } from "@material-ui/core";
+import {IconButton, Input, makeStyles,} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import {CardSmall} from "./CardSmall";
 import {AnimeSearchInput} from "./input/AnimeSearchInput"
 
 
-
-
 const useStyles = makeStyles((theme) => ({
-  grid:{
-      display:"grid",
-	 width:"100%",
-	 rowGap: "20px",
-	 columnGap: '15px',
-	 //gridTemplateColumns: "repeat(auto-fill, minmax(250px,1fr))",
-  }
+    root: {
+	   display: "flex",
+	   flexDirection: "column",
+	   width: "100%",
+	   justifyContent: "start",
+	   alignItems: "center",
+    },
+    cardsList: {
+	   position: "relative",
+	   flexGrow: 1,
+	   width: "100%"
+    },
+    cardsListScroll: {
+	   position: "absolute",
+	   maxHeight: '100%',
+	   width: "100%",
+	   overflowY: "auto",
+    }
 }))
 
 export const Results = observer(() => {
@@ -28,16 +37,23 @@ export const Results = observer(() => {
 		  img={item.image_url}
 		  title={item.title || item.name}
 		  subtitle={item.synopsis || item.alternative_names}
+		  category={item.synopsis ? "anime" : "character"
+		  }
 		  isFavorite={item.isFavorite}
 		  card={item}
 	   />)
-	   return <Box className={classes.grid}>
-			<AnimeSearchInput />
-		  {cardList}
+	   return <Box className={classes.root}>
+		  <AnimeSearchInput/>
+		  <Box className={classes.cardsList}>
+			 <Box className={classes.cardsListScroll}>
+				{cardList}
+			 </Box>
+		  </Box>
+
 
 	   </Box>
     }
 )
 
 const Grid = styled.div`
-grid-template-columns: repeat(auto-fill, minmax(200px, 300px))`
+  grid-template-columns: repeat(auto-fill, minmax(200px, 300px))`
