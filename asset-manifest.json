@@ -1,20 +1,17 @@
 {
   "files": {
-    "main.css": "/todo-courses/static/css/main.84f1b557.chunk.css",
-    "main.js": "/todo-courses/static/js/main.8e8b6a19.chunk.js",
-    "main.js.map": "/todo-courses/static/js/main.8e8b6a19.chunk.js.map",
+    "main.js": "/todo-courses/static/js/main.c411dac0.chunk.js",
+    "main.js.map": "/todo-courses/static/js/main.c411dac0.chunk.js.map",
     "runtime-main.js": "/todo-courses/static/js/runtime-main.db4bb65f.js",
     "runtime-main.js.map": "/todo-courses/static/js/runtime-main.db4bb65f.js.map",
-    "static/js/2.51120f45.chunk.js": "/todo-courses/static/js/2.51120f45.chunk.js",
-    "static/js/2.51120f45.chunk.js.map": "/todo-courses/static/js/2.51120f45.chunk.js.map",
+    "static/js/2.e01d0133.chunk.js": "/todo-courses/static/js/2.e01d0133.chunk.js",
+    "static/js/2.e01d0133.chunk.js.map": "/todo-courses/static/js/2.e01d0133.chunk.js.map",
     "index.html": "/todo-courses/index.html",
-    "static/css/main.84f1b557.chunk.css.map": "/todo-courses/static/css/main.84f1b557.chunk.css.map",
-    "static/js/2.51120f45.chunk.js.LICENSE.txt": "/todo-courses/static/js/2.51120f45.chunk.js.LICENSE.txt"
+    "static/js/2.e01d0133.chunk.js.LICENSE.txt": "/todo-courses/static/js/2.e01d0133.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.db4bb65f.js",
-    "static/js/2.51120f45.chunk.js",
-    "static/css/main.84f1b557.chunk.css",
-    "static/js/main.8e8b6a19.chunk.js"
+    "static/js/2.e01d0133.chunk.js",
+    "static/js/main.c411dac0.chunk.js"
   ]
 }
