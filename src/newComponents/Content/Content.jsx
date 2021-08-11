@@ -12,7 +12,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles((theme) => ({
     root: {
 	   maxWidth: "100%",
-	   height: "calc(100% - 16px)",
+	   height: "calc(100% - 32px)",
 	   margin: 8,
 	   background: "linear-gradient(113.18deg, #FFD3E2 0%, #6FFFF9 100%)",
 
