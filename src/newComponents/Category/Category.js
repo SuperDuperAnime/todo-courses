@@ -6,14 +6,7 @@ import {Box, Button, ButtonGroup, Container, CssBaseline, makeStyles} from "@mat
 
 const useStyles = makeStyles((theme) => ({
     root: {
-	   //    position: "relative",
-	   //    width: "100vw",
-	   //    height: "100vh",
-	   //    maxHeight: '100vh',
-	   //    backgroundColor: "#FFDEE9",
-	   //    backgroundImage: " linear-gradient(315deg, #FFDEE9 0%, #B5FFFC 100%)",
-	   //    display: "flex",
-	   //    flexDirection: "column",
+	width:"150px"
     },
     container: {
 	   display: "flex"
@@ -21,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     categories: {
 	   display: "block",
 	   background: "green",
-	   height: "100vh",
+	   height: "100%",
 	   width: "100%",
 	   border: "none"
 

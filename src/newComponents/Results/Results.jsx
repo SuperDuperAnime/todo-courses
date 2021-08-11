@@ -13,19 +13,19 @@ const useStyles = makeStyles((theme) => ({
     root: {
 	   display: "flex",
 	   flexDirection: "column",
-	   width: "100%",
-	   justifyContent: "start",
+	   width: "280px",
+	   justifyContent: "center",
 	   alignItems: "center",
     },
     cardsList: {
 	   position: "relative",
 	   flexGrow: 1,
-	   width: "100%"
+	   width: "260px"
     },
     cardsListScroll: {
 	   position: "absolute",
-	   maxHeight: '100%',
-	   width: "100%",
+	   maxHeight: '85%',
+	   width: "260px",
 	   overflowY: "auto",
     }
 }))
@@ -43,8 +43,9 @@ export const Results = observer(() => {
 		  card={item}
 	   />)
 	   return <Box className={classes.root}>
-		  <AnimeSearchInput/>
+
 		  <Box className={classes.cardsList}>
+			 <AnimeSearchInput/>
 			 <Box className={classes.cardsListScroll}>
 				{cardList}
 			 </Box>

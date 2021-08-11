@@ -16,12 +16,13 @@ import layoutStore from "../../../store/layoutStore";
 const useStyles = makeStyles((theme) =>
     createStyles({
 	   root: {
-		  maxWidth: 800,
-		  padding: '2px 4px',
-		  display: 'flex',
-		  alignItems: 'center',
-		  width: "100%",
+		  display: "flex",
+		  position: "relative",
+		  width: 244,
 		  height: 64,
+		  cursor: "pointer",
+		  margin: "8px auto"
+
 	   },
 	   input: {
 		  marginLeft: theme.spacing(1),

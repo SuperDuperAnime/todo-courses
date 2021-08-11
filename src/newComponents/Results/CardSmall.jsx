@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     root: {
 	   display: "flex",
 	   position: "relative",
-	   width: 284,
+	   width: 244,
 	   // minWidth: 250,
 	   height: 64,
 	   cursor: "pointer",
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 
     },
     textWrapper: {
-	   width: 164,
+	   width: 144,
 	   height: 64,
 	   display: "flex",
 	   flexDirection: "column",
@@ -40,14 +40,14 @@ const useStyles = makeStyles({
 	   padding: 0
     },
     title: {
-	   width: 164,
+	   width: 144,
 	   height: 28,
 	   overflow: "hidden",
 	   textOverflow: "ellipsis",
 	   padding: '0 4px'
     },
     subtitle: {
-	   width: 164,
+	   width: 144,
 	   height: 36,
 	   overflow: "hidden",
 	   textOverflow: "ellipsis",
