@@ -18,6 +18,7 @@ import layoutStore from "../../store/layoutStore";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
+        height: '64px',
 	   display: "flex",
 	   background: "rgba(130, 188, 255, 1)",
     },
@@ -39,12 +40,11 @@ export const Appbar = () => {
 				    <MenuIcon/>
 				</IconButton>
 				</Hidden>
-				<Typography variant="h4" component="h2">
+				<Typography variant="h5" component="h2">
 				    SuperDuperAnime
 				</Typography>
 			 </Toolbar>
 		  </Container>
-		  <Divider/>
 	   </AppBar>
     )
 }

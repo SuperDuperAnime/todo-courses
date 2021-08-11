@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import './norm.css'
 import styled from "styled-components";
 import store from "./store/store";
 import {observer} from "mobx-react-lite";
@@ -20,14 +19,13 @@ const useStyles = makeStyles((theme) => ({
 	   position: "relative",
 	   width: "100vw",
 	   height: "100vh",
-	   maxHeight: '100vh',
 	   background: "linear-gradient(315deg, #FFDEE9 0%, #B5FFFC 100%)",
 	   flexDirection: "column",
     },
     container: {
-        position: "relative",
+	   position: "relative",
 	   display: "flex",
-	   flexGrow: 1,
+	   justifyContent: "center"
     },
 
     button: {
@@ -35,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
 	   direction: "column",
 	   width: "100%"
     },
-    contentWrapper:{
-        flexGrow:1,
-        background: "transparent",
-   }
+    contentWrapper: {
+	   height: "calc(100vh - 64px)",
+	   background: "transparent",
+    }
 
 }))
 const App = observer(() => {
@@ -57,20 +55,29 @@ const App = observer(() => {
 	   <div className={classes.root}>
 		  <CssBaseline/>
 		  <Appbar/>
-<Hidden>
-    <MobPanel smDown/>
-</Hidden>
+		  <Hidden>
+			 <MobPanel smDown/>
+		  </Hidden>
 		  <Container maxWidth="lg" className={classes.container}>
 			 <Hidden smDown>
-				<Category/>
+			 <Category/>
 			 </Hidden>
 			 <Hidden xsDown>
 			 <Results/>
 			 </Hidden>
+			 <Hidden smUp>
 			 <Box className={classes.contentWrapper}>
-			 {layoutStore.activeView === 'content' ?
-				<ContentContainer/> : <div>когда карточка не отображается ты можешь меня увидеть</div>}
+			     {layoutStore.activeView === 'content' ?
+			 	   <ContentContainer/> : <Results/> }
 			 </Box>
+			 </Hidden>
+			 <Hidden xsDown>
+			 <Box className={classes.contentWrapper}>
+			     {layoutStore.activeView === 'content' ?
+			 	   <ContentContainer/> : <div>когда карточка не отображается ты можешь меня увидеть</div>}
+			 </Box>
+			 </Hidden>
+
 		  </Container>
 
 	   </div>

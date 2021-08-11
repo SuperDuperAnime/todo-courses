@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
 	width:"150px",
 	   margin: 8,
-	   background: 'linear-gradient(246.82deg, #FFCADC 0%, #C8FFFD 58.33%)'
+	   background: 'linear-gradient(246.82deg, #FFCADC 0%, #C8FFFD 58.33%)',
+	   height: "calc(100vh - 96px)"
     },
     rootRow: {
         width: 280
@@ -46,7 +47,7 @@ export const categories = [
     {value: 'anime', text: "Anime"},
     {value: 'character', text: "Characters"},
 ]
-export const Category = observer(({row}) => {
+export const Category = observer(() => {
     const classes = useStyles()
 
     const categoriesButton = categories.map(el => {
@@ -58,8 +59,8 @@ export const Category = observer(({row}) => {
 			 }}>{el.text}</Button>
     })
     return (
-	   <Paper className={`${classes.root} ${row?classes.rootRow:null}`}>
-		  <ButtonGroup className={`${classes.categories} ${row?classes.categoriesRow:null}`}>
+	   <Paper className={classes.root}>
+		  <ButtonGroup className={classes.categories}>
 			 {categoriesButton}
 		  </ButtonGroup>
 

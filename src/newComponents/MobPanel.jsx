@@ -35,17 +35,10 @@ export const MobPanel = observer(() => {
 		  className={classes.root}
 	   >
 		  <Box className={classes.container}>
-			 <Hidden xsDown>
-				<Hidden mdUp>
-				    <Category/>
-				</Hidden>
+			 <Hidden mdUp>
+				<Category/>
 			 </Hidden>
-			 <Hidden smUp>
-				<Box>
-				<Category row/>
-				<Results mini/>
-				</Box>
-			 </Hidden>
+
 		  </Box>
 	   </SwipeableDrawer>
     );

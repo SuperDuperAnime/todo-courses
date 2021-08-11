@@ -17,10 +17,8 @@ const useStyles = makeStyles((theme) => ({
 	   justifyContent: "center",
 	   alignItems: "center",
 	   margin:8,
+	   height: "calc(100vh - 64px - 32px)",
 	   background: 'linear-gradient(113.18deg, #FFCADC 0%, #C8FFFD 58.33%)'
-    },
-    rootMini:{
-        height: 550
     },
     cardsList: {
 	   position: "relative",
@@ -29,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
     },
     cardsListScroll: {
 	   position: "absolute",
-	   maxHeight: '85%',
+	   height: "calc(100vh - 64px - 128px)",
 	   width: "260px",
 	   overflowY: "auto",
     }
 }))
 
-export const Results = observer(({mini}) => {
+export const Results = observer(() => {
 	   const classes = useStyles()
 	   const cardList = store.data === null ? <div>Введите данные</div> : store.data.map(item => <CardSmall
 		  key={Math.random() + item.mal_id}
@@ -47,7 +45,7 @@ export const Results = observer(({mini}) => {
 		  isFavorite={item.isFavorite}
 		  card={item}
 	   />)
-	   return <Paper className={`${classes.root} ${classes.rootMini}`}>
+	   return <Paper className={classes.root}>
 
 		  <Box className={classes.cardsList}>
 			 <AnimeSearchInput/>
