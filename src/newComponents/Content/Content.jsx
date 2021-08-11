@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 	   flexDirection: "column",
 	   justifyContent: "center",
 	   alignItems: "center",
+	   maxHeight: "calc(100% - 32px)",
+	   overflowY: "auto",
 
     },
     header: {
@@ -51,11 +53,8 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle, img}) => {
+export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle,favoriteIcon, img}) => {
     const classes = useStyles()
-
-    const favorite = store.content.isFavorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>
-    console.log(favorite)
     return (
 	   <Paper className={classes.root}>
 		  <Box className={classes.contentWrapper}>
@@ -67,7 +66,7 @@ export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle, 
 				}}><ArrowBackIcon/>
 				</Fab>
 				<Fab className={classes.fab} onClick={() => store.setFavorite()}>
-				    {favorite}
+				    {favoriteIcon}
 				</Fab>
 
 
@@ -81,7 +80,7 @@ export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle, 
 			 <Typography className={classes.subtitle} variant={'body1'} component={'p'}>
 				<img className={classes.img}
 					alt={'#'}
-					src={store.content.image_url}/>
+					src={img}/>
 				{prefixTitle}: {title} <br/>
 				{prefixSubtitle}: {subtitle}
 			 </Typography>

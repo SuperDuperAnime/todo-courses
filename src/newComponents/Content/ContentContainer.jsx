@@ -2,6 +2,8 @@ import React from 'react';
 import {Content} from "./Content";
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 export const ContentContainer = observer( () => {
     const title = store.content.title || store.content.name
@@ -9,6 +11,7 @@ export const ContentContainer = observer( () => {
     const subtitle= store.content.synopsis || store.content.alternative_names
     const prefixSubtitle  = store.category==='anime'? 'Description': 'AltName'
     const img =store.content.image_url
+    const favorite = store.content.isFavorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>
     return (
 	   <Content
 		  title={title}
@@ -16,6 +19,7 @@ export const ContentContainer = observer( () => {
 			  subtitle={subtitle}
 			  prefixSubtitle={prefixSubtitle}
 			  img={img}
+		  favoriteIcon={favorite}
 	   />
     );
 })
