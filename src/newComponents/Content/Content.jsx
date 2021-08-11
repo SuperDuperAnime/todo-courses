@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Fab, makeStyles, Grid, Box, colors} from "@material-ui/core";
+import {Card, Fab, makeStyles, Grid, Box, colors, Paper} from "@material-ui/core";
 import {observer} from "mobx-react-lite";
 import Typography from "@material-ui/core/Typography";
 import store from "../../store/store";
@@ -12,7 +12,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles((theme) => ({
     root: {
 	   maxWidth: "100%",
-	   height: "100%",
+	   height: "calc(100% - 16px)",
+	   margin: 8,
+	   background: "linear-gradient(113.18deg, #FFD3E2 0%, #6FFFF9 100%)",
 
     },
     contentWrapper: {
@@ -24,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     header: {
 	   display: "flex",
-	   background: colors.teal.A100,
+	   background: "linear-gradient(113.18deg, #FFD3E2 0%, #6FFFF9 100%)",
 	   width: "100%",
 	   padding: 4,
 	   alignItems: "center",
@@ -41,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
     subtitle: {
 	   width: "100%",
     },
+    fab:{
+        width:48,
+	   height:48,
+	   margin: 6
+    }
 
 }))
 
@@ -50,16 +57,16 @@ export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle, 
     const favorite = store.content.isFavorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>
     console.log(favorite)
     return (
-	   <Box className={classes.root}>
+	   <Paper className={classes.root}>
 		  <Box className={classes.contentWrapper}>
-			 <Box className={classes.header}>
+			 <Paper className={classes.header}>
 
 
-				<Fab color="primary" onClick={() => {
+				<Fab className={classes.fab} color="primary" onClick={() => {
 				    layoutStore.toggleActiveView("results")
 				}}><ArrowBackIcon/>
 				</Fab>
-				<Fab onClick={() => store.setFavorite()}>
+				<Fab className={classes.fab} onClick={() => store.setFavorite()}>
 				    {favorite}
 				</Fab>
 
@@ -70,7 +77,7 @@ export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle, 
 				</Typography>
 
 
-			 </Box>
+			 </Paper>
 			 <Typography className={classes.subtitle} variant={'body1'} component={'p'}>
 				<img className={classes.img}
 					alt={'#'}
@@ -79,6 +86,6 @@ export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle, 
 				{prefixSubtitle}: {subtitle}
 			 </Typography>
 		  </Box>
-	   </Box>
+	   </Paper>
     );
 })

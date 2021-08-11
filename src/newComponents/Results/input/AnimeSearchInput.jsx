@@ -12,6 +12,8 @@ import {observer} from "mobx-react-lite";
 import {animeData} from "../../../store/Category/anime";
 import {naruto} from "../../../store/Category/q=Naruto";
 import layoutStore from "../../../store/layoutStore";
+import {Typography} from "@material-ui/core";
+import {categories} from "../../Category/Category";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -32,6 +34,13 @@ const useStyles = makeStyles((theme) =>
 		  height: 28,
 		  margin: 4,
 	   },
+	   label:{
+	       position: "absolute",
+		  top:2,
+		  left:8,
+	       fontSize:10,
+		  opacity: 0.7
+	   },
 	   iconButton: {},
     }),
 );
@@ -41,6 +50,7 @@ export const AnimeSearchInput = observer(() => {
 
     return (
 	   <Paper component="form" className={classes.root}>
+		  <Typography className={classes.label}>{categories.map(el => el.value === store.category ? el.text : null)}</Typography>
 		  <InputBase
 			 value={store.textInput} onChange={(e) => {
 			 store.setTextInput(e.target.value)
@@ -53,7 +63,7 @@ export const AnimeSearchInput = observer(() => {
 		  <IconButton className={classes.iconButton}
 				    aria-label="search"
 				    onClick={() => {
-					   store.category === 'anime' ? store.startSearch(animeData.results) :store.category ==='character'? store.startSearch(naruto.results): store.startSearch(null)
+					   store.category === 'anime' ? store.startSearch(animeData.results) : store.category === 'character' ? store.startSearch(naruto.results) : store.startSearch(null)
 				    }}>
 			 <SearchIcon/>
 		  </IconButton>

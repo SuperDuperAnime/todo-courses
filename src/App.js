@@ -11,6 +11,7 @@ import {Content} from "./newComponents/Content/Content";
 import {blockStatement} from '@babel/types';
 import {Category} from "./newComponents/Category/Category";
 import {ContentContainer} from "./newComponents/Content/ContentContainer";
+import {MobPanel} from "./newComponents/MobPanel";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	   width: "100vw",
 	   height: "100vh",
 	   maxHeight: '100vh',
-	   backgroundColor: "#FFDEE9",
-	   backgroundImage: " linear-gradient(315deg, #FFDEE9 0%, #B5FFFC 100%)",
+	   background: "linear-gradient(315deg, #FFDEE9 0%, #B5FFFC 100%)",
 	   flexDirection: "column",
     },
     container: {
@@ -57,7 +57,9 @@ const App = observer(() => {
 	   <div className={classes.root}>
 		  <CssBaseline/>
 		  <Appbar/>
-
+<Hidden>
+    <MobPanel smDown/>
+</Hidden>
 		  <Container maxWidth="lg" className={classes.container}>
 			 <Hidden smDown>
 				<Category/>

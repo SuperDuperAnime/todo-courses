@@ -3,7 +3,7 @@ import {Box} from "rebass/styled-components";
 import store from "../../store/store";
 import styled from "styled-components";
 import {observer} from "mobx-react-lite";
-import {IconButton, Input, makeStyles,} from "@material-ui/core";
+import {IconButton, Input, makeStyles, Paper,} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import {CardSmall} from "./CardSmall";
 import {AnimeSearchInput} from "./input/AnimeSearchInput"
@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
 	   width: "280px",
 	   justifyContent: "center",
 	   alignItems: "center",
+	   margin:8,
+	   background: 'linear-gradient(113.18deg, #FFCADC 0%, #C8FFFD 58.33%)'
+    },
+    rootMini:{
+        height: 550
     },
     cardsList: {
 	   position: "relative",
@@ -30,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-export const Results = observer(() => {
+export const Results = observer(({mini}) => {
 	   const classes = useStyles()
 	   const cardList = store.data === null ? <div>Введите данные</div> : store.data.map(item => <CardSmall
 		  key={Math.random() + item.mal_id}
@@ -42,7 +47,7 @@ export const Results = observer(() => {
 		  isFavorite={item.isFavorite}
 		  card={item}
 	   />)
-	   return <Box className={classes.root}>
+	   return <Paper className={`${classes.root} ${classes.rootMini}`}>
 
 		  <Box className={classes.cardsList}>
 			 <AnimeSearchInput/>
@@ -52,7 +57,7 @@ export const Results = observer(() => {
 		  </Box>
 
 
-	   </Box>
+	   </Paper>
     }
 )
 

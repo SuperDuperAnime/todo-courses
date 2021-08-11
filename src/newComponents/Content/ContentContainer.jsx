@@ -9,7 +9,6 @@ export const ContentContainer = observer( () => {
     const subtitle= store.content.synopsis || store.content.alternative_names
     const prefixSubtitle  = store.category==='anime'? 'Description': 'AltName'
     const img =store.content.image_url
-    debugger
     return (
 	   <Content
 		  title={title}

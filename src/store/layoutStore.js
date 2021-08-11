@@ -2,13 +2,18 @@ import {makeAutoObservable, toJS} from "mobx";
 
 class layoutStore {
     activeView = 'results'
+    mobPanel = false
 
     constructor() {
-        makeAutoObservable(this)
+	   makeAutoObservable(this)
+    }
+
+    toggleMobPanel(isOpen) {
+	   this.mobPanel = isOpen
     }
 
     toggleActiveView(activeView) {
-        this.activeView = activeView
+	   this.activeView = activeView
     }
 }
 
