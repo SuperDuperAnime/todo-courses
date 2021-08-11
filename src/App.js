@@ -8,7 +8,7 @@ import {Appbar} from "./newComponents/AppBar/AppBar";
 import layoutStore from "./store/layoutStore";
 import {Results} from "./newComponents/Results/Results";
 import {Content} from "./newComponents/Content/Content";
-import { blockStatement } from '@babel/types';
+import {blockStatement} from '@babel/types';
 import {Category} from "./newComponents/Category/Category";
 
 
@@ -24,15 +24,15 @@ const useStyles = makeStyles((theme) => ({
 	   flexDirection: "column",
     },
     container: {
-	   width: "1140px",
-	   margin: "0 auto"
+	   display: "grid",
+	   gridTemplateColumns: "150px 300px 1fr"
     },
 
     button: {
-		display: "flex",
-		direction: "column",
-		width: "100%"
-	},
+	   display: "flex",
+	   direction: "column",
+	   width: "100%"
+    },
 
 
 }))
@@ -52,19 +52,14 @@ const App = observer(() => {
 	   <div className={classes.root}>
 		  <CssBaseline/>
 		  <Appbar/>
-		  <Grid container spacing={3}
-		  	direction="row"
-			justifyContent="center"
-			alignItems="stretch"
-		    className={classes.container}>
-				<Grid item xs={3}> <Category /> </Grid>
-				<Grid item xs={3}> <Results /> </Grid>
-				<Grid item xs={6}>
-					{layoutStore.activeView === 'content' ?
-					<Content/> : <div></div>}
-				</Grid>
-		  </Grid>
 
+		  <Container maxWidth="lg" className={classes.container}>
+			 <Category/>
+			 <Results/>
+			 {layoutStore.activeView === 'content' ?
+				<Content/> : <div>когда карточка не отображается ты можешь меня увидеть</div>}
+
+		  </Container>
 
 	   </div>
 
