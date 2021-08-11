@@ -18,20 +18,23 @@ const useStyles = makeStyles({
     root: {
 	   display: "flex",
 	   position: "relative",
-	   width: 284,
+	   width: 244,
+	   background: 'rgba(255,255,255,0.5)',
 	   // minWidth: 250,
 	   height: 64,
 	   cursor: "pointer",
 	   margin: "8px auto"
     },
     media: {
-	   width: 64,
-	   height: 64,
+        border: "1px solid rgba(255,255,255,0.8)",
+	   width: 56,
+	   height: 56,
 	   borderRadius: "100%",
+	   margin: 4
 
     },
     textWrapper: {
-	   width: 164,
+	   width: 144,
 	   height: 64,
 	   display: "flex",
 	   flexDirection: "column",
@@ -40,14 +43,14 @@ const useStyles = makeStyles({
 	   padding: 0
     },
     title: {
-	   width: 164,
+	   width: 144,
 	   height: 28,
 	   overflow: "hidden",
 	   textOverflow: "ellipsis",
 	   padding: '0 4px'
     },
     subtitle: {
-	   width: 164,
+	   width: 144,
 	   height: 36,
 	   overflow: "hidden",
 	   textOverflow: "ellipsis",

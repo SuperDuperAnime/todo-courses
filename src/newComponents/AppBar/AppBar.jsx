@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
     AppBar,
     Box, Container,
-    Divider,
+    Divider, Hidden,
     IconButton,
     Input,
     makeStyles,
@@ -14,6 +14,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import styled from "styled-components";
 import SearchIcon from '@material-ui/icons/Search';
+import layoutStore from "../../store/layoutStore";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -31,6 +32,13 @@ export const Appbar = () => {
 	   <AppBar position={"static"} className={classes.wrapper} color={'transparent'} elevation={0}>
 		  <Container>
 			 <Toolbar className={classes.toolbar}>
+				<Hidden mdUp>
+				<IconButton onClick={()=>{
+				layoutStore.toggleMobPanel(true)
+				}}>
+				    <MenuIcon/>
+				</IconButton>
+				</Hidden>
 				<Typography variant="h4" component="h2">
 				    SuperDuperAnime
 				</Typography>

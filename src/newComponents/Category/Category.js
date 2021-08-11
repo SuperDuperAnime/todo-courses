@@ -1,30 +1,31 @@
 import React from 'react';
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
-import {Box, Button, ButtonGroup, Container, CssBaseline, makeStyles} from "@material-ui/core";
+import {Box, Button, ButtonGroup, Container, CssBaseline, makeStyles, Paper, } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-	   //    position: "relative",
-	   //    width: "100vw",
-	   //    height: "100vh",
-	   //    maxHeight: '100vh',
-	   //    backgroundColor: "#FFDEE9",
-	   //    backgroundImage: " linear-gradient(315deg, #FFDEE9 0%, #B5FFFC 100%)",
-	   //    display: "flex",
-	   //    flexDirection: "column",
+	width:"150px",
+	   margin: 8,
+	   background: 'linear-gradient(246.82deg, #FFCADC 0%, #C8FFFD 58.33%)'
+    },
+    rootRow: {
+        width: 280
     },
     container: {
 	   display: "flex"
     },
     categories: {
-	   display: "block",
-	   background: "green",
-	   height: "100vh",
+	   display: "flex",
+	   height: "100%",
 	   width: "100%",
-	   border: "none"
+	   border: "none",
+	   flexDirection: "column"
 
+    },
+    categoriesRow:{
+      flexDirection: "row",
     },
 
     button: {
@@ -40,13 +41,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 }))
-export const Category = observer(() => {
+export const categories = [
+    {value: 'favorite', text: "Favorite"},
+    {value: 'anime', text: "Anime"},
+    {value: 'character', text: "Characters"},
+]
+export const Category = observer(({row}) => {
     const classes = useStyles()
-    const categories = [
-	   {value: 'favorite', text: "Favorite"},
-	   {value: 'anime', text: "Anime"},
-	   {value: 'character', text: "Characters"},
-    ]
+
     const categoriesButton = categories.map(el => {
 	  return <Button
 		 key={el.value} variant="outlined"
@@ -56,13 +58,13 @@ export const Category = observer(() => {
 			 }}>{el.text}</Button>
     })
     return (
-	   <div className={classes.root}>
-		  <ButtonGroup className={classes.categories}>
+	   <Paper className={`${classes.root} ${row?classes.rootRow:null}`}>
+		  <ButtonGroup className={`${classes.categories} ${row?classes.categoriesRow:null}`}>
 			 {categoriesButton}
 		  </ButtonGroup>
 
 
-	   </div>
+	   </Paper>
 
     );
 })
