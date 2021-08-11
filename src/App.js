@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	   flexDirection: "column",
     },
     container: {
+        position: "relative",
 	   display: "grid",
 	   gridTemplateColumns: "150px 300px 1fr"
     },
