@@ -23,7 +23,7 @@ class store {
     }
 
     setCategory(select) {
-	   // this.content = null
+	   //this.content = null
 	   // this.data = null
 	   if (select === 'favorite') {
 		  this.data = this.favorite || null

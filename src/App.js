@@ -3,12 +3,13 @@ import './norm.css'
 import styled from "styled-components";
 import store from "./store/store";
 import {observer} from "mobx-react-lite";
-import {Box, Button, ButtonGroup, Container, CssBaseline, makeStyles} from "@material-ui/core";
-import {Appbar} from "./newComponents/AppBar";
+import {Box, Button, ButtonGroup, Container, CssBaseline, makeStyles, Grid} from "@material-ui/core";
+import {Appbar} from "./newComponents/AppBar/AppBar";
 import layoutStore from "./store/layoutStore";
 import {Results} from "./newComponents/Results/Results";
 import {Content} from "./newComponents/Content/Content";
-import {Viewer} from "./newComponents/Viewer";
+import { blockStatement } from '@babel/types';
+import {Category} from "./newComponents/Category/Category";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,15 +24,15 @@ const useStyles = makeStyles((theme) => ({
 	   flexDirection: "column",
     },
     container: {
-	   display: "flex",
-	   flexDirection: "column",
-	   height: "100%"
-    },
-    categories: {
-	   background: "green"
+	   width: "1140px",
+	   margin: "0 auto"
     },
 
-    button: {},
+    button: {
+		display: "flex",
+		direction: "column",
+		width: "100%"
+	},
 
 
 }))
@@ -51,23 +52,18 @@ const App = observer(() => {
 	   <div className={classes.root}>
 		  <CssBaseline/>
 		  <Appbar/>
-		  <Container maxWidth="lg" className={classes.container}>
-			 <ButtonGroup className={classes.categories}>
-				<Button color={store.category === "favorite" ? 'primary' : null} className={classes.button}
-					   onClick={(e) => {
-						  store.setCategory("favorite")
-					   }}>Favorite</Button>
-				<Button color={store.category === 'anime' ? 'primary' : null} className={classes.button}
-					   onClick={(e) => {
-						  store.setCategory('anime')
-					   }}>Anime</Button>
-				<Button color={store.category === 'character' ? 'primary' : null} className={classes.button}
-					   onClick={(e) => {
-						  store.setCategory('character')
-					   }}>Characters</Button>
-			 </ButtonGroup>
-			 <Viewer/>
-		  </Container>
+		  <Grid container spacing={3}
+		  	direction="row"
+			justifyContent="center"
+			alignItems="stretch"
+		    className={classes.container}>
+				<Grid item xs={3}> <Category /> </Grid>
+				<Grid item xs={3}> <Results /> </Grid>
+				<Grid item xs={6}>
+					{layoutStore.activeView === 'content' ?
+					<Content/> : <div></div>}
+				</Grid>
+		  </Grid>
 
 
 	   </div>

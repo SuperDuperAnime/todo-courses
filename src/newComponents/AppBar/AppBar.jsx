@@ -14,7 +14,6 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import styled from "styled-components";
 import SearchIcon from '@material-ui/icons/Search';
-import {AnimeSearchInput} from "./input/AnimeSearchInput";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -35,7 +34,6 @@ export const Appbar = () => {
 				<Typography variant="h4" component="h2">
 				    SuperDuperAnime
 				</Typography>
-				<AnimeSearchInput/>
 			 </Toolbar>
 		  </Container>
 		  <Divider/>
