@@ -77,50 +77,6 @@ export const animeData = {
 
 
 
-const favorite = [
-    {
-	   "isFavorite": true,
-	   "mal_id": 9761,
-	   "image_url": "https://cdn.myanimelist.net/images/anime/2/36823.jpg?s=871573863bbdf4b4cfe8cf2290c6ba00",
-	   "title": "Finder Series",
-	   "synopsis": "Twenty-three-year old Takaba Akihito is a young freelance photographer who takes pride in his work and seeks to get a major \"scoop.\" After he takes photographs of the business dealings of crime lord A...",
-    },
-    {
-	   "isFavorite": false,
-	   "mal_id": 9763121,
-	   "image_url": "https://cdn.myanimelist.net/images/anime/2/36823.jpg?s=871573863bbdf4b4cfe8cf2290c6ba00",
-	   "title": "Finder Series",
-	   "synopsis": "Twenty-three-year old Takaba Akihito is a young freelance photographer who takes pride in his work and seeks to get a major \"scoop.\" After he takes photographs of the business dealings of crime lord A...",
-    }
-]
-
-const dadaw = [
-   9761,
-    9763121
-]
-
-
-
-const content =  {
-    "isFavorite": true,
-    "mal_id": 9761,
-    "image_url": "https://cdn.myanimelist.net/images/anime/2/36823.jpg?s=871573863bbdf4b4cfe8cf2290c6ba00",
-    "title": "Finder Series",
-    "synopsis": "Twenty-three-year old Takaba Akihito is a young freelance photographer who takes pride in his work and seeks to get a major \"scoop.\" After he takes photographs of the business dealings of crime lord A...",
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

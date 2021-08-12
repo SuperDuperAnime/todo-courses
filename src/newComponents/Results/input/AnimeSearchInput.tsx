@@ -63,7 +63,8 @@ export const AnimeSearchInput = observer(() => {
 		  <IconButton className={classes.iconButton}
 				    aria-label="search"
 				    onClick={() => {
-					   store.category === 'anime' ? store.startSearch(animeData.results) : store.category === 'character' ? store.startSearch(naruto.results) : store.startSearch(null)
+				    	store.startSearch()
+					   // store.category === 'anime' ? store.startFakeSearch(animeData.results) : store.category === 'character' ? store.startFakeSearch(naruto.results) : store.startFakeSearch(null)
 				    }}>
 			 <SearchIcon/>
 		  </IconButton>

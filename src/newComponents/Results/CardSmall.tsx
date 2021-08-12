@@ -9,10 +9,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {observer} from "mobx-react-lite";
-import store, {CardType} from "../../store/store";
+import store from "../../store/store";
 import layoutStore from "../../store/layoutStore";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import {CardType} from "../../store/types";
 
 const useStyles = makeStyles({
     root: {
@@ -74,8 +75,8 @@ interface ICardSmall {
     img: string
     title?: string
     synopsis?: string
-    isFavorite: boolean
-    alternative_names?: string
+    isFavorite?: boolean
+    alternative_names?: string []
     name?: string
     card: CardType
     category: string
