@@ -3,63 +3,28 @@ import axios from "axios";
 import {toJS} from 'mobx'
 import {animeData} from "./Category/anime";
 import {naruto} from "./Category/q=Naruto";
+import {CardType, CategoriesType, IAnimeResponse, IAnimeType, ICharacterResponse, ICharacterType} from "./types";
+import axiosStore from "./axiosStore";
 
-export type CategoriesType = "anime" | 'character' | 'favorite'
 
-
-// export type CardType = AnimeType|CharacterType
-
-export interface CardType {
-    isFavorite: boolean
-    mal_id: number,
-    image_url: string,
-    title?: string,
-    synopsis?: string,
-        name?: string,
-    alternative_names?: string| undefined,
-}
-// interface AnimeType {
-//     isFavorite: boolean
-//     mal_id: number,
-//     image_url: string,
-//     title: string,
-//     synopsis: string,
-// }
-// interface CharacterType {
-//     isFavorite: boolean
-//     mal_id: number,
-//     image_url: string,
-//     name: string,
-//     alternative_names: string| undefined,
-// }
 
 
 class store {
     textInput = 'naruto'
     action = 'search'
     category: CategoriesType = "anime"
-    content: CardType  = {
+    content: CardType = {
         "isFavorite": true,
         "mal_id": 9761,
         "image_url": "https://cdn.myanimelist.net/images/anime/2/36823.jpg?s=871573863bbdf4b4cfe8cf2290c6ba00",
         "title": "Finder Series",
         "synopsis": "Twenty-three-year old Takaba Akihito is a young freelance photographer who takes pride in his work and seeks to get a major \"scoop.\" After he takes photographs of the business dealings of crime lord A...",
     }
-    data: CardType[] | [] = [{
-        "isFavorite": true,
-        "mal_id": 9761,
-        "image_url": "https://cdn.myanimelist.net/images/anime/2/36823.jpg?s=871573863bbdf4b4cfe8cf2290c6ba00",
-        "title": "Finder Series",
-        "synopsis": "Twenty-three-year old Takaba Akihito is a young freelance photographer who takes pride in his work and seeks to get a major \"scoop.\" After he takes photographs of the business dealings of crime lord A...",
-    }]
-    favorite: CardType[] | [] = [{
-        "isFavorite": true,
-        "mal_id": 9761,
-        "image_url": "https://cdn.myanimelist.net/images/anime/2/36823.jpg?s=871573863bbdf4b4cfe8cf2290c6ba00",
-        "title": "Finder Series",
-        "synopsis": "Twenty-three-year old Takaba Akihito is a young freelance photographer who takes pride in his work and seeks to get a major \"scoop.\" After he takes photographs of the business dealings of crime lord A...",
-    }]
+    data: CardType[] = Array()
+    favorite: CardType[] | [] = []
+    favoritesId: number[] = []
     canIStartSearch = true
+
 
     constructor() {
         makeAutoObservable(this)
@@ -103,6 +68,8 @@ class store {
             this.favorite.unshift(this.content)
             localStorage.setItem(`favoriteArr`, JSON.stringify(this.favorite))
         }
+
+
     }
 
     startProgram() {
@@ -117,7 +84,35 @@ class store {
     }
 
 
-    startSearch(array: CardType[]) {
+    checkDataIsFavorite() {
+        console.log('checkDataIsFavorite')
+        this.favoritesId = this.favorite.map(e => e.mal_id)
+        this.data.forEach(e => this.favoritesId.includes(e.mal_id) ? e.isFavorite = true : e.isFavorite = false)
+    }
+
+    mergeDataWithResponse(currentData: IAnimeType[] | ICharacterType[]) {
+
+        this.data = currentData
+    }
+
+
+
+    startSearch() {
+        console.log('кнопка нажата')
+        if (this.category === 'favorite') {
+            return
+        }
+        console.log('не favorite')
+        if (!this.canIStartSearch) return
+        console.log('4 секунды уже прошло')
+        console.log('Проверяем категории')
+        if (this.category === "anime") {
+            axiosStore.getAnime()
+        } else if (this.category === "character") {
+            axiosStore.getCharacter()
+        }
+    }
+    startFakeSearch(array: CardType[]) {
         if (this.category === 'favorite') {
             return
         }
@@ -126,34 +121,7 @@ class store {
         this.data = array
         console.log(toJS(this.data))
         console.log('ответ получен')
-        // this.canIStartSearch = false
     }
-
-    // startSearch() {
-    //    console.log('кнопка нажата')
-    //    if (this.category === 'favorite') {
-    // 	  return
-    //    }
-    //    console.log('не favorite')
-    //    if (this.canIStartSearch === false) return
-    //    console.log('4 секунды уже прошло')
-    //    console.log('запрос отправлен')
-    //    axios.get(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=3&page=1`).then(res => {
-    // 	  res.data.results.forEach(e => {
-    // 		 console.log(e)
-    // 		 this.favorite.map(event => {
-    // 			return event.mal_id
-    // 		 }).includes(e.mal_id)
-    // 			? e.isFavorite = true
-    // 			: e.isFavorite = false
-    // 	  })
-    // 	  this.data = res.data.results
-    // 	  console.log(toJS(this.data))
-    //    }).catch(error => console.log(error.response))
-    // console.log('циклы завершен')
-    //    this.canIStartSearch = false
-    //
-    // }
 }
 
 export default new store()
