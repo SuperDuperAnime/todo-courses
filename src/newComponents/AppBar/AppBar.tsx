@@ -1,19 +1,14 @@
 import React, {useState} from 'react';
 import {
     AppBar,
-    Box, Container,
-    Divider, Hidden,
+	Container,
+	Hidden,
     IconButton,
-    Input,
     makeStyles,
-    Paper,
-    TextField,
     Toolbar,
     Typography
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import styled from "styled-components";
-import SearchIcon from '@material-ui/icons/Search';
 import layoutStore from "../../store/layoutStore";
 
 const useStyles = makeStyles((theme) => ({

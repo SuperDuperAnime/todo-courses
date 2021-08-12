@@ -1,4 +1,5 @@
 import {makeAutoObservable, toJS} from "mobx";
+import {CategoriesType} from "./types";
 
 class layoutStore {
     activeView = 'results'
@@ -8,11 +9,11 @@ class layoutStore {
 	   makeAutoObservable(this)
     }
 
-    toggleMobPanel(isOpen) {
+    toggleMobPanel(isOpen: boolean) {
 	   this.mobPanel = isOpen
     }
 
-    toggleActiveView(activeView) {
+    toggleActiveView(activeView:string) {
 	   this.activeView = activeView
     }
 }

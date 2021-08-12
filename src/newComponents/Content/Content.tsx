@@ -7,6 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import layoutStore from "../../store/layoutStore";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import {CategoriesType} from "../../store/types";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,8 +53,15 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }))
-
-export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle,favoriteIcon, img}) => {
+interface IContent {
+	title?: string
+	prefixTitle: string
+	subtitle?: string | string[]
+	prefixSubtitle: string
+	favoriteIcon: JSX.Element
+	img: string
+}
+export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle,favoriteIcon, img}: IContent) => {
     const classes = useStyles()
     return (
 	   <Paper className={classes.root}>

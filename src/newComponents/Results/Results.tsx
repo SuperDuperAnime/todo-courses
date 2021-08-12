@@ -1,9 +1,7 @@
 import React from 'react';
 import store from "../../store/store";
-
 import {observer} from "mobx-react-lite";
 import {IconButton, Input, makeStyles, Paper, Box} from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
 import {CardSmall} from "./CardSmall";
 import {AnimeSearchInput} from "./input/AnimeSearchInput"
 
