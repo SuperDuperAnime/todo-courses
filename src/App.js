@@ -7,7 +7,6 @@ import {Appbar} from "./newComponents/AppBar/AppBar";
 import layoutStore from "./store/layoutStore";
 import {Results} from "./newComponents/Results/Results";
 import {Content} from "./newComponents/Content/Content";
-import {blockStatement} from '@babel/types';
 import {Category} from "./newComponents/Category/Category";
 import {ContentContainer} from "./newComponents/Content/ContentContainer";
 import {MobPanel} from "./newComponents/MobPanel";
