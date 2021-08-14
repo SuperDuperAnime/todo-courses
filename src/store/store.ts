@@ -6,11 +6,11 @@ import {naruto} from "./Category/q=Naruto";
 import {CardType, CategoriesType, IResponse} from "./types";
 
 class store {
-    textInput = 'naruto'
+    textInput = ''
     action = 'search'
     category: CategoriesType = "anime"
-    content: CardType| null = null
-    data:CardType[]  = []
+    content: CardType | null = null
+    data: CardType[] = []
     favorite: CardType[] = []
     canIStartSearch = true
 
@@ -41,7 +41,7 @@ class store {
 
 
     setFavorite() {
-        if(this.content===null)return
+        if (this.content === null) return
         let pos = this.favorite.map(function (e) {
             return e.mal_id;
         }).indexOf(this.content.mal_id)
@@ -60,7 +60,10 @@ class store {
     }
 
     startProgram() {
-        this.favorite = JSON.parse(localStorage.getItem("favoriteArr")|| '')
+        let locStorage = localStorage.getItem("favoriteArr")
+        if (locStorage !== null) {
+            this.favorite = JSON.parse(locStorage)
+        }
         console.log(toJS(this.favorite))
     }
 
@@ -87,7 +90,7 @@ class store {
             return
         }
 
-        axios.get<IResponse>(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=3&page=1`).then(res => {
+        axios.get<IResponse>(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=5&page=1`).then(res => {
             res.data.results.forEach(e => {
                 console.log(e)
                 this.favorite.map(event => {
