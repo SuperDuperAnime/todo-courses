@@ -12,6 +12,8 @@ import {CategoriesType} from "../../store/types";
 
 const useStyles = makeStyles((theme) => ({
     root: {
+    	position:"absolute",
+		width: "100%",
 	   maxWidth: "100%",
 	   height: "calc(100% - 32px)",
 	   margin: 8,
@@ -59,7 +61,7 @@ interface IContent {
 	subtitle?: string | string[]
 	prefixSubtitle: string
 	favoriteIcon: JSX.Element
-	img: string
+	img?: string
 }
 export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle,favoriteIcon, img}: IContent) => {
     const classes = useStyles()
