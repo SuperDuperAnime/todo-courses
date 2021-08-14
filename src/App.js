@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 	   width: "100%"
     },
     contentWrapper: {
+        position:"relative",
+        flexGrow: 1,
 	   height: "calc(100vh - 64px)",
 	   background: "transparent",
     }
@@ -72,8 +74,7 @@ const App = observer(() => {
 			 </Hidden>
 			 <Hidden xsDown>
 			 <Box className={classes.contentWrapper}>
-			     {layoutStore.activeView === 'content' ?
-			 	   <ContentContainer/> : <div>когда карточка не отображается ты можешь меня увидеть</div>}
+			   <ContentContainer/>
 			 </Box>
 			 </Hidden>
 
