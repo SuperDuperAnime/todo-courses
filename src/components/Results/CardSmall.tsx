@@ -93,6 +93,7 @@ export const CardSmall = observer(({
                                        category
                                    }: ICardSmall) => {
     const classes = useStyles();
+    //todo если не favorite, то вообще не надо иконку показывать, а в favorites вообще никогда её не надо показывать
     const favorite = isFavorite ? <FavoriteIcon style={{fontSize: 54}}/> : <FavoriteBorderIcon style={{fontSize: 54}}/>
 
     const text = category === 'anime' ? <>

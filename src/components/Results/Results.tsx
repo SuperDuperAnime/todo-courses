@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Results = observer(() => {
 	   const classes = useStyles()
+		//todo если нет поиска, то надо показывать всё подряд
 	   const cardList = store.data === null ? <div>Введите данные</div> : store.data.map(item => {
 
 	   	return <CardSmall

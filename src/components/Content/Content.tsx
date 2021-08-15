@@ -77,6 +77,7 @@ export const Content = observer(({title, prefixTitle, subtitle, prefixSubtitle, 
 
 
                     <Fab className={classes.fab} color="primary" onClick={() => {
+                        //todo не надо эту кнопку отображать в десктопе
                         layoutStore.toggleActiveView("results")
                     }}><ArrowBackIcon/>
                     </Fab>
