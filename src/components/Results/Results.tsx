@@ -1,9 +1,11 @@
 import React from 'react';
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
-import {IconButton, Input, makeStyles, Paper, Box} from "@material-ui/core";
+import {IconButton, Input, makeStyles, Paper, Box, CircularProgress} from "@material-ui/core";
 import {CardSmall} from "./CardSmall";
 import {AnimeSearchInput} from "./input/AnimeSearchInput"
+import layoutStore from "../../store/layoutStore";
+import {categories} from "../Category/Category";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +51,8 @@ export const Results = observer(() => {
 
 		  <Box className={classes.cardsList}>
 			 <AnimeSearchInput/>
+
+			  <Box>{categories.map(el=> el.value===layoutStore.categoryView? el.text: null)}</Box>
 			 <Box className={classes.cardsListScroll}>
 				{cardList}
 			 </Box>
