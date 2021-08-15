@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import layoutStore from "../../store/layoutStore";
+import LayoutStore from "../../store/LayoutStore";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -34,7 +34,7 @@ export const Appbar = () => {
           <Hidden mdUp>
             <IconButton
               onClick={() => {
-                layoutStore.toggleMobPanel(true);
+                LayoutStore.toggleMobPanel(true);
               }}
             >
               <MenuIcon />

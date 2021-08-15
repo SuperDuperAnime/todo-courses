@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Hidden, makeStyles, SwipeableDrawer } from "@material-ui/core";
-import layoutStore from "../store/layoutStore";
+import LayoutStore from "../store/LayoutStore";
 import { observer } from "mobx-react-lite";
 import { Category } from "./Category/Category";
 import { Results } from "./Results/Results";
@@ -23,12 +23,12 @@ export const MobPanel = observer(() => {
   return (
     <SwipeableDrawer
       anchor={"left"}
-      open={layoutStore.mobPanel}
+      open={LayoutStore.mobPanel}
       onClose={() => {
-        layoutStore.toggleMobPanel(false);
+        LayoutStore.toggleMobPanel(false);
       }}
       onOpen={() => {
-        layoutStore.toggleMobPanel(true);
+        LayoutStore.toggleMobPanel(true);
       }}
       className={classes.root}
     >

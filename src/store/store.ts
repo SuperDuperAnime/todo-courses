@@ -4,9 +4,9 @@ import { toJS } from "mobx";
 import { animeData } from "./Category/anime";
 import { naruto } from "./Category/q=Naruto";
 import { CardType, CategoriesType, IResponse } from "./types";
-import layoutStore from "./layoutStore";
+import LayoutStore from "./LayoutStore";
 
-//todo классы лучше называть с большой буквы
+
 class store {
   textInput = "";
   action = "search";
@@ -36,12 +36,12 @@ class store {
   }
 
   setCategory(select: CategoriesType) {
-    layoutStore.categoryView = "";
+    LayoutStore.categoryView = "";
     this.content = null;
     this.data = [];
     if (select === "favorite") {
       this.data = this.favorite;
-      layoutStore.categoryView = "favorite";
+      LayoutStore.categoryView = "favorite";
     }
     this.category = select;
     console.log(this.category);
@@ -110,12 +110,12 @@ class store {
         this.data = res.data.results;
         console.log(toJS(this.data));
       })
+      .catch((error) => console.log(error.response))
       .then(() => {
         setTimeout(() => {
           this.loading = false;
         }, 500);
-      })
-      .catch((error) => console.log(error.response));
+      });
     console.log("ответ получен");
     this.canIStartSearch = false;
     this.apiDelay4second();

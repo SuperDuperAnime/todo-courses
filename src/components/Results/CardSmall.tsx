@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react-lite";
 import store from "../../store/store";
-import layoutStore from "../../store/layoutStore";
+import LayoutStore from "../../store/LayoutStore";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { CardType } from "../../store/types";
@@ -134,7 +134,7 @@ export const CardSmall = observer(
         className={classes.root}
         onClick={() => {
           store.setContent(card);
-          layoutStore.toggleActiveView("content");
+          LayoutStore.toggleActiveView("content");
         }}
       >
         <CardMedia
