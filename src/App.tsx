@@ -15,7 +15,7 @@ import {
   Backdrop
 } from "@material-ui/core";
 import { Appbar } from "./components/AppBar/AppBar";
-import layoutStore from "./store/LayoutStore";
+import LayoutStore from "./store/LayoutStore";
 import { Results } from "./components/Results/Results";
 import { Content } from "./components/Content/Content";
 import { Category } from "./components/Category/Category";
@@ -84,7 +84,7 @@ const App = observer(() => {
         </Hidden>
         <Hidden smUp>
           <Box className={classes.contentWrapper}>
-            {layoutStore.activeView === "content" ? (
+            {LayoutStore.activeView === "content" ? (
               <ContentContainer />
             ) : (
               <Results />
