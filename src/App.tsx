@@ -61,15 +61,6 @@ const useStyles = makeStyles({
 const App = observer(() => {
   const classes = useStyles();
 
-  useEffect(() => {
-    setTimeout(() => {
-      store.apiDelay4second();
-    }, 4000);
-  }, [store.canIStartSearch]);
-  useEffect(() => {
-    store.startProgram();
-  }, []);
-
   return (
     <div className={classes.root}>
       <CssBaseline />
