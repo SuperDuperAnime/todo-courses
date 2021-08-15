@@ -1,45 +1,42 @@
-import React from 'react';
-import {Box, Hidden, makeStyles, SwipeableDrawer} from "@material-ui/core";
+import React from "react";
+import { Box, Hidden, makeStyles, SwipeableDrawer } from "@material-ui/core";
 import layoutStore from "../store/layoutStore";
-import {observer} from "mobx-react-lite";
-import {Category} from "./Category/Category";
-import {Results} from "./Results/Results";
-
+import { observer } from "mobx-react-lite";
+import { Category } from "./Category/Category";
+import { Results } from "./Results/Results";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-	   width: "fit-content",
-    },
-    container: {
-	   background: "rgba(65, 94, 127, 1)",
-	   padding: '60px 8px',
-	   height: "100vh",
-	   display: "flex",
-	   alignItems: "stretch"
-    }
-}))
+  root: {
+    width: "fit-content",
+  },
+  container: {
+    background: "rgba(65, 94, 127, 1)",
+    padding: "60px 8px",
+    height: "100vh",
+    display: "flex",
+    alignItems: "stretch",
+  },
+}));
 
 export const MobPanel = observer(() => {
-
-    const classes = useStyles()
-    return (
-	   <SwipeableDrawer
-		  anchor={"left"}
-		  open={layoutStore.mobPanel}
-		  onClose={() => {
-			 layoutStore.toggleMobPanel(false)
-		  }}
-		  onOpen={() => {
-			 layoutStore.toggleMobPanel(true)
-		  }}
-		  className={classes.root}
-	   >
-		  <Box className={classes.container}>
-			 <Hidden mdUp>
-				<Category/>
-			 </Hidden>
-
-		  </Box>
-	   </SwipeableDrawer>
-    );
-})
+  const classes = useStyles();
+  return (
+    <SwipeableDrawer
+      anchor={"left"}
+      open={layoutStore.mobPanel}
+      onClose={() => {
+        layoutStore.toggleMobPanel(false);
+      }}
+      onOpen={() => {
+        layoutStore.toggleMobPanel(true);
+      }}
+      className={classes.root}
+    >
+      <Box className={classes.container}>
+        <Hidden mdUp>
+          <Category />
+        </Hidden>
+      </Box>
+    </SwipeableDrawer>
+  );
+});
