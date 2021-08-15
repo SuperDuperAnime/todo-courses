@@ -8,7 +8,7 @@ class LayoutStore {
   activeView: ActiveViewType = "results";
   mobPanel = false;
   //todo здесь тоже, будет CategoriesType
-  categoryView = "anime";
+  categoryView:CategoriesType = "anime";
 
   constructor() {
     makeAutoObservable(this);

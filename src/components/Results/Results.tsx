@@ -9,10 +9,11 @@ import {
   Box,
   CircularProgress,
 } from "@material-ui/core";
-import { CardSmall } from "./CardSmall";
+import { CardSmall } from "./CardSmall/CardSmall";
 import { AnimeSearchInput } from "./input/AnimeSearchInput";
 import LayoutStore from "../../store/LayoutStore";
 import { categories } from "../Category/Category";
+import {CardSmallContainer} from "./CardSmall/CardSmallContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,19 +46,20 @@ export const Results = observer(() => {
     store.data === null ? (
       <div>Введите данные</div>
     ) : (
-      store.data.map((item) => {
+      store.data.map(el => {
         return (
-          <CardSmall
-            key={Math.random() + item.mal_id}
-            img={item.image_url}
-            title={item.title || item.name}
-            name={item.name}
-            synopsis={item.synopsis}
-            alternative_names={item.alternative_names}
-            category={item.synopsis ? "anime" : "character"}
-            isFavorite={item.isFavorite}
-            card={item}
-          />
+          // <CardSmall
+          //   key={Math.random() + item.mal_id}
+          //   img={item.image_url}
+          //   title={item.title || item.name}
+          //   name={item.name}
+          //   synopsis={item.synopsis}
+          //   alternative_names={item.alternative_names}
+          //   category={item.synopsis ? "anime" : "character"}
+          //   isFavorite={item.isFavorite}
+          //   card={item}
+          // />
+            <CardSmallContainer data={el}/>
         );
       })
     );

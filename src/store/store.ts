@@ -36,7 +36,6 @@ class store {
   }
 
   setCategory(select: CategoriesType) {
-    LayoutStore.categoryView = "";
     this.content = null;
     this.data = [];
     if (select === "favorite") {
