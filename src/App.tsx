@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import store from "./store/store";
 import { observer } from "mobx-react-lite";
 import {
@@ -23,7 +22,7 @@ import { Category } from "./components/Category/Category";
 import { ContentContainer } from "./components/Content/ContentContainer";
 import { MobPanel } from "./components/MobPanel";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     display: "flex",
     position: "relative",
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
   button: {
     display: "flex",
-    direction: "column",
+    flexDirection: "column",
     width: "100%"
   },
   contentWrapper: {
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%"
   }
-}));
+});
 const App = observer(() => {
   const classes = useStyles();
 
@@ -82,8 +81,8 @@ const App = observer(() => {
           </Backdrop>{" "}
         </Box>
       ) : null}
-      <Hidden>
-        <MobPanel smDown />
+      <Hidden smDown>
+        <MobPanel />
       </Hidden>
       <Container maxWidth="lg" className={classes.container}>
         <Hidden smDown>
@@ -113,10 +112,3 @@ const App = observer(() => {
 
 export default App;
 
-export const Typography = styled.div`
-  font-size: ${(props) => props.fontSize || "40px"};
-  font-family: Roboto;
-  cursor: pointer;
-  font-weight: ${(props) => props.fontWeight || "100"};
-  color: ${(props) => props.color || "rgba(255,255,255,1)"};
-`;
