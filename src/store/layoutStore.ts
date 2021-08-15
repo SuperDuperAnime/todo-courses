@@ -1,11 +1,11 @@
 import { makeAutoObservable, toJS } from "mobx";
-import { CategoriesType } from "./types";
+import { CategoriesType, ActiveViewType } from "./types";
 import store from "./store";
 
 //todo классы лучше называть с большой буквы
-class layoutStore {
-  //todo хорошо бы протипизировать через literals union, тип будет 'results' | 'content'
-  activeView = "results";
+class LayoutStore {
+  
+  activeView: ActiveViewType = "results";
   mobPanel = false;
   //todo здесь тоже, будет CategoriesType
   categoryView = "anime";
@@ -22,9 +22,9 @@ class layoutStore {
     this.categoryView = store.category;
   }
 
-  toggleActiveView(activeView: string) {
+  toggleActiveView(activeView: ActiveViewType) {
     this.activeView = activeView;
   }
 }
 
-export default new layoutStore();
+export default new LayoutStore();

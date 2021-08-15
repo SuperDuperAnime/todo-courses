@@ -11,11 +11,11 @@ import store from "../../../store/store";
 import { observer } from "mobx-react-lite";
 import { animeData } from "../../../store/Category/anime";
 import { naruto } from "../../../store/Category/q=Naruto";
-import layoutStore from "../../../store/layoutStore";
+import LayoutStore from "../../../store/LayoutStore";
 import { Box, CircularProgress, Typography } from "@material-ui/core";
 import { categories } from "../../Category/Category";
 
-//todo ошибка компиляции, надо убрать createStyles
+
 const useStyles = makeStyles({
     root: {
       display: "flex",
@@ -53,7 +53,7 @@ export const AnimeSearchInput = observer(() => {
     onSubmit = {(e) => { 
       e.preventDefault();
       store.startSearch(textInput);
-      layoutStore.setActiveCategory();
+      LayoutStore.setActiveCategory();
     }} 
     className={classes.root}>
       <Typography className={classes.label}>
@@ -74,7 +74,7 @@ export const AnimeSearchInput = observer(() => {
         aria-label="search"
         onClick={() => {
           store.startSearch(textInput);
-          layoutStore.setActiveCategory();
+          LayoutStore.setActiveCategory();
           // store.category === 'anime' ? store.startFakeSearch(animeData.results) : store.category === 'character' ? store.startFakeSearch(naruto.results) : store.startFakeSearch(null)
         }}
       >

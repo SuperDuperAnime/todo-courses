@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { CardSmall } from "./CardSmall";
 import { AnimeSearchInput } from "./input/AnimeSearchInput";
-import layoutStore from "../../store/layoutStore";
+import LayoutStore from "../../store/LayoutStore";
 import { categories } from "../Category/Category";
 
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +68,7 @@ export const Results = observer(() => {
 
         <Box>
           {categories.map((el) =>
-            el.value === layoutStore.categoryView ? el.text : null
+            el.value === LayoutStore.categoryView ? el.text : null
           )}
         </Box>
         <Box className={classes.cardsListScroll}>{cardList}</Box>

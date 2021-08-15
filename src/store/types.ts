@@ -1,4 +1,5 @@
 export type CategoriesType = "anime" | "character" | "favorite";
+export type ActiveViewType = 'results' | 'content'
 
 export interface CardType {
   isFavorite?: boolean;

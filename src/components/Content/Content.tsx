@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { Hidden} from "@material-ui/core";
 import store from "../../store/store";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import layoutStore from "../../store/layoutStore";
+import LayoutStore from "../../store/LayoutStore";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { CategoriesType } from "../../store/types";
@@ -92,7 +92,7 @@ export const Content = observer(
                   className={classes.fab}
                   color="primary"
                   onClick={() => { 
-                    layoutStore.toggleActiveView("results");
+                    LayoutStore.toggleActiveView("results");
                   }}
                 >
                   <ArrowBackIcon />
