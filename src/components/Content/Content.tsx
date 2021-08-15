@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { observer } from "mobx-react-lite";
 import Typography from "@material-ui/core/Typography";
+import { Hidden} from "@material-ui/core";
 import store from "../../store/store";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import layoutStore from "../../store/layoutStore";
@@ -86,19 +87,20 @@ export const Content = observer(
       <Paper className={classes.root}>
         <Box className={classes.contentWrapper}>
           <Paper className={classes.header}>
-            <Fab
-              className={classes.fab}
-              color="primary"
-              onClick={() => {
-                //todo не надо эту кнопку отображать в десктопе
-                layoutStore.toggleActiveView("results");
-              }}
-            >
-              <ArrowBackIcon />
-            </Fab>
-            <Fab className={classes.fab} onClick={() => store.setFavorite()}>
-              {favoriteIcon}
-            </Fab>
+            <Hidden mdUp smUp> 
+                <Fab
+                  className={classes.fab}
+                  color="primary"
+                  onClick={() => { 
+                    layoutStore.toggleActiveView("results");
+                  }}
+                >
+                  <ArrowBackIcon />
+                </Fab>
+            </Hidden>
+                <Fab className={classes.fab} onClick={() => store.setFavorite()}>
+                  {favoriteIcon}
+                </Fab>
 
             <Typography
               className={classes.title}

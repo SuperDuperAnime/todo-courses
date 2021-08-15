@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -16,8 +16,7 @@ import { Box, CircularProgress, Typography } from "@material-ui/core";
 import { categories } from "../../Category/Category";
 
 //todo ошибка компиляции, надо убрать createStyles
-const useStyles = makeStyles((theme) =>
-  createStyles({
+const useStyles = makeStyles({
     root: {
       display: "flex",
       position: "relative",
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) =>
       margin: "8px auto",
     },
     input: {
-      marginLeft: theme.spacing(1),
+      marginLeft: 2,
       flex: 1,
     },
     divider: {
@@ -43,25 +42,27 @@ const useStyles = makeStyles((theme) =>
     },
 
     iconButton: {},
-  })
-);
+  });
 
 export const AnimeSearchInput = observer(() => {
   const classes = useStyles();
-
-  //todo тут надо либо убрать form, либо добавить preventDefault в инпут
-  // чтобы страница не перезагружалась при нажатии на enter после ввода текста
+  const [textInput, setTextInput] = useState('')
   return (
-    <Paper component="form" className={classes.root}>
+    <Paper  
+    component="form" 
+    onSubmit = {(e) => { 
+      e.preventDefault();
+      store.startSearch(textInput);
+      layoutStore.setActiveCategory();
+    }} 
+    className={classes.root}>
       <Typography className={classes.label}>
         {categories.map((el) => (el.value === store.category ? el.text : null))}
       </Typography>
       <InputBase
-        value={store.textInput}
+        value={textInput}
         onChange={(e) => {
-          //todo по хорошему этот поиск не надо даже хранить в сторе, можно просто в стейте компонента
-          //и передавать его в startSearch
-          store.setTextInput(e.target.value);
+          setTextInput(e.target.value)
         }}
         className={classes.input}
         //todo а если не аниме?
@@ -72,7 +73,7 @@ export const AnimeSearchInput = observer(() => {
         className={classes.iconButton}
         aria-label="search"
         onClick={() => {
-          store.startSearch();
+          store.startSearch(textInput);
           layoutStore.setActiveCategory();
           // store.category === 'anime' ? store.startFakeSearch(animeData.results) : store.category === 'character' ? store.startFakeSearch(naruto.results) : store.startFakeSearch(null)
         }}
