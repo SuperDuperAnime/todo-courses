@@ -1,20 +1,26 @@
 import {makeAutoObservable, toJS} from "mobx";
 import {CategoriesType} from "./types";
+import store from "./store";
 
 class layoutStore {
     activeView = 'results'
     mobPanel = false
+    categoryView = 'anime'
 
     constructor() {
-	   makeAutoObservable(this)
+        makeAutoObservable(this)
     }
 
     toggleMobPanel(isOpen: boolean) {
-	   this.mobPanel = isOpen
+        this.mobPanel = isOpen
     }
 
-    toggleActiveView(activeView:string) {
-	   this.activeView = activeView
+    setActiveCategory() {
+        this.categoryView = store.category
+    }
+
+    toggleActiveView(activeView: string) {
+        this.activeView = activeView
     }
 }
 

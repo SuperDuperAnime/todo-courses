@@ -4,6 +4,8 @@ import {toJS} from 'mobx'
 import {animeData} from "./Category/anime";
 import {naruto} from "./Category/q=Naruto";
 import {CardType, CategoriesType, IResponse} from "./types";
+import {log} from "util";
+import layoutStore from "./layoutStore";
 
 class store {
     textInput = ''
@@ -13,7 +15,7 @@ class store {
     data: CardType[] = []
     favorite: CardType[] = []
     canIStartSearch = true
-
+loading=false
     constructor() {
         makeAutoObservable(this)
     }
@@ -24,10 +26,12 @@ class store {
     }
 
     setCategory(select: CategoriesType) {
+        layoutStore.categoryView = ''
         this.content = null
         this.data = []
         if (select === 'favorite') {
             this.data = this.favorite || null
+            layoutStore.categoryView = 'favorite'
         }
         this.category = select
         console.log(this.category)
@@ -86,9 +90,11 @@ class store {
     // }
 
     startSearch() {
+        console.log('Кнопка нажата')
         if (this.category === 'favorite') {
             return
         }
+        this.loading = true
 
         axios.get<IResponse>(`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${this.textInput}&limit=5&page=1`).then(res => {
             res.data.results.forEach(e => {
@@ -102,6 +108,10 @@ class store {
             this.data = res.data.results
             console.log(toJS(this.data))
         }).catch(error => console.log(error.response))
+        setTimeout(()=>{
+            this.loading=false
+        }, 500)
+        console.log("ответ получен")
         this.canIStartSearch = false
     }
 }

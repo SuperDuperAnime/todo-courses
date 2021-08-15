@@ -2,14 +2,25 @@ import React, {useEffect, useState} from 'react'
 import styled from "styled-components";
 import store from "./store/store";
 import {observer} from "mobx-react-lite";
-import {Box, Button, ButtonGroup, Container, CssBaseline, makeStyles, Grid, colors, Hidden} from "@material-ui/core";
-import {Appbar} from "./newComponents/AppBar/AppBar";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Container,
+    CssBaseline,
+    makeStyles,
+    Grid,
+    colors,
+    Hidden,
+    CircularProgress, Backdrop
+} from "@material-ui/core";
+import {Appbar} from "./components/AppBar/AppBar";
 import layoutStore from "./store/layoutStore";
-import {Results} from "./newComponents/Results/Results";
-import {Content} from "./newComponents/Content/Content";
-import {Category} from "./newComponents/Category/Category";
-import {ContentContainer} from "./newComponents/Content/ContentContainer";
-import {MobPanel} from "./newComponents/MobPanel";
+import {Results} from "./components/Results/Results";
+import {Content} from "./components/Content/Content";
+import {Category} from "./components/Category/Category";
+import {ContentContainer} from "./components/Content/ContentContainer";
+import {MobPanel} from "./components/MobPanel";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +48,16 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
 	   height: "calc(100vh - 64px)",
 	   background: "transparent",
-    }
+    },
+    backdrop:{
+        color: "rgba(0,0,0,0.3)"
+    },
+    loader: {
+	   position: "fixed",
+	   zIndex: 999,
+	   top: "50%",
+	   left: "50%",
+    },
 
 }))
 const App = observer(() => {
@@ -56,6 +76,7 @@ const App = observer(() => {
 	   <div className={classes.root}>
 		  <CssBaseline/>
 		  <Appbar/>
+		  {store.loading ? <Box className={classes.loader}><Backdrop className={classes.backdrop} open={true}><CircularProgress/></Backdrop> </Box> : null}
 		  <Hidden>
 			 <MobPanel smDown/>
 		  </Hidden>
