@@ -11,7 +11,7 @@ class store {
   textInput = "";
   action = "search";
   category: CategoriesType = "anime";
-  content: CardType | null = null;
+  content: CardType | null = null
   data: CardType[] = [];
   favorite: CardType[] = [];
   canIStartSearch = true;
@@ -53,18 +53,10 @@ class store {
 
   setFavorite() {
     if (this.content === null) return;
-    //todo тут лучше использовать метод findIndex
-    let pos = this.favorite
-      .map(function(e) {
-        return e.mal_id;
-      })
-      .indexOf(this.content.mal_id);
-    //let indexOfCheck2 = this.favorite.filter(item => item.mal_id !== this.content.mal_id)
-
-    //todo ts ignore тут не нужен, все ж и без него работает
-
-    // @ts-ignore
-    if (pos !== -1 || pos === 0) {
+    
+    let pos = this.favorite.findIndex(item => item.mal_id == this.content?.mal_id)
+    
+    if (pos !== -1) {
       this.content.isFavorite = false;
       this.favorite.splice(pos, 1);
     } else {
