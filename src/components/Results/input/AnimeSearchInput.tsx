@@ -15,6 +15,7 @@ import layoutStore from "../../../store/layoutStore";
 import {Box, CircularProgress, Typography} from "@material-ui/core";
 import {categories} from "../../Category/Category";
 
+//todo ошибка компиляции, надо убрать createStyles
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
@@ -49,16 +50,21 @@ const useStyles = makeStyles((theme) =>
 export const AnimeSearchInput = observer(() => {
     const classes = useStyles();
 
+    //todo тут надо либо убрать form, либо добавить preventDefault в инпут
+    // чтобы страница не перезагружалась при нажатии на enter после ввода текста
     return (
         <Paper component="form" className={classes.root}>
             <Typography
                 className={classes.label}>{categories.map(el => el.value === store.category ? el.text : null)}</Typography>
             <InputBase
                 value={store.textInput} onChange={(e) => {
+                //todo по хорошему этот поиск не надо даже хранить в сторе, можно просто в стейте компонента
+                //и передавать его в startSearch
                 store.setTextInput(e.target.value)
 
             }}
                 className={classes.input}
+                //todo а если не аниме?
                 placeholder="Start searching Anime"
                 inputProps={{'aria-label': 'search Anime'}}
             />

@@ -1,3 +1,4 @@
+//TODO если не используется - удалить
 export const animeData = {
     "request_hash": "request:search:89307b32c6ede3ebe9e9cbf710354e6c38ed6692",
     "request_cached": false,
