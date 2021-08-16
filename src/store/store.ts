@@ -8,7 +8,8 @@ import LayoutStore from "./LayoutStore";
 
 
 class store {
-    action = "search";
+
+  action = "search";
     category: CategoriesType = "anime";
     content: CardType | null = null;
     data: CardType[] = [];
@@ -27,12 +28,48 @@ class store {
         })
     }
 
-    startProgram() {
-        let locStorage = localStorage.getItem("favoriteArr");
-        if (locStorage !== null) {
-            this.favorite = JSON.parse(locStorage);
-        }
-        console.log(toJS(this.favorite));
+
+  startProgram() {
+    let locStorage = localStorage.getItem("favoriteArr");
+    if (locStorage !== null) {
+      this.favorite = JSON.parse(locStorage);
+    }
+    console.log(toJS(this.favorite));
+  }
+
+  setTextInput(input: string) {
+    this.textInput = input;
+    console.log(this.textInput);
+  }
+
+  setCategory(select: CategoriesType) {
+    this.content = null;
+    this.data = [];
+    if (select === "favorite") {
+      this.data = this.favorite;
+      LayoutStore.categoryView = "favorite";
+    }
+    this.category = select;
+    console.log(this.category);
+  }
+
+  setContent(content: CardType) {
+    this.content = content;
+    console.log(toJS(this.content));
+  }
+
+  setFavorite() {
+    if (this.content === null) return;
+    
+    let pos = this.favorite.findIndex(item => item.mal_id == this.content?.mal_id)
+    
+    if (pos !== -1) {
+      this.content.isFavorite = false;
+      this.favorite.splice(pos, 1);
+    } else {
+      this.content.isFavorite = true;
+      this.favorite.unshift(this.content);
+
     }
 
     async getTop() {
