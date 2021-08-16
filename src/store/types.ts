@@ -1,7 +1,6 @@
-export type CategoriesType = "anime" | "character" | "favorite"| 'top';
+export type CategoriesType = "anime" | "character" | "favorite"
 export type ActiveViewType = 'results' | 'content'
-
-
+export type CategoriesViewType = CategoriesType | 'top'
 export interface CardType {
     isFavorite?: boolean;
     mal_id: number;

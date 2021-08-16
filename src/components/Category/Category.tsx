@@ -33,7 +33,6 @@ export const categories: { value: CategoriesType; text: string }[] = [
   { value: "favorite", text: "Favorite" },
   { value: "anime", text: "Anime" },
   { value: "character", text: "Characters" },
-  { value: "top", text: "Top" },
 ];
 export const Category = observer(() => {
   const classes = useStyles();

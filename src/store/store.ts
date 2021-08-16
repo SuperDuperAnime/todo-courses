@@ -9,7 +9,7 @@ import LayoutStore from "./LayoutStore";
 
 class store {
 
-  action = "search";
+    action = "search";
     category: CategoriesType = "anime";
     content: CardType | null = null;
     data: CardType[] = [];
@@ -18,6 +18,8 @@ class store {
     favorite: CardType[] = [];
     canIStartSearch = true;
     loading = false;
+    error: string| number= 200
+    isOpenError = false
 
     constructor() {
         makeAutoObservable(this);
@@ -29,47 +31,56 @@ class store {
     }
 
 
-  startProgram() {
-    let locStorage = localStorage.getItem("favoriteArr");
-    if (locStorage !== null) {
-      this.favorite = JSON.parse(locStorage);
+    startProgram() {
+        let locStorage = localStorage.getItem("favoriteArr");
+        if (locStorage !== null) {
+            this.favorite = JSON.parse(locStorage);
+        }
+        console.log(toJS(this.favorite));
     }
-    console.log(toJS(this.favorite));
-  }
 
-  setTextInput(input: string) {
-    this.textInput = input;
-    console.log(this.textInput);
-  }
 
-  setCategory(select: CategoriesType) {
-    this.content = null;
-    this.data = [];
-    if (select === "favorite") {
-      this.data = this.favorite;
-      LayoutStore.categoryView = "favorite";
+    setCategory(select: CategoriesType) {
+        this.content = null;
+        this.data = [];
+        switch (select) {
+            case "character":
+                this.data = this.topCharacter
+                LayoutStore.categoryView = "top";
+                break
+            case "anime":
+                this.data = this.topAnime
+                LayoutStore.categoryView = "top";
+                break
+            case "favorite":
+                this.data = this.favorite;
+                LayoutStore.categoryView = "favorite";
+                break
+            default:
+                console.error(select)
+        }
+        this.category = select;
+        console.log(this.category);
     }
-    this.category = select;
-    console.log(this.category);
-  }
 
-  setContent(content: CardType) {
-    this.content = content;
-    console.log(toJS(this.content));
-  }
+    setContent(content: CardType) {
+        this.content = content;
+        console.log(toJS(this.content));
+    }
 
-  setFavorite() {
-    if (this.content === null) return;
-    
-    let pos = this.favorite.findIndex(item => item.mal_id == this.content?.mal_id)
-    
-    if (pos !== -1) {
-      this.content.isFavorite = false;
-      this.favorite.splice(pos, 1);
-    } else {
-      this.content.isFavorite = true;
-      this.favorite.unshift(this.content);
+    setFavorite() {
+        if (this.content === null) return;
 
+        let pos = this.favorite.findIndex(item => item.mal_id == this.content?.mal_id)
+
+        if (pos !== -1) {
+            this.content.isFavorite = false;
+            this.favorite.splice(pos, 1);
+        } else {
+            this.content.isFavorite = true;
+            this.favorite.unshift(this.content);
+
+        }
     }
 
     async getTop() {
@@ -82,55 +93,16 @@ class store {
             .then(() => {
                 this.loading = false;
             })
-
         setTimeout(() => {
-            axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/character`)
+            axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters`)
                 .then(res => this.topCharacter = res.data.top)
                 .catch((error) => console.log(error.response))
         }, 2000)
     }
 
-
-    setCategory(select: CategoriesType) {
-        this.content = null;
-        this.data = [];
-        if (select === "favorite") {
-            this.data = this.favorite;
-            LayoutStore.categoryView = "favorite";
-        }
-        //todo решить как отображать по клику категорию с  аниме
-        this.category = select;
-        console.log(this.category);
+    toggleOpen(open: boolean) {
+        this.isOpenError = open
     }
-
-    setContent(content: CardType) {
-        this.content = content;
-        console.log(toJS(this.content));
-    }
-
-    setFavorite() {
-        if (this.content === null) return;
-        //todo тут лучше использовать метод findIndex
-        let pos = this.favorite
-            .map(function (e) {
-                return e.mal_id;
-            })
-            .indexOf(this.content.mal_id);
-        //let indexOfCheck2 = this.favorite.filter(item => item.mal_id !== this.content.mal_id)
-
-        //todo ts ignore тут не нужен, все ж и без него работает
-
-        // @ts-ignore
-        if (pos !== -1 || pos === 0) {
-            this.content.isFavorite = false;
-            this.favorite.splice(pos, 1);
-        } else {
-            this.content.isFavorite = true;
-            this.favorite.unshift(this.content);
-        }
-        localStorage.setItem(`favoriteArr`, JSON.stringify(this.favorite));
-    }
-
 
     apiDelay4second() {
         setTimeout(() => {
@@ -166,7 +138,12 @@ class store {
                 this.data = res.data.results;
                 console.log(toJS(this.data));
             })
-            .catch((error) => console.log(error.response))
+            .catch((error) => {
+                this.error = error.response.status
+                this.isOpenError = true
+                console.log(error)
+
+            })
             .then(() => {
                 setTimeout(() => {
                     this.loading = false;

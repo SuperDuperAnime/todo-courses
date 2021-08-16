@@ -12,8 +12,9 @@ import { observer } from "mobx-react-lite";
 import { animeData } from "../../../store/Category/anime";
 import { naruto } from "../../../store/Category/q=Naruto";
 import LayoutStore from "../../../store/LayoutStore";
-import { Box, CircularProgress, Typography } from "@material-ui/core";
+import {Box, CircularProgress, Snackbar, Typography} from "@material-ui/core";
 import { categories } from "../../Category/Category";
+import {Alert} from "@material-ui/lab";
 
 
 const useStyles = makeStyles({
@@ -69,14 +70,19 @@ export const AnimeSearchInput = observer(() => {
         placeholder="Start searching Anime"
         inputProps={{ "aria-label": "search Anime" }}
       />
+
       <IconButton
         className={classes.iconButton}
         aria-label="search"
         onClick={() => {
+            if( textInput.length<=3){
+                store.error = 'не меньше 3 букв'
+                store.isOpenError=true
+            } else {
           store.startSearch(textInput);
           LayoutStore.setActiveCategory();
           // store.category === 'anime' ? store.startFakeSearch(animeData.results) : store.category === 'character' ? store.startFakeSearch(naruto.results) : store.startFakeSearch(null)
-        }}
+        }}}
       >
         <SearchIcon />
       </IconButton>

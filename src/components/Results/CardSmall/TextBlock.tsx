@@ -3,10 +3,10 @@ import {CardContentTypeMap, makeStyles} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import {OverridableComponent} from "@material-ui/core/OverridableComponent";
-import {CategoriesType} from "../../../store/types";
+import {CategoriesType, CategoriesViewType} from "../../../store/types";
 
 interface TextBlockProp {
-    category: CategoriesType
+    category: CategoriesViewType
     title?: string
     description?: string
 }

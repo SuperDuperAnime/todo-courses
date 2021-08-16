@@ -12,7 +12,7 @@ import {
   colors,
   Hidden,
   CircularProgress,
-  Backdrop
+  Backdrop, Snackbar
 } from "@material-ui/core";
 import { Appbar } from "./components/AppBar/AppBar";
 import LayoutStore from "./store/LayoutStore";
@@ -21,6 +21,7 @@ import { Content } from "./components/Content/Content";
 import { Category } from "./components/Category/Category";
 import { ContentContainer } from "./components/Content/ContentContainer";
 import { MobPanel } from "./components/MobPanel";
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles({
   root: {
@@ -97,6 +98,23 @@ const App = observer(() => {
           </Box>
         </Hidden>
       </Container>
+      <Snackbar
+          anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+          open={store.isOpenError} autoHideDuration={6000} onClose={()=>{
+        store.toggleOpen(false)
+      }}>
+        <Alert onClose={()=>{
+          store.toggleOpen(false)
+        }} severity="error">
+          {()=>{
+          if(typeof store.error==="number"){
+           return  store.error===404? "такого аниме нет": ''
+          } else {
+           return  store.error
+          }
+          }}
+        </Alert>
+      </Snackbar>
     </div>
   );
 });
