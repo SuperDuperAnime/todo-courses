@@ -12,7 +12,7 @@ import {
   colors,
   Hidden,
   CircularProgress,
-  Backdrop
+  Backdrop, Snackbar
 } from "@material-ui/core";
 import { Appbar } from "./components/AppBar/AppBar";
 import LayoutStore from "./store/LayoutStore";
@@ -21,6 +21,8 @@ import { Content } from "./components/Content/Content";
 import { Category } from "./components/Category/Category";
 import { ContentContainer } from "./components/Content/ContentContainer";
 import { MobPanel } from "./components/MobPanel";
+import {Alert} from "@material-ui/lab";
+import {ErrorAlert} from "./components/ErrorAlert";
 
 const useStyles = makeStyles({
   root: {
@@ -72,7 +74,7 @@ const App = observer(() => {
           </Backdrop>{" "}
         </Box>
       ) : null}
-      <Hidden smDown>
+      <Hidden mdUp>
         <MobPanel />
       </Hidden>
       <Container maxWidth="lg" className={classes.container}>
@@ -97,6 +99,7 @@ const App = observer(() => {
           </Box>
         </Hidden>
       </Container>
+     <ErrorAlert/>
     </div>
   );
 });
