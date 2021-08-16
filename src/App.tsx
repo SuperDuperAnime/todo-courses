@@ -72,7 +72,7 @@ const App = observer(() => {
           </Backdrop>{" "}
         </Box>
       ) : null}
-      <Hidden smDown>
+      <Hidden mdUp>
         <MobPanel />
       </Hidden>
       <Container maxWidth="lg" className={classes.container}>

@@ -1,5 +1,5 @@
 import { makeAutoObservable, toJS } from "mobx";
-import { CategoriesType, ActiveViewType } from "./types";
+import {CategoriesType, ActiveViewType} from "./types";
 import store from "./store";
 
 //todo классы лучше называть с большой буквы
@@ -16,12 +16,15 @@ class LayoutStore {
 
   toggleMobPanel(isOpen: boolean) {
     this.mobPanel = isOpen;
+    console.log(this.mobPanel)
   }
 
   setActiveCategory() {
     this.categoryView = store.category;
   }
-
+setCategoriesView(category: CategoriesType){
+    this.categoryView = category
+}
   toggleActiveView(activeView: ActiveViewType) {
     this.activeView = activeView;
   }

@@ -11,6 +11,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import LayoutStore from "../../store/LayoutStore";
 
+
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     height: "64px",
@@ -40,7 +41,7 @@ export const Appbar = () => {
               <MenuIcon />
             </IconButton>
           </Hidden>
-          <Typography variant="h5" component="h2">
+          <Typography variant="h5" component="h2" >
             SuperDuperAnime
           </Typography>
         </Toolbar>
