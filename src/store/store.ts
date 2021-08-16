@@ -71,30 +71,6 @@ class store {
     this.content = content;
     console.log(toJS(this.content));
   }
-
-  setFavorite() {
-    if (this.content === null) return;
-    //todo тут лучше использовать метод findIndex
-    let pos = this.favorite
-      .map(function(e) {
-        return e.mal_id;
-      })
-      .indexOf(this.content.mal_id);
-    //let indexOfCheck2 = this.favorite.filter(item => item.mal_id !== this.content.mal_id)
-
-    //todo ts ignore тут не нужен, все ж и без него работает
-
-    // @ts-ignore
-    if (pos !== -1 || pos === 0) {
-      this.content.isFavorite = false;
-      this.favorite.splice(pos, 1);
-    } else {
-      this.content.isFavorite = true;
-      this.favorite.unshift(this.content);
-
-    }
-
-
     setFavorite() {
         if (this.content === null) return;
 
