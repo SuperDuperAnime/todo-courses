@@ -16,6 +16,7 @@ class LayoutStore {
 
   toggleMobPanel(isOpen: boolean) {
     this.mobPanel = isOpen;
+    console.log(this.mobPanel)
   }
 
   setActiveCategory() {

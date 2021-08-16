@@ -59,7 +59,7 @@ export const Results = observer(() => {
           //   isFavorite={item.isFavorite}
           //   card={item}
           // />
-            <CardSmallContainer data={el}/>
+            <CardSmallContainer key={el.mal_id} data={el}/>
         );
       })
     );

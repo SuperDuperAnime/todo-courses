@@ -50,7 +50,7 @@ class store {
             axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/character`)
                 .then(res => this.topCharacter = res.data.top)
                 .catch((error) => console.log(error.response))
-        })
+        }, 2000)
     }
 
 
@@ -61,7 +61,7 @@ class store {
             this.data = this.favorite;
             LayoutStore.categoryView = "favorite";
         }
-
+        //todo решить как отображать по клику категорию с  аниме
         this.category = select;
         console.log(this.category);
     }
