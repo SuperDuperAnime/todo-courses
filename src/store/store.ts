@@ -5,6 +5,7 @@ import {animeData} from "./Category/anime";
 import {naruto} from "./Category/q=Naruto";
 import {CardType, CategoriesType, IResponse, IResponseTop} from "./types";
 import LayoutStore from "./LayoutStore";
+import ErrorStore from "./ErrorStore";
 
 
 class store {
@@ -18,8 +19,7 @@ class store {
     favorite: CardType[] = [];
     canIStartSearch = true;
     loading = false;
-    error: string| number= 200
-    isOpenError = false
+
 
     constructor() {
         makeAutoObservable(this);
@@ -100,9 +100,7 @@ class store {
         }, 2000)
     }
 
-    toggleOpen(open: boolean) {
-        this.isOpenError = open
-    }
+
 
     apiDelay4second() {
         setTimeout(() => {
@@ -139,8 +137,7 @@ class store {
                 console.log(toJS(this.data));
             })
             .catch((error) => {
-                this.error = error.response.status
-                this.isOpenError = true
+               ErrorStore.catchingErrors(error)
                 console.log(error)
 
             })

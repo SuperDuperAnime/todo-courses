@@ -22,6 +22,7 @@ import { Category } from "./components/Category/Category";
 import { ContentContainer } from "./components/Content/ContentContainer";
 import { MobPanel } from "./components/MobPanel";
 import {Alert} from "@material-ui/lab";
+import {ErrorAlert} from "./components/ErrorAlert";
 
 const useStyles = makeStyles({
   root: {
@@ -98,23 +99,7 @@ const App = observer(() => {
           </Box>
         </Hidden>
       </Container>
-      <Snackbar
-          anchorOrigin={{vertical: 'top', horizontal: 'center'}}
-          open={store.isOpenError} autoHideDuration={6000} onClose={()=>{
-        store.toggleOpen(false)
-      }}>
-        <Alert onClose={()=>{
-          store.toggleOpen(false)
-        }} severity="error">
-          {()=>{
-          if(typeof store.error==="number"){
-           return  store.error===404? "такого аниме нет": ''
-          } else {
-           return  store.error
-          }
-          }}
-        </Alert>
-      </Snackbar>
+     <ErrorAlert/>
     </div>
   );
 });
