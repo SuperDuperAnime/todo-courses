@@ -8,7 +8,6 @@ import {CardType, CategoriesType, IResponse, IResponseTop} from "./types";
 import LayoutStore from "./LayoutStore";
 import ErrorStore from "./ErrorStore";
 import {string} from "zod";
-import {log} from "util";
 
 
 class store {
@@ -63,7 +62,6 @@ class store {
     setCategory(select: CategoriesType) {
         this.content = null;
         this.data = [];
-        //if(select !== this.category) this.currentPage = 1
         
         switch (select) {
             case "character":
@@ -94,7 +92,6 @@ class store {
 
     setFavorite() {
         if (this.content === null) return;
-
         let pos = this.favorite.findIndex(item => item.mal_id == this.content?.mal_id)
 
         if (pos !== -1) {
@@ -105,21 +102,27 @@ class store {
             this.favorite.unshift(this.content);
         }
         localStorage.setItem(`favoriteArr`, JSON.stringify(this.favorite));
+      
     }
 
     async getTopAnime() {
         this.loading = true;
         await axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/anime/${this.currentPage.anime}`)
             .then((res) => {
+
                 this.topAnime = this.topAnime.concat(res.data.top)
-                //--------------------Ю
+              
                 this.data = this.topAnime
                 this.currentPage.anime +=1;
+
+                this.favoriteCheck(this.topAnime)
+
             })
             .catch((error) => console.log(error.response))
             .then(() => {
                 this.loading = false;
             })
+
             .finally(
                 () => this.setFetching(false)
             )
@@ -130,12 +133,13 @@ class store {
             this.loading = true;
             axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/${this.currentPage.characters}`)
                 .then(res => {
+             
                     this.topCharacter = this.topCharacter.concat(res.data.top)
                     if (this.category === "character") {
                         this.data = this.topCharacter
                         this.currentPage.characters +=1;
                     }
-
+ this.favoriteCheck(this.topCharacter)
                 })
                 .catch((error) => console.log(error.response))
                 .then(() => {
@@ -145,8 +149,20 @@ class store {
                     () => this.setFetching(false)
                 )
         
+
     }
 
+    favoriteCheck(data: CardType[]) {
+        data.forEach((e) => {
+            this.favorite
+                .map((event) => {
+                    return event.mal_id;
+                })
+                .includes(e.mal_id)
+                ? (e.isFavorite = true)
+                : (e.isFavorite = false);
+        });
+    }
 
     async startSearch(textInput: string) {
 
@@ -161,16 +177,9 @@ class store {
                 `https://api.jikan.moe/v3/${this.action}/${this.category}?q=${textInput}&limit=5&page=1`
             )
             .then((res) => {
-                res.data.results.forEach((e) => {
-                    this.favorite
-                        .map((event) => {
-                            return event.mal_id;
-                        })
-                        .includes(e.mal_id)
-                        ? (e.isFavorite = true)
-                        : (e.isFavorite = false);
-                });
                 this.data = res.data.results;
+                this.favoriteCheck(this.data)
+
             })
             .catch((error) => {
                 ErrorStore.catchingErrors(error)
@@ -183,8 +192,7 @@ class store {
     }
 
 
-
-    startSearchWithDelay( ms: number, textInput:string) {
+    startSearchWithDelay(ms: number, textInput: string) {
         if (this.isThrottle) {
             console.log('тротл')
             this.isWaiting = true

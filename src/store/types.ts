@@ -33,13 +33,13 @@ export interface IResponseTop {
 }
 
 
-const AnimeFromCharacterResponseZod = z.object({
+ const AnimeFromCharacterResponseZod = z.object({
     mal_id: z.number(),
     type: z.literal('anime'),
     name: z.string(),
     url: z.string(),
 })
-type  AnimeFromCharacterResponseType = z.infer<typeof AnimeFromCharacterResponseZod>
+export type  AnimeFromCharacterResponseType = z.infer<typeof AnimeFromCharacterResponseZod>
 
 
 const MangaFromCharacterResponseZod = z.object({

@@ -1,12 +1,12 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {
-  Card,
-  Fab,
-  makeStyles,
-  Grid,
-  Box,
-  colors,
-  Paper,
+    Card,
+    Fab,
+    makeStyles,
+    Grid,
+    Box,
+    colors,
+    Paper, SvgIconTypeMap,
 } from "@material-ui/core";
 import { observer } from "mobx-react-lite";
 import Typography from "@material-ui/core/Typography";
@@ -18,6 +18,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { CategoriesType } from "../../store/types";
 import classes from "./Content.module.css";
+import {OverridableComponent} from "@material-ui/core/OverridableComponent";
 
 // interface IContent {
 //   title?: string;
@@ -81,21 +82,22 @@ import classes from "./Content.module.css";
 // );
 interface IContent {
     title: string;
-    isFavorite?: boolean
+    favoriteIcon:  JSX.Element;
+    children: JSX.Element
 }
-
 
 export const Content = observer(
     ({
          title,
-        isFavorite
+        favoriteIcon,
+         children
      }: IContent) => {
 
         return (
             <Paper className={classes.root}>
                 <Box className={classes.contentWrapper}>
                     <Paper className={classes.header}>
-                        <Hidden mdUp smUp>
+                        <Hidden  smUp>
                             <Fab
                                 className={classes.fab}
                                 color="primary"
@@ -105,26 +107,20 @@ export const Content = observer(
                             >
                                 <ArrowBackIcon />
                             </Fab>
-
                         </Hidden>
+                        <Fab className={classes.fab} onClick={() => store.setFavorite()}>
+                            {favoriteIcon}
+                        </Fab>
 
                         <Typography
-                            className={classes.title}
-                            variant={"h4"}
-                            component={"h2"}
+                            className={classes.headerTitle}
+                            variant={"h5"}
+                            component={'h3'}
                         >
                             {title}
                         </Typography>
                     </Paper>
-                    <Typography
-                        className={classes.subtitle}
-                        variant={"body1"}
-                        component={"p"}
-                    >
-                      k<Fab className={classes.fab} onClick={() => store.setFavorite()}>
-                        <FavoriteBorderIcon/>
-                    </Fab>
-                    </Typography>
+                    {children}
                 </Box>
             </Paper>
         );
