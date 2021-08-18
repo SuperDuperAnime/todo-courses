@@ -6,6 +6,7 @@ import layoutStore from "../../../store/LayoutStore";
 import store from "../../../store/store";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LayoutStore from "../../../store/LayoutStore";
+import {observer} from "mobx-react-lite";
 
 
 interface CardSmallContainerProp {
@@ -30,16 +31,17 @@ function TextDescription() {
 //         <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite} onClick={onClick}/>
 //     );
 // };
-export const CardSmallContainer = ({data}: CardSmallContainerProp) => {
-    const title = 'test'
-    const img = data.image_url
-    const favorite = store.category !== "favorite" && data.isFavorite ? <FavoriteIcon style={{fontSize: 54}}/> : null
-    const textDescription = <TextBlock description={'test'} category={layoutStore.categoryView} title={title}/>
-    const onClick = () => {
-        store.setContent(data);
-        LayoutStore.toggleActiveView("content");
+export const CardSmallContainer = observer(({data}: CardSmallContainerProp) => {
+        const title = 'test'
+        const img = data.image_url
+        const favorite = store.category !== "favorite" && data.isFavorite ? <FavoriteIcon style={{fontSize: 54}}/> : null
+        const textDescription = <TextBlock description={'test'} category={layoutStore.categoryView} title={title}/>
+        const onClick = () => {
+            store.setContent(data);
+            LayoutStore.toggleActiveView("content");
+        }
+        return (
+            <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite} onClick={onClick}/>
+        );
     }
-    return (
-        <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite} onClick={onClick}/>
-    );
-};
+)
