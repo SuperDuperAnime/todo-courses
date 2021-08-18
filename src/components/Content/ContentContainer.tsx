@@ -8,28 +8,42 @@ import {SmsFailedOutlined} from "@material-ui/icons";
 import {Box} from "@material-ui/core";
 import {Placeholder} from "./Placeholder";
 import {CharacterType, CardType, AnimeType, IIsFavorite, animeGuard, characterGuard, topGuard} from "../../store/types";
+import {BodyContent} from "./BodyContent";
+import {AnimeListFromAnime} from "./Character/AnimeListFromAnime";
 
 export const ContentContainer = observer(() => {
         const content = store.content
-
         let contentJSX = () => {
-            if (content !== null) {
+            if (content) {
+                const img = content.image_url
+                const favoriteIcon = content.isFavorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>;
+
                 if (animeGuard(content)) {
                     return <Content
                         title={content.title}
-                        isFavorite={content.isFavorite}
-
-                    />
+                        favoriteIcon={favoriteIcon}
+                    >
+                        <BodyContent img={img} preTitle={'Title: '} title={content.title} preSubtitle={'Synopsis: '}
+                                     subtitle={content.synopsis}/>
+                    </Content>
                 } else if (characterGuard(content)) {
+                    const animeList =<AnimeListFromAnime animeList={content.anime}/>
                     return <Content
                         title={content.name}
-                              isFavorite={content.isFavorite}
-                    />
+                        favoriteIcon={favoriteIcon}
+                    >
+                        <BodyContent img={img} preTitle={'Name: '} title={content.name}
+                                     preSubtitle={'This character from: '}
+                                     subtitle= {animeList}/>
+                    </Content>
                 } else if (topGuard(content)) {
                     return <Content
                         title={content.title}
-                              isFavorite={content.isFavorite}
-                    />
+                        favoriteIcon={favoriteIcon}
+                    >
+                        <BodyContent preTitle={'Title: '} title={content.title} preSubtitle={'RANK: '}
+                                     subtitle={content.rank} img={img}/>
+                    </Content>
                 } else {
                     let unrealType: never = content
                 }
@@ -41,41 +55,5 @@ export const ContentContainer = observer(() => {
         return <>
             {contentJSX()}
         </>
-        // if (store.content === null) {
-        // }
-        // const title = () => {
-        //     if (store.content === null) return;
-        //     return store.content.title || store.content.name;
-        // };
-        // const prefixTitle = store.category === "anime" ? "Title" : "Name";
-        // const subtitle = () => {
-        //     if (store.content === null) return;
-        //     return store.content.synopsis || store.content.alternative_names;
-        // };
-        // const prefixSubtitle = store.category === "anime" ? "Description" : "AltName";
-        // const img = () => {
-        //     if (store.content === null) return;
-        //     return store.content.image_url;
-        // };
-        // const favorite = () => {
-        //     if (store.content === null) return <SmsFailedOutlined/>;
-        //     return store.content.isFavorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>;
-        // };
-        // return (
-        //     <>
-        //         {store.content === null ? (
-        //             <Placeholder/>
-        //         ) : (
-        //             <Content
-        //                 title={title()}
-        //                 prefixTitle={prefixTitle}
-        //                 subtitle={subtitle()}
-        //                 prefixSubtitle={prefixSubtitle}
-        //                 img={img()}
-        //                 favoriteIcon={favorite()}
-        //             />
-        //         )}
-        //     </>
-        // );
     }
 );

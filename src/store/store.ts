@@ -74,7 +74,6 @@ class store {
 
     setFavorite() {
         if (this.content === null) return;
-
         let pos = this.favorite.findIndex(item => item.mal_id == this.content?.mal_id)
 
         if (pos !== -1) {
@@ -85,6 +84,7 @@ class store {
             this.favorite.unshift(this.content);
         }
         localStorage.setItem(`favoriteArr`, JSON.stringify(this.favorite));
+        // let indexOfCheck2 = this.favorite.filter(item => item.mal_id !== this.content!.mal_id)
     }
 
     async getTop() {
@@ -92,18 +92,34 @@ class store {
         await axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/anime`)
             .then((res) => {
                 this.topAnime = res.data.top
+                this.favoriteCheck(this.topAnime)
             })
             .catch((error) => console.log(error.response))
             .then(() => {
                 this.loading = false;
             })
-        setTimeout(() => {
+        await setTimeout(() => {
             axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters`)
-                .then(res => this.topCharacter = res.data.top)
+                .then(res => {
+                        this.topCharacter = res.data.top
+                        this.favoriteCheck(this.topCharacter)
+                    }
+                )
                 .catch((error) => console.log(error.response))
-        }, 2000)
+        }, 1000)
     }
 
+    favoriteCheck(data: CardType[]) {
+        data.forEach((e) => {
+            this.favorite
+                .map((event) => {
+                    return event.mal_id;
+                })
+                .includes(e.mal_id)
+                ? (e.isFavorite = true)
+                : (e.isFavorite = false);
+        });
+    }
 
     async startSearch(textInput: string) {
 
@@ -118,16 +134,9 @@ class store {
                 `https://api.jikan.moe/v3/${this.action}/${this.category}?q=${textInput}&limit=5&page=1`
             )
             .then((res) => {
-                res.data.results.forEach((e) => {
-                    this.favorite
-                        .map((event) => {
-                            return event.mal_id;
-                        })
-                        .includes(e.mal_id)
-                        ? (e.isFavorite = true)
-                        : (e.isFavorite = false);
-                });
                 this.data = res.data.results;
+                this.favoriteCheck(this.data)
+
             })
             .catch((error) => {
                 ErrorStore.catchingErrors(error)
@@ -140,8 +149,7 @@ class store {
     }
 
 
-
-    startSearchWithDelay( ms: number, textInput:string) {
+    startSearchWithDelay(ms: number, textInput: string) {
         if (this.isThrottle) {
             console.log('тротл')
             this.isWaiting = true
