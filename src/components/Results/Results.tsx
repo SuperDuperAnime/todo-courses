@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactHTML, ReactHTMLElement, useEffect, useRef, useState}from "react";
 import store from "../../store/store";
 import {observer} from "mobx-react-lite";
 import {
@@ -8,12 +8,14 @@ import {
     Paper,
     Box,
     CircularProgress,
+    BoxProps,
 } from "@material-ui/core";
 import {CardSmall} from "./CardSmall/CardSmall";
 import {AnimeSearchInput} from "./input/AnimeSearchInput";
 import LayoutStore from "../../store/LayoutStore";
 import {categories} from "../Category/Category";
 import {CardSmallContainer} from "./CardSmall/CardSmallContainer";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,6 +43,32 @@ const useStyles = makeStyles((theme) => ({
 
 export const Results = observer(() => {
     const classes = useStyles();
+
+    const toResultRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        toResultRef.current?.scrollTo(0, 0)
+    }, [store.category])
+
+    function scrollResult(e: any) {
+        if (e.target.scrollHeight - (e.target.scrollTop + (window.innerHeight-e.target.getBoundingClientRect().top)) < 100) {
+            store.setFetching(true)
+        }
+    }
+    useEffect( () => {
+        if (store.fetching) {
+            switch(store.category) {
+                case "anime" : store.getTopAnime()
+                break;
+                case "character" : store.getTopCharacters()
+                break;
+                default:
+                return
+            }
+            
+            
+        }
+      }, [store.fetching])
+    
     //todo если нет поиска, то надо показывать всё подряд
     const cardList =
         store.data === null ? (
@@ -59,7 +87,7 @@ export const Results = observer(() => {
                     //   isFavorite={item.isFavorite}
                     //   card={item}
                     // />
-                    <CardSmallContainer key={el.mal_id} data={el}/>
+                    <CardSmallContainer key={`${el.mal_id}${Math.random()}`} data={el}/>
                 );
             })
         );
@@ -73,7 +101,8 @@ export const Results = observer(() => {
                 <Box>
                     {text}
                 </Box>
-                <Box className={classes.cardsListScroll}>{cardList}</Box>
+                
+                <div ref = {toResultRef} onScroll = {scrollResult} className={classes.cardsListScroll}>{cardList}</div>
             </Box>
         </Paper>
     );

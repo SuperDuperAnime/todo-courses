@@ -1,3 +1,4 @@
+import React, {useRef} from 'react'
 import {makeAutoObservable} from "mobx";
 import axios from "axios";
 import {toJS} from "mobx";
@@ -22,17 +23,28 @@ class store {
     favorite: CardType[] = [];
     loading = false;
     isThrottle = false;
-    isWaiting = false
+    isWaiting = false;
+    fetching = false;
+    currentPage = {
+        anime: 1,
+        characters: 1,
+        favorite: 1
+    };
 
     constructor() {
         makeAutoObservable(this);
         this.startProgram();
-        this.getTop().then(() => {
-            this.data = this.topAnime
+        this.getTopAnime().then(() => {
+            //----------------->
+            //this.data = this.topAnime
             LayoutStore.setCategoriesView("top")
         })
 
+        this.getTopCharacters()
+
     }
+
+    
 
 
     startProgram() {
@@ -43,13 +55,20 @@ class store {
         console.log(toJS(this.favorite));
     }
 
+    setFetching(fetchingBoolean: boolean) {
+        this.fetching = fetchingBoolean
+    }
+
 
     setCategory(select: CategoriesType) {
         this.content = null;
         this.data = [];
+        //if(select !== this.category) this.currentPage = 1
+        
         switch (select) {
             case "character":
                 this.data = this.topCharacter
+                //todo сменить top
                 LayoutStore.categoryView = "top";
                 break
             case "anime":
@@ -88,21 +107,44 @@ class store {
         localStorage.setItem(`favoriteArr`, JSON.stringify(this.favorite));
     }
 
-    async getTop() {
+    async getTopAnime() {
         this.loading = true;
-        await axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/anime`)
+        await axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/anime/${this.currentPage.anime}`)
             .then((res) => {
-                this.topAnime = res.data.top
+                this.topAnime = this.topAnime.concat(res.data.top)
+                //--------------------Ю
+                this.data = this.topAnime
+                this.currentPage.anime +=1;
             })
             .catch((error) => console.log(error.response))
             .then(() => {
                 this.loading = false;
             })
-        setTimeout(() => {
-            axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters`)
-                .then(res => this.topCharacter = res.data.top)
+            .finally(
+                () => this.setFetching(false)
+            )
+       
+    }
+
+    async getTopCharacters() {
+            this.loading = true;
+            axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/${this.currentPage.characters}`)
+                .then(res => {
+                    this.topCharacter = this.topCharacter.concat(res.data.top)
+                    if (this.category === "character") {
+                        this.data = this.topCharacter
+                        this.currentPage.characters +=1;
+                    }
+
+                })
                 .catch((error) => console.log(error.response))
-        }, 2000)
+                .then(() => {
+                    this.loading = false;
+                })
+                .finally(
+                    () => this.setFetching(false)
+                )
+        
     }
 
 
