@@ -12,22 +12,27 @@ import {string} from "zod";
 
 class store {
 
-
+    textSearch = '';
     action = "search";
     category: CategoriesType = "anime";
     content: CardType | null = null;
     data: CardType[] = [];
     topAnime: CardType[] = [];
     topCharacter: CardType[] = [];
+    searchData: CardType[] = [];
     favorite: CardType[] = [];
+    favoriteData: CardType[] = [];
     loading = false;
     isThrottle = false;
     isWaiting = false;
     fetching = false;
     currentPage = {
-        anime: 1,
-        characters: 1,
-        favorite: 1
+        topAnime: 1,
+        topCharacters: 1,
+        animeCharacters: 1,
+        // characters: 1,
+        // anime: 1,
+        favorite: 0
     };
 
     constructor() {
@@ -47,9 +52,10 @@ class store {
     startProgram() {
         let locStorage = localStorage.getItem("favoriteArr");
         if (locStorage !== null) {
-            this.favorite = JSON.parse(locStorage);
+           this.favorite = JSON.parse(locStorage);
+          // this.scrollFavorite(locStorage)
         }
-        console.log(toJS(this.favorite));
+        
     }
 
     setFetching(fetchingBoolean: boolean) {
@@ -60,7 +66,7 @@ class store {
     setCategory(select: CategoriesType) {
         this.content = null;
         this.data = [];
-
+        this.searchData = []
         switch (select) {
             case "character":
                 this.data = this.topCharacter
@@ -105,13 +111,13 @@ class store {
 
     async getTopAnime() {
         this.loading = true;
-        await axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/anime/${this.currentPage.anime}`)
+        await axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/anime/${this.currentPage.topAnime}`)
             .then((res) => {
-
+                this.setFetching(false)
                 this.topAnime = this.topAnime.concat(res.data.top)
 
                 this.data = this.topAnime
-                this.currentPage.anime += 1;
+                this.currentPage.topAnime += 1;
 
                 this.favoriteCheck(this.topAnime)
 
@@ -129,13 +135,13 @@ class store {
 
     async getTopCharacters() {
         this.loading = true;
-        axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/${this.currentPage.characters}`)
+        axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/${this.currentPage.topCharacters}`)
             .then(res => {
-
+                this.setFetching(false)
                 this.topCharacter = this.topCharacter.concat(res.data.top)
                 if (this.category === "character") {
                     this.data = this.topCharacter
-                    this.currentPage.characters += 1;
+                    this.currentPage.topCharacters += 1;
                 }
                 this.favoriteCheck(this.topCharacter)
             })
@@ -168,16 +174,19 @@ class store {
             return;
         }
         this.loading = true;
-
-
+        let a =`https://api.jikan.moe/v3/${this.action}/${this.category}?q=${textInput}&limit=10&page=${this.currentPage.animeCharacters}`
+        console.log(a)
         await axios
             .get<IResponse>(
-                `https://api.jikan.moe/v3/${this.action}/${this.category}?q=${textInput}&limit=5&page=1`
+                `https://api.jikan.moe/v3/${this.action}/${this.category}?q=${textInput}&limit=10&page=${this.currentPage.animeCharacters}`
             )
             .then((res) => {
-                this.data = res.data.results;
+                this.setFetching(false)
+                this.data = []
+                this.searchData = this.searchData.concat(res.data.results);
+                this.data = this.searchData;
                 this.favoriteCheck(this.data)
-
+                this.currentPage.animeCharacters +=1
             })
             .catch((error) => {
                 ErrorStore.catchingErrors(error)
@@ -186,11 +195,15 @@ class store {
                 setTimeout(() => {
                     this.loading = false;
                 }, 500);
-            });
+            })
+            .finally(
+                () => this.setFetching(false)
+            );
     }
 
 
     startSearchWithDelay(ms: number, textInput: string) {
+        this.textSearch = textInput;
         if (this.isThrottle) {
             console.log('тротл')
             this.isWaiting = true
@@ -215,6 +228,22 @@ class store {
         }, ms)
 
         this.isWaiting = false
+    }
+//пока не вызывается, тестим
+    scrollFavorite(locStorageData: any) {
+        this.favoriteData = JSON.parse(locStorageData);
+        console.log(this.currentPage.favorite)
+        if(this.favoriteData.length > this.favorite.length ) {
+            this.setFetching(true)
+            let arr = this.favoriteData.slice(this.currentPage.favorite, this.currentPage.favorite+10)
+            this.setFetching(false)
+            //console.log(toJS(arr))
+            this.favorite = this.favorite.concat(arr);
+            this.data = this.favorite
+            this.currentPage.favorite +=5
+            console.log(toJS(this.favorite))
+            
+        }
     }
 
 }

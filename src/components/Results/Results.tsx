@@ -47,22 +47,30 @@ export const Results = observer(() => {
     const toResultRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         toResultRef.current?.scrollTo(0, 0)
-    }, [store.category])
+    }, [LayoutStore.categoryView])
 
     function scrollResult(e: any) {
         if (e.target.scrollHeight - (e.target.scrollTop + (window.innerHeight-e.target.getBoundingClientRect().top)) < 100) {
             store.setFetching(true)
+            
         }
     }
     useEffect( () => {
+        console.log('Store Fetching',store.fetching)
         if (store.fetching) {
+            console.log(LayoutStore.categoryView)
             switch(LayoutStore.categoryView) {
                 case "topAnime" : store.getTopAnime()
                 break;
                 case "topCharacters" : store.getTopCharacters()
                 break;
+                case 'character':
+                case 'anime'  : store.startSearchWithDelay(4000, store.textSearch)
+                break;
+                // case 'favorite' : store.scrollFavorite(localStorage.getItem("favoriteArr"))
+                // break;
                 default:
-                return
+                    store.setFetching(false)
             }
             
             
