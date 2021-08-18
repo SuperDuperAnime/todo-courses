@@ -5,8 +5,16 @@ export type ActiveViewType = 'results' | 'content'
 export type CategoriesViewType = CategoriesType | 'top'
 
 export  type CardType = (CharacterType | AnimeType | TopType) & IIsFavorite
+export type CardType1 = {
+    mal_id: number,
+    title: string,
+    description: string,
+    image_url: string,
+    isFavorite: boolean,
+    category: CategoriesViewType
+}
 
-interface IIsFavorite {
+export interface IIsFavorite {
     isFavorite?: boolean;
 }
 
@@ -64,11 +72,21 @@ const AnimeZod = z.object({
 const TopZod = z.object({
     mal_id: z.number(),
     title: z.string(),
+    rank: z.number(),
     url: z.string(),
     image_url: z.string(),
 })
 
-
 export  type CharacterType = z.infer<typeof CharacterZod>
 export  type AnimeType = z.infer<typeof AnimeZod>
 export type TopType = z.infer<typeof TopZod>
+
+export function characterGuard(data: CardType): data is CharacterType{
+    return (data as CharacterType).alternative_names !== undefined
+}
+export function animeGuard(data: CardType): data is AnimeType{
+    return (data as AnimeType).synopsis !== undefined
+}
+export function topGuard(data: CardType): data is TopType{
+    return (data as TopType).rank!== undefined
+}

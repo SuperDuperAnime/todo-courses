@@ -55,7 +55,7 @@ if(textInput.length<=3){
     ErrorStore.toggleAlertError(true)
     return
 } else {
-    store.startSearch(textInput);
+    store.startSearchWithDelay(4000, textInput)
     LayoutStore.setActiveCategory();
 }
     }

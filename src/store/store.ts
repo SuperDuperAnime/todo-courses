@@ -6,6 +6,8 @@ import {naruto} from "./Category/q=Naruto";
 import {CardType, CategoriesType, IResponse, IResponseTop} from "./types";
 import LayoutStore from "./LayoutStore";
 import ErrorStore from "./ErrorStore";
+import {string} from "zod";
+import {log} from "util";
 
 
 class store {
@@ -18,9 +20,9 @@ class store {
     topAnime: CardType[] = [];
     topCharacter: CardType[] = [];
     favorite: CardType[] = [];
-    canIStartSearch = true;
     loading = false;
-
+    isThrottle = false;
+    isWaiting = false
 
     constructor() {
         makeAutoObservable(this);
@@ -40,7 +42,6 @@ class store {
         }
         console.log(toJS(this.favorite));
     }
-
 
 
     setCategory(select: CategoriesType) {
@@ -65,12 +66,13 @@ class store {
         this.category = select;
         console.log(this.category);
 
-  }
+    }
 
-  setContent(content: CardType) {
-    this.content = content;
-    console.log(toJS(this.content));
-  }
+    setContent(content: CardType) {
+        this.content = content;
+        console.log(toJS(this.content));
+    }
+
     setFavorite() {
         if (this.content === null) return;
 
@@ -82,8 +84,8 @@ class store {
         } else {
             this.content.isFavorite = true;
             this.favorite.unshift(this.content);
-
         }
+        localStorage.setItem(`favoriteArr`, JSON.stringify(this.favorite));
     }
 
     async getTop() {
@@ -104,20 +106,11 @@ class store {
     }
 
 
-
-    apiDelay4second() {
-        setTimeout(() => {
-            this.canIStartSearch = true;
-        }, 4000);
-    }
-
-
     async startSearch(textInput: string) {
-        console.log("Кнопка нажата");
+
         if (this.category === "favorite") {
             return;
         }
-        if (!this.canIStartSearch) return
         this.loading = true;
 
 
@@ -127,7 +120,6 @@ class store {
             )
             .then((res) => {
                 res.data.results.forEach((e) => {
-                    console.log(e);
                     this.favorite
                         .map((event) => {
                             return event.mal_id;
@@ -137,22 +129,46 @@ class store {
                         : (e.isFavorite = false);
                 });
                 this.data = res.data.results;
-                console.log(toJS(this.data));
             })
             .catch((error) => {
-               ErrorStore.catchingErrors(error)
-                console.log(error)
-
+                ErrorStore.catchingErrors(error)
             })
             .then(() => {
                 setTimeout(() => {
                     this.loading = false;
                 }, 500);
             });
-        console.log("ответ получен");
-        this.canIStartSearch = false;
-        this.apiDelay4second();
     }
+
+
+
+    startSearchWithDelay( ms: number, textInput:string) {
+        if (this.isThrottle) {
+            console.log('тротл')
+            this.isWaiting = true
+            console.log('ждем снятия ограничения')
+            return
+        } else {
+            console.log('startsearch')
+            this.isThrottle = true
+            this.startSearch(textInput)
+
+        }
+        setTimeout(() => {
+            console.log('4сек прошло снимаем ограничение')
+            this.isThrottle = false
+            if (this.isWaiting) {
+                console.log('ограничение снято, запрос отправлен')
+                this.startSearch(textInput)
+            } else {
+                console.log('ограничение снято, запрос не отправлялся')
+                return
+            }
+        }, ms)
+
+        this.isWaiting = false
+    }
+
 }
 
 export default new store();
