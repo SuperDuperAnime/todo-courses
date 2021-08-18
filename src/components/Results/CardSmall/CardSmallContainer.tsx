@@ -1,6 +1,6 @@
 import React from 'react';
 import {CardSmall} from "./CardSmall";
-import {CardType} from "../../../store/types";
+import {animeGuard, CardType, characterGuard, topGuard} from "../../../store/types";
 import {TextBlock} from "./TextBlock";
 import layoutStore from "../../../store/LayoutStore";
 import store from "../../../store/store";
@@ -32,16 +32,37 @@ function TextDescription() {
 //     );
 // };
 export const CardSmallContainer = observer(({data}: CardSmallContainerProp) => {
-        const title = 'test'
+
         const img = data.image_url
         const favorite = store.category !== "favorite" && data.isFavorite ? <FavoriteIcon style={{fontSize: 54}}/> : null
-        const textDescription = <TextBlock description={'test'} category={layoutStore.categoryView} title={title}/>
         const onClick = () => {
             store.setContent(data);
             LayoutStore.toggleActiveView("content");
         }
-        return (
-            <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite} onClick={onClick}/>
-        );
+
+        const cardSmall = () => {
+            if (animeGuard(data)) {
+                const title = data.title
+                const textDescription = <TextBlock description={data.synopsis} category={layoutStore.categoryView} title={title}/>
+                return <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite}
+                                  onClick={onClick}/>
+            } else if (characterGuard(data)) {
+                const title = data.name
+                const textDescription = <TextBlock description={undefined} category={layoutStore.categoryView} title={title}/>
+                return <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite}
+                                  onClick={onClick}/>
+            } else if (topGuard(data)) {
+                const title = data.title
+                const textDescription = <TextBlock description={undefined} category={layoutStore.categoryView} title={title}/>
+                return <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite}
+                                  onClick={onClick}/>
+            } else {
+                let unrealType: never = data
+            }
+        }
+
+return <>
+    {cardSmall()}
+</>
     }
 )
