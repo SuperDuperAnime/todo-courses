@@ -1,6 +1,6 @@
 import React from 'react';
 import {CardSmall} from "./CardSmall";
-import {animeGuard, CardType, characterGuard, topGuard} from "../../../store/types";
+import {animeGuard, CardType, characterGuard, topAnimeGuard, topCharactersGuard} from "../../../store/types";
 import {TextBlock} from "./TextBlock";
 import layoutStore from "../../../store/LayoutStore";
 import store from "../../../store/store";
@@ -33,8 +33,6 @@ function TextDescription() {
 // };
 export const CardSmallContainer = observer(({data}: CardSmallContainerProp) => {
 
-=======
-
         const img = data.image_url
         const favorite = store.category !== "favorite" && data.isFavorite ? <FavoriteIcon style={{fontSize: 54}}/> : null
         const onClick = () => {
@@ -53,7 +51,12 @@ export const CardSmallContainer = observer(({data}: CardSmallContainerProp) => {
                 const textDescription = <TextBlock description={undefined} category={layoutStore.categoryView} title={title}/>
                 return <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite}
                                   onClick={onClick}/>
-            } else if (topGuard(data)) {
+            } else if (topAnimeGuard(data)) {
+                const title = data.title
+                const textDescription = <TextBlock description={undefined} category={layoutStore.categoryView} title={title}/>
+                return <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite}
+                                  onClick={onClick}/>
+            } else if (topCharactersGuard(data)){
                 const title = data.title
                 const textDescription = <TextBlock description={undefined} category={layoutStore.categoryView} title={title}/>
                 return <CardSmall key={data.mal_id} textDescription={textDescription} img={img} favorite={favorite}

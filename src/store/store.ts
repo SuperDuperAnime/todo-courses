@@ -36,14 +36,12 @@ class store {
         this.getTopAnime().then(() => {
             //----------------->
             //this.data = this.topAnime
-            LayoutStore.setCategoriesView("top")
+            LayoutStore.setCategoriesView("topAnime")
         })
 
         this.getTopCharacters()
 
     }
-
-    
 
 
     startProgram() {
@@ -62,16 +60,16 @@ class store {
     setCategory(select: CategoriesType) {
         this.content = null;
         this.data = [];
-        
+
         switch (select) {
             case "character":
                 this.data = this.topCharacter
                 //todo сменить top
-                LayoutStore.categoryView = "top";
+                LayoutStore.categoryView = "topCharacters";
                 break
             case "anime":
                 this.data = this.topAnime
-                LayoutStore.categoryView = "top";
+                LayoutStore.categoryView = "topAnime";
                 break
             case "favorite":
                 this.data = this.favorite;
@@ -102,7 +100,7 @@ class store {
             this.favorite.unshift(this.content);
         }
         localStorage.setItem(`favoriteArr`, JSON.stringify(this.favorite));
-      
+
     }
 
     async getTopAnime() {
@@ -111,9 +109,9 @@ class store {
             .then((res) => {
 
                 this.topAnime = this.topAnime.concat(res.data.top)
-              
+
                 this.data = this.topAnime
-                this.currentPage.anime +=1;
+                this.currentPage.anime += 1;
 
                 this.favoriteCheck(this.topAnime)
 
@@ -126,29 +124,29 @@ class store {
             .finally(
                 () => this.setFetching(false)
             )
-       
+
     }
 
     async getTopCharacters() {
-            this.loading = true;
-            axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/${this.currentPage.characters}`)
-                .then(res => {
-             
-                    this.topCharacter = this.topCharacter.concat(res.data.top)
-                    if (this.category === "character") {
-                        this.data = this.topCharacter
-                        this.currentPage.characters +=1;
-                    }
- this.favoriteCheck(this.topCharacter)
-                })
-                .catch((error) => console.log(error.response))
-                .then(() => {
-                    this.loading = false;
-                })
-                .finally(
-                    () => this.setFetching(false)
-                )
-        
+        this.loading = true;
+        axios.get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/${this.currentPage.characters}`)
+            .then(res => {
+
+                this.topCharacter = this.topCharacter.concat(res.data.top)
+                if (this.category === "character") {
+                    this.data = this.topCharacter
+                    this.currentPage.characters += 1;
+                }
+                this.favoriteCheck(this.topCharacter)
+            })
+            .catch((error) => console.log(error.response))
+            .then(() => {
+                this.loading = false;
+            })
+            .finally(
+                () => this.setFetching(false)
+            )
+
 
     }
 

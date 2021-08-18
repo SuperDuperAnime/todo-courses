@@ -56,10 +56,10 @@ export const Results = observer(() => {
     }
     useEffect( () => {
         if (store.fetching) {
-            switch(store.category) {
-                case "anime" : store.getTopAnime()
+            switch(LayoutStore.categoryView) {
+                case "topAnime" : store.getTopAnime()
                 break;
-                case "character" : store.getTopCharacters()
+                case "topCharacters" : store.getTopCharacters()
                 break;
                 default:
                 return
@@ -76,30 +76,18 @@ export const Results = observer(() => {
         ) : (
             store.data.map(el => {
                 return (
-                    // <CardSmall
-                    //   key={Math.random() + item.mal_id}
-                    //   img={item.image_url}
-                    //   title={item.title || item.name}
-                    //   name={item.name}
-                    //   synopsis={item.synopsis}
-                    //   alternative_names={item.alternative_names}
-                    //   category={item.synopsis ? "anime" : "character"}
-                    //   isFavorite={item.isFavorite}
-                    //   card={item}
-                    // />
                     <CardSmallContainer key={`${el.mal_id}${Math.random()}`} data={el}/>
                 );
             })
         );
-   let text = 'Top'
-    categories.forEach(el => el.value === LayoutStore.categoryView ?  text= el.text : null)
+
     return (
         <Paper className={classes.root}>
             <Box className={classes.cardsList}>
                 <AnimeSearchInput/>
 
                 <Box>
-                    {text}
+                    {LayoutStore.categoryView}
                 </Box>
                 
                 <div ref = {toResultRef} onScroll = {scrollResult} className={classes.cardsListScroll}>{cardList}</div>

@@ -2,9 +2,9 @@ import {z} from "zod";
 
 export type CategoriesType = "anime" | "character" | "favorite"
 export type ActiveViewType = 'results' | 'content'
-export type CategoriesViewType = CategoriesType | 'top'
+export type CategoriesViewType = CategoriesType | 'topAnime' | 'topCharacters'
 
-export  type CardType = (CharacterType | AnimeType | TopType) & IIsFavorite
+export  type CardType = (CharacterType | AnimeType | TopAnimeType| TopCharactersType) & IIsFavorite
 export type CardType1 = {
     mal_id: number,
     title: string,
@@ -29,7 +29,7 @@ export interface IResponseTop {
     request_hash: string,
     request_cached: boolean,
     request_cache_expiry: number,
-    top: TopType[]
+    top: TopAnimeType[]|TopCharactersType[]
 }
 
 
@@ -69,8 +69,18 @@ const AnimeZod = z.object({
     synopsis: z.string(),
 })
 
-const TopZod = z.object({
+const TopAnimeZod = z.object({
     mal_id: z.number(),
+    episodes: z.number(),
+    score: z.number(),
+    title: z.string(),
+    rank: z.number(),
+    url: z.string(),
+    image_url: z.string(),
+})
+const TopCharactersZod = z.object({
+    mal_id: z.number(),
+    animeography: z.array(AnimeFromCharacterResponseZod),
     title: z.string(),
     rank: z.number(),
     url: z.string(),
@@ -79,7 +89,8 @@ const TopZod = z.object({
 
 export  type CharacterType = z.infer<typeof CharacterZod>
 export  type AnimeType = z.infer<typeof AnimeZod>
-export type TopType = z.infer<typeof TopZod>
+export type TopAnimeType = z.infer<typeof TopAnimeZod>
+export type TopCharactersType = z.infer<typeof TopCharactersZod>
 
 export function characterGuard(data: CardType): data is CharacterType{
     return (data as CharacterType).alternative_names !== undefined
@@ -87,6 +98,9 @@ export function characterGuard(data: CardType): data is CharacterType{
 export function animeGuard(data: CardType): data is AnimeType{
     return (data as AnimeType).synopsis !== undefined
 }
-export function topGuard(data: CardType): data is TopType{
-    return (data as TopType).rank!== undefined
+export function topAnimeGuard(data: CardType): data is TopAnimeType{
+    return (data as TopAnimeType).score!== undefined
+}
+export function topCharactersGuard(data: CardType): data is TopCharactersType{
+    return (data as TopCharactersType).animeography!== undefined
 }

@@ -7,7 +7,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import {SmsFailedOutlined} from "@material-ui/icons";
 import {Box} from "@material-ui/core";
 import {Placeholder} from "./Placeholder";
-import {CharacterType, CardType, AnimeType, IIsFavorite, animeGuard, characterGuard, topGuard} from "../../store/types";
+import {CharacterType, CardType, AnimeType, IIsFavorite, animeGuard, characterGuard, topAnimeGuard, topCharactersGuard} from "../../store/types";
 import {BodyContent} from "./BodyContent";
 import {AnimeListFromAnime} from "./Character/AnimeListFromAnime";
 
@@ -36,7 +36,15 @@ export const ContentContainer = observer(() => {
                                      preSubtitle={'This character from: '}
                                      subtitle= {animeList}/>
                     </Content>
-                } else if (topGuard(content)) {
+                } else if (topAnimeGuard(content)) {
+                    return <Content
+                        title={content.title}
+                        favoriteIcon={favoriteIcon}
+                    >
+                        <BodyContent preTitle={'Title: '} title={content.title} preSubtitle={'RANK: '}
+                                     subtitle={content.rank} img={img}/>
+                    </Content>
+                } else if(topCharactersGuard(content)){
                     return <Content
                         title={content.title}
                         favoriteIcon={favoriteIcon}
