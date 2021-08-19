@@ -45,6 +45,7 @@ const useStyle = makeStyles({
 })
 export const TextBlock = ({category, title,description}: TextBlockProp) => {
     const classes = useStyle()
+
     const textDescription = category === "anime" ? (
             <>
                 <Typography

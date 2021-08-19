@@ -62,7 +62,6 @@ const useStyles = makeStyles({
 });
 const App = observer(() => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <CssBaseline />
