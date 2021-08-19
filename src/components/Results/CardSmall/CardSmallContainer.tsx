@@ -34,7 +34,7 @@ function TextDescription() {
 export const CardSmallContainer = observer(({data}: CardSmallContainerProp) => {
 
         const img = data.image_url
-        const favorite = store.category !== "favorite" && data.isFavorite ? <FavoriteIcon style={{fontSize: 54}}/> : null
+        const favorite = store.category !== "favorite" && data.isFavorite ? <FavoriteIcon style={{fontSize: 25, color: 'indigo'}}/> : null
         const onClick = () => {
             store.setContent(data);
             LayoutStore.toggleActiveView("content");

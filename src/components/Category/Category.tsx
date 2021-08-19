@@ -4,13 +4,15 @@ import { observer } from "mobx-react-lite";
 import { Button, ButtonGroup, makeStyles, Paper } from "@material-ui/core";
 import { CategoriesType } from "../../store/types";
 import { CategoryButton } from "./CategoryButton";
+import {colors} from "../../store/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "150px",
     margin: 8,
-    background: "linear-gradient(246.82deg, #FFCADC 0%, #C8FFFD 58.33%)",
+    background: colors.tertiaryBG,
     height: "calc(100vh - 96px)",
+    boxShadow: "4px 4px 8px 0px rgba(74, 97, 114, 0.2)",
   },
   rootRow: {
     width: 280,
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   categoriesRow: {
     flexDirection: "row",
+
   },
 }));
 export const categories: { value: CategoriesType; text: string }[] = [

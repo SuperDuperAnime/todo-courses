@@ -10,13 +10,14 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import LayoutStore from "../../store/LayoutStore";
+import {colors} from "../../store/colors";
 
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     height: "64px",
     display: "flex",
-    background: "rgba(130, 188, 255, 1)",
+    background: colors.secondFill,
   },
   toolbar: {},
 }));
@@ -28,7 +29,7 @@ export const Appbar = () => {
       position={"static"}
       className={classes.wrapper}
       color={"transparent"}
-      elevation={0}
+      elevation={8}
     >
       <Container>
         <Toolbar className={classes.toolbar}>

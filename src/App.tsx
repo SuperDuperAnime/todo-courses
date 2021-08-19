@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import store from "./store/store";
 import { observer } from "mobx-react-lite";
+import './index.css'
 import {
   Box,
   Button,
@@ -9,7 +10,7 @@ import {
   CssBaseline,
   makeStyles,
   Grid,
-  colors,
+
   Hidden,
   CircularProgress,
   Backdrop, Snackbar
@@ -23,6 +24,7 @@ import { ContentContainer } from "./components/Content/ContentContainer";
 import { MobPanel } from "./components/MobPanel";
 import {Alert} from "@material-ui/lab";
 import {ErrorAlert} from "./components/ErrorAlert";
+import {colors} from "./store/colors";
 
 const useStyles = makeStyles({
   root: {
@@ -30,8 +32,9 @@ const useStyles = makeStyles({
     position: "relative",
     width: "100vw",
     height: "100vh",
-    background: "linear-gradient(315deg, #FFDEE9 0%, #B5FFFC 100%)",
-    flexDirection: "column"
+    background: colors.primaryBG,
+    flexDirection: "column",
+    color: colors.firstFill,
   },
   container: {
     position: "relative",
@@ -48,7 +51,7 @@ const useStyles = makeStyles({
     position: "relative",
     flexGrow: 1,
     height: "calc(100vh - 64px)",
-    background: "transparent"
+    background: 'transparent'
   },
   backdrop: {
     color: "rgba(0,0,0,0.3)"

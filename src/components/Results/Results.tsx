@@ -16,6 +16,7 @@ import LayoutStore from "../../store/LayoutStore";
 import {categories} from "../Category/Category";
 import {CardSmallContainer} from "./CardSmall/CardSmallContainer";
 import axios from "axios";
+import {colors} from "../../store/colors";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         margin: 8,
         height: "calc(100vh - 64px - 32px)",
-        background: "linear-gradient(113.18deg, #FFCADC 0%, #C8FFFD 58.33%)",
+        background: colors.firstFill,
     },
     cardsList: {
         position: "relative",
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardsListScroll: {
         position: "absolute",
-        height: "calc(100vh - 64px - 128px)",
+        height: "calc(100vh - 64px - 132px)",
         width: "260px",
         overflowY: "auto",
     },
