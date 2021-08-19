@@ -1,1 +1,19 @@
-/*todo удалите уж*/
+*::-webkit-scrollbar {
+    width: 4px;
+
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+    border-top: 4px solid rgba(255, 197, 66, 1);
+    border-bottom: 4px solid rgba(255, 197, 66, 1);
+
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 197, 66, 1);
+    border-radius: 20px;
+
+
+}

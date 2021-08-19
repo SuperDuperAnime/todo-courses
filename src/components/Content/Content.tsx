@@ -8,15 +8,15 @@ import {
     colors,
     Paper, SvgIconTypeMap,
 } from "@material-ui/core";
-import { observer } from "mobx-react-lite";
+import {observer} from "mobx-react-lite";
 import Typography from "@material-ui/core/Typography";
-import { Hidden} from "@material-ui/core";
+import {Hidden} from "@material-ui/core";
 import store from "../../store/store";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import LayoutStore from "../../store/LayoutStore";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { CategoriesType } from "../../store/types";
+import {CategoriesType} from "../../store/types";
 import classes from "./Content.module.css";
 import {OverridableComponent} from "@material-ui/core/OverridableComponent";
 
@@ -82,33 +82,36 @@ import {OverridableComponent} from "@material-ui/core/OverridableComponent";
 // );
 interface IContent {
     title: string;
-    favoriteIcon:  JSX.Element;
+    favoriteIcon: JSX.Element;
     children: JSX.Element
 }
 
 export const Content = observer(
     ({
          title,
-        favoriteIcon,
+         favoriteIcon,
          children
      }: IContent) => {
 
         return (
-            <Paper className={classes.root}>
+            <Box className={classes.root}>
                 <Box className={classes.contentWrapper}>
-                    <Paper className={classes.header}>
-                        <Hidden  smUp>
+                    <Box className={classes.header}>
+                        <Hidden smUp>
                             <Fab
                                 className={classes.fab}
+                                style={{minHeight: "40px", minWidth: "40px"}}
                                 color="primary"
                                 onClick={() => {
                                     LayoutStore.toggleActiveView("results");
                                 }}
                             >
-                                <ArrowBackIcon />
+                                <ArrowBackIcon/>
                             </Fab>
                         </Hidden>
-                        <Fab className={classes.fab} onClick={() => store.setFavorite()}>
+                        <Fab className={classes.fab}
+                             style={{minHeight: "40px", minWidth: "40px"}}
+                             onClick={() => store.setFavorite()}>
                             {favoriteIcon}
                         </Fab>
 
@@ -119,10 +122,10 @@ export const Content = observer(
                         >
                             {title}
                         </Typography>
-                    </Paper>
+                    </Box>
                     {children}
                 </Box>
-            </Paper>
+            </Box>
         );
     }
 );

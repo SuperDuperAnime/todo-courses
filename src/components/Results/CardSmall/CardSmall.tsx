@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     root: {
         display: "flex",
         position: "relative",
-        width: 244,
+        width: 240,
         background: "rgba(255,255,255,0.5)",
         // minWidth: 250,
         height: 64,
@@ -36,8 +36,11 @@ const useStyles = makeStyles({
 
 
     fav: {
-        width: 56,
-        height: 56,
+        position: "absolute",
+        right: 0,
+         top:0,
+        width: 25,
+        height: 25,
     },
 
 });

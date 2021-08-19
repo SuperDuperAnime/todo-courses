@@ -13,7 +13,7 @@ interface TextBlockProp {
 
 const useStyle = makeStyles({
     textWrapper: {
-        width: 144,
+        width: 140,
         height: 64,
         display: "flex",
         flexDirection: "column",

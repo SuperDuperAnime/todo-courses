@@ -17,12 +17,12 @@ export const BodyContent = ({img, title, subtitle, preSubtitle, preTitle}: BodyC
         <Typography
             className={classes.subtitle}
             variant={"body1"}
-            component={"p"}
+            component={'div'}
         >
             <img className={classes.img} alt={"#"} src={img}/>
-            <Typography variant={'h6'} className={classes.preTitle}>{preTitle}</Typography><Typography className={classes.title} variant={'h4'}> {title}</Typography>
+            <Typography variant={'h6'} component={'div'} className={classes.preTitle}>{preTitle}</Typography><Typography className={classes.title} variant={'h4'}> {title}</Typography>
             <br/>
-            <Typography variant={'h4' } className={classes.preSubTitle}> {preSubtitle}</Typography><Typography className={classes.subTitle} variant={'h4'}>  {subtitle}</Typography>
+            <Typography variant={'h4'  }   className={classes.preSubTitle}> {preSubtitle}</Typography><Typography  className={classes.subTitle} variant={'h4'}>  {subtitle}</Typography>
         </Typography>
     );
 };
