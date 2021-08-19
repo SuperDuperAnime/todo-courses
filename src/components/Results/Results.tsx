@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         margin: 8,
         height: "calc(100vh - 64px - 32px)",
-        background: colors.firstFill,
+        background: colors.tertiaryBG,
     },
     cardsList: {
         position: "relative",

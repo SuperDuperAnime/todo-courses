@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
+import {colors} from "../../store/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -8,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     height: "calc(100% - 32px)",
     margin: 8,
-    background: "linear-gradient(113.18deg, #FFD3E2 0%, #6FFFF9 100%)",
+    background: colors.tertiaryBG,
   },
 }));
 
