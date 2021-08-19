@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   AppBar,
   Container,
@@ -10,8 +10,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import LayoutStore from "../../store/LayoutStore";
-import {colors} from "../../store/colors";
-
+import { colors } from "../../store/colors";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -42,7 +41,7 @@ export const Appbar = () => {
               <MenuIcon />
             </IconButton>
           </Hidden>
-          <Typography variant="h5" component="h2" >
+          <Typography variant="h5" component="h2">
             SuperDuperAnime
           </Typography>
         </Toolbar>

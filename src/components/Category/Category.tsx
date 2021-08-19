@@ -1,10 +1,9 @@
 import React from "react";
-import store from "../../store/store";
 import { observer } from "mobx-react-lite";
-import { Button, ButtonGroup, makeStyles, Paper } from "@material-ui/core";
+import { ButtonGroup, makeStyles, Paper } from "@material-ui/core";
 import { CategoriesType } from "../../store/types";
 import { CategoryButton } from "./CategoryButton";
-import {colors} from "../../store/colors";
+import { colors } from "../../store/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   },
   categoriesRow: {
     flexDirection: "row",
-
   },
 }));
 export const categories: { value: CategoriesType; text: string }[] = [

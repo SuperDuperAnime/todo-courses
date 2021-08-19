@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
-import {colors} from "../../store/colors";
+import { colors } from "../../store/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {

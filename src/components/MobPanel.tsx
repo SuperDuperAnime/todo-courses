@@ -3,7 +3,6 @@ import { Box, Hidden, makeStyles, SwipeableDrawer } from "@material-ui/core";
 import LayoutStore from "../store/LayoutStore";
 import { observer } from "mobx-react-lite";
 import { Category } from "./Category/Category";
-import { Results } from "./Results/Results";
 
 const useStyles = makeStyles((theme) => ({
   root: {

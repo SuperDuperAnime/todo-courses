@@ -1,78 +1,60 @@
-import React, {ReactNode} from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {Grid, Fab, Box} from "@material-ui/core";
+import React, { ReactNode } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import {observer} from "mobx-react-lite";
-import store from "../../../store/store";
-import LayoutStore from "../../../store/LayoutStore";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import {CardType} from "../../../store/types";
+import { observer } from "mobx-react-lite";
 
 const useStyles = makeStyles({
-    root: {
-        display: "flex",
-        position: "relative",
-        width: 240,
-        background: "rgba(255,255,255,0.5)",
-        // minWidth: 250,
-        height: 64,
-        cursor: "pointer",
-        margin: "8px auto",
-    },
-    media: {
-        border: "1px solid rgba(255,255,255,0.8)",
-        width: 56,
-        height: 56,
-        borderRadius: "100%",
-        margin: 4,
-    },
+  root: {
+    display: "flex",
+    position: "relative",
+    width: 240,
+    background: "rgba(255,255,255,0.5)",
+    // minWidth: 250,
+    height: 64,
+    cursor: "pointer",
+    margin: "8px auto",
+  },
+  media: {
+    border: "1px solid rgba(255,255,255,0.8)",
+    width: 56,
+    height: 56,
+    borderRadius: "100%",
+    margin: 4,
+  },
 
-
-    fav: {
-        position: "absolute",
-        right: 0,
-         top:0,
-        width: 25,
-        height: 25,
-    },
-
+  fav: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    width: 25,
+    height: 25,
+  },
 });
 
 interface ICardSmall {
-    textDescription: ReactNode
-    img: string
-    favorite: JSX.Element | null
+  textDescription: ReactNode;
+  img: string;
+  favorite: JSX.Element | null;
 
-    onClick: ()=>void
+  onClick: () => void;
 }
 
 export const CardSmall = observer(
-    ({
-         img,  favorite, textDescription, onClick
-     }: ICardSmall) => {
-        const classes = useStyles();
+  ({ img, favorite, textDescription, onClick }: ICardSmall) => {
+    const classes = useStyles();
 
-
-        return (
-            <Card
-                className={classes.root}
-                onClick={onClick}
-            >
-                <CardMedia
-                    className={classes.media}
-                    image={img}
-                    title="Contemplative Reptile"
-                />
-                {textDescription}
-                <Box className={classes.fav}>{favorite}</Box>
-            </Card>
-        );
-    }
+    return (
+      <Card className={classes.root} onClick={onClick}>
+        <CardMedia
+          className={classes.media}
+          image={img}
+          title="Contemplative Reptile"
+        />
+        {textDescription}
+        <Box className={classes.fav}>{favorite}</Box>
+      </Card>
+    );
+  }
 );
