@@ -51,7 +51,6 @@ export const Results = observer(() => {
   }
 
   useEffect(() => {
-    console.log("Store Fetching", store.fetching);
     if (store.fetching) {
       console.log(LayoutStore.categoryView);
       switch (LayoutStore.categoryView) {
@@ -65,8 +64,8 @@ export const Results = observer(() => {
         case "anime":
           store.startSearchWithDelay(4000, store.textSearch);
           break;
-        // case 'favorite' : store.scrollFavorite(localStorage.getItem("favoriteArr"))
-        // break;
+        case 'favorite' : 
+        break;
         default:
           store.setFetching(false);
       }
