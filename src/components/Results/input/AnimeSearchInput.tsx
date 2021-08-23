@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -12,6 +12,7 @@ import LayoutStore from "../../../store/LayoutStore";
 import { Typography } from "@material-ui/core";
 import { categories } from "../../Category/Category";
 import ErrorStore from "../../../store/ErrorStore";
+import { animeGuard, characterGuard, topAnimeGuard, topCharactersGuard } from "../../../store/types";
 
 const useStyles = makeStyles({
   root: {
@@ -54,12 +55,49 @@ export const AnimeSearchInput = observer(() => {
       LayoutStore.setActiveCategory();
     }
   };
+  
+  
+  // const searchDataFavorite = store.favorite.filter(item => {
+  //   return item.title?.tolowerCase().includes(textInput.toLowerCase())
+  // })
+
+  
+//   let filterFavorite = store.favorite.filter(item => {
+//     if(animeGuard(item)) {
+//         return item.title.toLowerCase().includes(textInput.toLowerCase())
+//         console.log(item)
+//     }
+//     if (characterGuard(item)){
+//         return item.name.toLowerCase().includes(textInput.toLowerCase())
+//         console.log(item)
+//     }
+//     if (topAnimeGuard(item)){
+//         return item.title.toLowerCase().includes(textInput.toLowerCase())
+//         console.log(item)
+//     }
+//     if (topCharactersGuard(item)){
+//         return item.title.toLowerCase().includes(textInput.toLowerCase())
+//         console.log(item)
+//     }
+    
+// })
+useEffect(() => {
+  if (store.category === "favorite") store.startSearch(textInput);
+}, [textInput])
+
+
+
+
+
   return (
     <Paper
       component="form"
       onSubmit={(e) => {
         e.preventDefault();
-        validator();
+          store.category === "favorite" ?
+          store.startSearch(textInput) :
+          validator();
+        
       }}
       className={classes.root}
     >

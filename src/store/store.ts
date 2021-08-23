@@ -4,7 +4,7 @@ import axios from "axios";
 import {toJS} from "mobx";
 import {animeData} from "./Category/anime";
 import {naruto} from "./Category/q=Naruto";
-import {CardType, CategoriesType, IResponse, IResponseTop} from "./types";
+import {animeGuard, CardType, CategoriesType, characterGuard, IResponse, IResponseTop, topAnimeGuard, topCharactersGuard} from "./types";
 import LayoutStore from "./LayoutStore";
 import ErrorStore from "./ErrorStore";
 import {string} from "zod";
@@ -171,6 +171,30 @@ class store {
     async startSearch(textInput: string) {
 
         if (this.category === "favorite") {
+         
+            //let filterFavorite
+            let filterFavorite = this.favorite.filter(item => {
+                if(animeGuard(item)) {
+                    return item.title.toLowerCase().includes(textInput.toLowerCase())
+                    console.log(item)
+                }
+                if (characterGuard(item)){
+                    return item.name.toLowerCase().includes(textInput.toLowerCase())
+                    console.log(item)
+                }
+                if (topAnimeGuard(item)){
+                    return item.title.toLowerCase().includes(textInput.toLowerCase())
+                    console.log(item)
+                }
+                if (topCharactersGuard(item)){
+                    return item.title.toLowerCase().includes(textInput.toLowerCase())
+                    console.log(item)
+                }
+                
+            })
+              // return item.title?.toLowerCase().includes(textInput.toLowerCase())
+            console.log(filterFavorite)
+            this.data = filterFavorite
             return;
         }
         this.loading = true;
@@ -229,23 +253,6 @@ class store {
 
         this.isWaiting = false
     }
-//пока не вызывается, тестим
-    scrollFavorite(locStorageData: any) {
-        this.favoriteData = JSON.parse(locStorageData);
-        console.log(this.currentPage.favorite)
-        if(this.favoriteData.length > this.favorite.length ) {
-            this.setFetching(true)
-            let arr = this.favoriteData.slice(this.currentPage.favorite, this.currentPage.favorite+10)
-            this.setFetching(false)
-            //console.log(toJS(arr))
-            this.favorite = this.favorite.concat(arr);
-            this.data = this.favorite
-            this.currentPage.favorite +=5
-            console.log(toJS(this.favorite))
-            
-        }
-    }
-
 }
 
 export default new store();
