@@ -59,7 +59,7 @@ type MangaFromCharacterResponseType = z.infer<
   typeof MangaFromCharacterResponseZod
 >;
 
-const CharacterZod = z.object({
+export const CharacterZod = z.object({
   mal_id: z.number(),
   url: z.string(),
   image_url: z.string(),
@@ -69,7 +69,7 @@ const CharacterZod = z.object({
   manga: z.array(MangaFromCharacterResponseZod),
 });
 
-const AnimeZod = z.object({
+export const AnimeZod = z.object({
   mal_id: z.number(),
   url: z.string(),
   image_url: z.string(),
@@ -77,7 +77,7 @@ const AnimeZod = z.object({
   synopsis: z.string(),
 });
 
-const TopAnimeZod = z.object({
+export const TopAnimeZod = z.object({
   mal_id: z.number(),
   episodes: z.number(),
   score: z.number(),
@@ -86,7 +86,7 @@ const TopAnimeZod = z.object({
   url: z.string(),
   image_url: z.string(),
 });
-const TopCharactersZod = z.object({
+export const TopCharactersZod = z.object({
   mal_id: z.number(),
   animeography: z.array(AnimeFromCharacterResponseZod),
   title: z.string(),

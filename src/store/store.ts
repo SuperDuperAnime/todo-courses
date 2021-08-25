@@ -2,13 +2,17 @@ import { makeAutoObservable, toJS } from "mobx";
 import axios from "axios";
 import {
   animeGuard,
+  AnimeZod,
   CardType,
   CategoriesType,
   characterGuard,
+  CharacterZod,
   IResponse,
   IResponseTop,
   topAnimeGuard,
+  TopAnimeZod,
   topCharactersGuard,
+  TopCharactersZod,
 } from "./types";
 import LayoutStore from "./LayoutStore";
 import ErrorStore from "./ErrorStore";
@@ -100,8 +104,10 @@ class store {
       .get<IResponseTop>(`https://api.jikan.moe/v3/top/anime/1`)
       .then((res) => {
         this.topAnime = res.data.top;
-
-        this.topAnime.forEach((el) => (el.category = "topAnime"));
+        this.topAnime.forEach((el) => {
+          el.category = "topAnime";
+          TopAnimeZod.parse(el);
+        });
         this.data = this.topAnime;
         paginationStore.currentPage.topAnime = 2;
 
@@ -119,7 +125,10 @@ class store {
       .get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/1`)
       .then((res) => {
         this.topCharacter = this.topCharacter.concat(res.data.top);
-        this.topCharacter.forEach((el) => (el.category = "topCharacters"));
+        this.topCharacter.forEach((el) => {
+          el.category = "topCharacters";
+          TopCharactersZod.parse(el);
+        });
         paginationStore.currentPage.topCharacters = 2;
         this.favoriteCheck(this.topAnime);
       })
@@ -177,14 +186,21 @@ class store {
         this.data = [];
         if (this.category === "anime") {
           this.lastAnime = res.data.results;
-          this.lastAnime.forEach((el) => (el.category = "anime"));
+          this.lastCharacter.forEach((el) => AnimeZod.parse(el));
+          this.lastAnime.forEach((el) => {
+            AnimeZod.parse(el);
+            el.category = "anime";
+          });
           this.data = this.lastAnime;
 
           paginationStore.currentPage.anime = 2;
         }
         if (this.category === "character") {
           this.lastCharacter = res.data.results;
-          this.lastCharacter.forEach((el) => (el.category = "character"));
+          this.lastCharacter.forEach((el) => {
+            CharacterZod.parse(el);
+            el.category = "character";
+          });
           this.data = this.lastCharacter;
 
           paginationStore.currentPage.characters = 2;
