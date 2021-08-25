@@ -25,7 +25,6 @@ class store {
   lastAnime: CardType[] = [];
   lastCharacter: CardType[] = [];
   favorite: CardType[] = [];
-  favoriteData: CardType[] = [];
   loading = false;
   isThrottle = false;
   isWaiting = false;
@@ -102,6 +101,7 @@ class store {
       .then((res) => {
         this.topAnime = res.data.top;
 
+        this.topAnime.forEach((el) => (el.category = "topAnime"));
         this.data = this.topAnime;
         paginationStore.currentPage.topAnime = 2;
 
@@ -119,6 +119,7 @@ class store {
       .get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/1`)
       .then((res) => {
         this.topCharacter = this.topCharacter.concat(res.data.top);
+        this.topCharacter.forEach((el) => (el.category = "topCharacters"));
         paginationStore.currentPage.topCharacters = 2;
         this.favoriteCheck(this.topAnime);
       })
@@ -176,12 +177,16 @@ class store {
         this.data = [];
         if (this.category === "anime") {
           this.lastAnime = res.data.results;
+          this.lastAnime.forEach((el) => (el.category = "anime"));
           this.data = this.lastAnime;
+
           paginationStore.currentPage.anime = 2;
         }
         if (this.category === "character") {
           this.lastCharacter = res.data.results;
+          this.lastCharacter.forEach((el) => (el.category = "character"));
           this.data = this.lastCharacter;
+
           paginationStore.currentPage.characters = 2;
         }
 

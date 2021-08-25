@@ -1,7 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { CardType, CategoriesViewType, IResponse, IResponseTop } from "./types";
+import { CardType, CategoriesViewType } from "./types";
 import axios from "axios";
-import ErrorStore from "./ErrorStore";
 import store from "./store";
 import LayoutStore from "./LayoutStore";
 
@@ -73,6 +72,7 @@ class Pagination {
           store.lastAnime = store.lastAnime.concat(
             res.data.results as CardType[]
           );
+          store.lastAnime.forEach((el) => (el.category = "anime"));
           store.data = store.lastAnime;
           this.currentPage.anime += 1;
         }
@@ -81,19 +81,24 @@ class Pagination {
           store.lastCharacter = store.lastCharacter.concat(
             res.data.results as CardType[]
           );
+          store.lastCharacter.forEach((el) => (el.category = "character"));
           store.data = store.lastCharacter;
           this.currentPage.characters += 1;
         }
         if (LayoutStore.categoryView === "topAnime") {
           store.topAnime = store.topAnime.concat(res.data.top as CardType[]);
+          store.topAnime.forEach((el) => (el.category = "topAnime"));
           store.data = store.topAnime;
+
           this.currentPage.topAnime += 1;
         }
         if (LayoutStore.categoryView === "topCharacters") {
           store.topCharacter = store.topCharacter.concat(
             res.data.results as CardType[]
           );
+          store.topCharacter.forEach((el) => (el.category = "topCharacters"));
           store.data = store.topCharacter;
+
           this.currentPage.topCharacters += 1;
         }
         this.favoriteCheck(store.data);

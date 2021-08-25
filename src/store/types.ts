@@ -10,7 +10,8 @@ export type CardType = (
   | TopAnimeType
   | TopCharactersType
 ) &
-  IIsFavorite;
+  ExtraTypes;
+
 export type CardType1 = {
   mal_id: number;
   title: string;
@@ -20,8 +21,9 @@ export type CardType1 = {
   category: CategoriesViewType;
 };
 
-export interface IIsFavorite {
+export interface ExtraTypes {
   isFavorite?: boolean;
+  category?: CategoriesViewType;
 }
 
 export interface IResponse {
