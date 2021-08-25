@@ -6,6 +6,7 @@ import { AnimeSearchInput } from "./input/AnimeSearchInput";
 import LayoutStore from "../../store/LayoutStore";
 import { CardSmallContainer } from "./CardSmall/CardSmallContainer";
 import { colors } from "../../store/colors";
+import { paginationStore } from "../../store/pagination";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,31 +47,17 @@ export const Results = observer(() => {
           (window.innerHeight - e.target.getBoundingClientRect().top)) <
       100
     ) {
-      store.setFetching(true);
+      paginationStore.setFetching(true);
     }
   }
 
   useEffect(() => {
-    if (store.fetching) {
+    if (paginationStore.fetching) {
       console.log(LayoutStore.categoryView);
-      switch (LayoutStore.categoryView) {
-        case "topAnime":
-          store.getTopAnime();
-          break;
-        case "topCharacters":
-          store.getTopCharacters();
-          break;
-        case "character":
-        case "anime":
-          store.startSearchWithDelay(4000, store.textSearch);
-          break;
-        case 'favorite' : 
-        break;
-        default:
-          store.setFetching(false);
-      }
+
+      paginationStore.startPaginationWithDelay();
     }
-  }, [store.fetching]);
+  }, [paginationStore.fetching]);
 
   //todo если нет поиска, то надо показывать всё подряд
   const cardList =
