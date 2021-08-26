@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { ButtonGroup, makeStyles, Paper } from "@material-ui/core";
-import { CategoriesType } from "../../store/types";
+import { CategoriesType } from "../../store/types/types";
 import { CategoryButton } from "./CategoryButton";
 import { colors } from "../../store/colors";
 

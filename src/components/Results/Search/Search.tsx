@@ -8,7 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { observer } from "mobx-react-lite";
 import { Typography } from "@material-ui/core";
 import { colors } from "../../../store/colors";
-import { CategoriesType, CategoriesViewType } from "../../../store/types";
+import { CategoriesType, CategoriesViewType } from "../../../store/types/types";
 
 const useStyles = makeStyles({
   root: {

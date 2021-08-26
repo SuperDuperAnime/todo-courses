@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
-import { CategoriesViewType } from "../../../store/types";
+import { CategoriesViewType } from "../../../store/types/types";
 
 interface TextBlockProp {
   category: CategoriesViewType;

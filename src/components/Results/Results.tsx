@@ -2,9 +2,10 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
 import { CardSmallContainer } from "./CardSmall/CardSmallContainer";
-import { CardType } from "../../store/types";
+import { CardType } from "../../store/types/types";
 import { colors } from "../../store/colors";
 import { SearchContainer } from "./Search/SearchContainer";
+import { CardGeneral } from "../../store/factory";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,7 +62,7 @@ export const Results = observer(
 
 interface ResultsProp {
   resultsTitle: string;
-  data: (CardType | undefined)[];
+  data: CardGeneral[];
   toResultRef: React.RefObject<HTMLDivElement>;
   scrollResult: (e: any) => void;
 }

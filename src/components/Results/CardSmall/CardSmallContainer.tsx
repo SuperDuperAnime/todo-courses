@@ -1,21 +1,16 @@
 import React from "react";
 import { CardSmall } from "./CardSmall";
-import {
-  animeGuard,
-  CardType,
-  characterGuard,
-  topAnimeGuard,
-  topCharactersGuard,
-} from "../../../store/types";
+import {} from "../../../store/types/types";
 import { TextBlock } from "./TextBlock";
 import layoutStore from "../../../store/LayoutStore";
 import LayoutStore from "../../../store/LayoutStore";
 import store from "../../../store/store";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { observer } from "mobx-react-lite";
+import { CardGeneral } from "../../../store/factory";
 
 interface CardSmallContainerProp {
-  data: CardType;
+  data: CardGeneral;
 }
 
 function TextDescription() {
@@ -47,84 +42,82 @@ export const CardSmallContainer = observer(
       LayoutStore.toggleActiveView("content");
     };
 
-    const cardSmall = () => {
-      if (animeGuard(data)) {
-        const title = data.title;
-        const textDescription = (
-          <TextBlock
-            description={data.synopsis}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else if (characterGuard(data)) {
-        const title = data.name;
-        const textDescription = (
-          <TextBlock
-            description={undefined}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else if (topAnimeGuard(data)) {
-        const title = data.title;
-        const textDescription = (
-          <TextBlock
-            description={undefined}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else if (topCharactersGuard(data)) {
-        const title = data.title;
-        const textDescription = (
-          <TextBlock
-            description={undefined}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else {
-        let unrealType: never = data;
-      }
-    };
+    // const cardSmall = () => {
+    //   if (animeGuard(data)) {
+    //     const title = data.title;
+    //     const textDescription = (
+    //       <TextBlock
+    //         description={data.title}
+    //         category={layoutStore.categoryView}
+    //         title={title}
+    //       />
+    //     );
+    //     return (
+    //       <CardSmall
+    //         key={data.mal_id}
+    //         textDescription={textDescription}
+    //         img={img}
+    //         favorite={favorite}
+    //         onClick={onClick}
+    //       />
+    //     );
+    //   } else if (characterGuard(data)) {
+    //     const title = data.title;
+    //     const textDescription = (
+    //       <TextBlock
+    //         description={undefined}
+    //         category={layoutStore.categoryView}
+    //         title={title}
+    //       />
+    //     );
+    //     return (
+    //       <CardSmall
+    //         key={data.mal_id}
+    //         textDescription={textDescription}
+    //         img={img}
+    //         favorite={favorite}
+    //         onClick={onClick}
+    //       />
+    //     );
+    //   } else if (topAnimeGuard(data)) {
+    //     const title = data.title;
+    //     const textDescription = (
+    //       <TextBlock
+    //         description={undefined}
+    //         category={layoutStore.categoryView}
+    //         title={title}
+    //       />
+    //     );
+    //     return (
+    //       <CardSmall
+    //         key={data.mal_id}
+    //         textDescription={textDescription}
+    //         img={img}
+    //         favorite={favorite}
+    //         onClick={onClick}
+    //       />
+    //     );
+    //   } else if (topCharactersGuard(data)) {
+    //     const title = data.title;
+    //     const textDescription = (
+    //       <TextBlock
+    //         description={undefined}
+    //         category={layoutStore.categoryView}
+    //         title={title}
+    //       />
+    //     );
+    //     return (
+    //       <CardSmall
+    //         key={data.mal_id}
+    //         textDescription={textDescription}
+    //         img={img}
+    //         favorite={favorite}
+    //         onClick={onClick}
+    //       />
+    //     );
+    //   }
+    // };
 
-    return <>{cardSmall()}</>;
+    return <div>{data.title}</div>;
   }
 );
