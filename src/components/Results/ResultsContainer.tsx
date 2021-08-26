@@ -38,9 +38,9 @@ export const ResultsContainer = observer(
     return (
       <Results
         resultsTitle={resultsTitle}
+        data={data}
         toResultRef={toResultRef}
         scrollResult={scrollResult}
-        data={data}
       />
     );
   }

@@ -4,21 +4,13 @@ import store from "../../store/store";
 import { observer } from "mobx-react-lite";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import { Placeholder } from "./Placeholder";
-import {
-  animeGuard,
-  characterGuard,
-  topAnimeGuard,
-  topCharactersGuard,
-} from "../../store/types/guards";
-import { BodyContent } from "./BodyContent";
-import { AnimeListFromAnime } from "./Character/AnimeListFromAnime";
+
+import LayoutStore from "../../store/LayoutStore";
+import { Placeholder } from "./jsx/Placeholder";
 
 export const ContentContainer = observer(() => {
   const content = store.content;
-  if (content === null) {
-    return <div>ddd</div>;
-  }
+  if (content === null) return <Placeholder />;
   const title = content.title;
   const favoriteIcon = content.isFavorite ? (
     <FavoriteIcon />
@@ -27,77 +19,130 @@ export const ContentContainer = observer(() => {
   );
   const subtitle = "dddd";
   const img = content.image_url;
-  // let contentJSX = () => {
-  //   if (content) {
-  //     const img = content.image_url;
-  //
-
-  //     if (animeGuard(content)) {
-  //       return (
-  //         <Content title={content.title} favoriteIcon={favoriteIcon}>
-  //           <BodyContent
-  //             img={img}
-  //             preTitle={"Title: "}
-  //             title={content.title}
-  //             preSubtitle={"Synopsis: "}
-  //             subtitle={content.synopsis}
-  //           />
-  //         </Content>
-  //       );
-  //     } else if (characterGuard(content)) {
-  //       const animeList = <AnimeListFromAnime animeList={content.anime} />;
-  //       return (
-  //         <Content title={content.name} favoriteIcon={favoriteIcon}>
-  //           <BodyContent
-  //             img={img}
-  //             preTitle={"Name: "}
-  //             title={content.name}
-  //             preSubtitle={"This character from: "}
-  //             subtitle={animeList}
-  //           />
-  //         </Content>
-  //       );
-  //     } else if (topAnimeGuard(content)) {
-  //       return (
-  //         <Content title={content.title} favoriteIcon={favoriteIcon}>
-  //           <BodyContent
-  //             preTitle={"Title: "}
-  //             title={content.title}
-  //             preSubtitle={"RANK: "}
-  //             subtitle={content.rank}
-  //             img={img}
-  //           />
-  //         </Content>
-  //       );
-  //     } else if (topCharactersGuard(content)) {
-  //       return (
-  //         <Content title={content.title} favoriteIcon={favoriteIcon}>
-  //           <BodyContent
-  //             preTitle={"Title: "}
-  //             title={content.title}
-  //             preSubtitle={"RANK: "}
-  //             subtitle={content.rank}
-  //             img={img}
-  //           />
-  //         </Content>
-  //       );
-  //     } else {
-  //       let unrealType: never = content;
-  //     }
-  //   } else {
-  //     return <Placeholder />;
-  //   }
-  // };
-
+  const toggleFavorite = () => {
+    store.setFavorite();
+  };
+  const toggleContent = () => {
+    LayoutStore.toggleContent(false);
+  };
   return (
-    <Content title={title} favoriteIcon={favoriteIcon}>
-      <BodyContent
-        preTitle={"Title: "}
-        title={title}
-        subtitle={subtitle}
-        preSubtitle={"RANK: "}
+    <>
+      <Content
+        toggleContent={toggleContent}
         img={img}
-      />
-    </Content>
+        title={title}
+        toggleFavorite={toggleFavorite}
+        favoriteIcon={favoriteIcon}
+      >
+        <div>
+          {" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
+          minus optio possimus qui reiciendis repellendus vitae. Commodi
+          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
+          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
+          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
+          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
+        </div>
+      </Content>
+    </>
   );
 });

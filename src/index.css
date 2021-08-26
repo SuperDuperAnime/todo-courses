@@ -6,8 +6,8 @@
 *::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 20px;
-    border-top: 4px solid rgba(255, 197, 66, 1);
-    border-bottom: 4px solid rgba(255, 197, 66, 1);
+    border-top: 4px solid rgba(255, 197, 66, 0.5);
+    border-bottom: 4px solid rgba(255, 197, 66, 0.5);
 
 }
 

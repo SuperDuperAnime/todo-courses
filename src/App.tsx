@@ -19,6 +19,7 @@ import { colors } from "./store/colors";
 import loaderStore from "./store/loaderStore";
 import { LoaderContainer } from "./components/Loader/LoaderContainer";
 import { ResultsContainer } from "./components/Results/ResultsContainer";
+import store from "./store/store";
 
 const useStyles = makeStyles({
   root: {
@@ -78,17 +79,9 @@ const App = observer(() => {
               <ResultsContainer />
             )}
           </Box>
-          {/*  {LayoutStore.activeView === "content" ? (*/}
-          {/*    <ContentContainer />*/}
-          {/*  ) : (*/}
-          {/*    <Results />*/}
-          {/*  )}*/}
-          {/*</Box>*/}
         </Hidden>
         <Hidden xsDown>
-          <Box className={classes.contentWrapper}>
-            <ContentContainer />
-          </Box>
+          <ContentContainer />
         </Hidden>
       </Container>
       <ErrorAlert />
