@@ -14,9 +14,7 @@ import { colors } from "../../store/colors";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    height: "64px",
-    display: "flex",
-    background: colors.secondFill,
+    background: colors.darkBG,
   },
   toolbar: {},
 }));
@@ -24,12 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export const Appbar = () => {
   const classes = useStyles();
   return (
-    <AppBar
-      position={"static"}
-      className={classes.wrapper}
-      color={"transparent"}
-      elevation={8}
-    >
+    <AppBar position={"static"} className={classes.wrapper} elevation={8}>
       <Container>
         <Toolbar className={classes.toolbar}>
           <Hidden mdUp>
