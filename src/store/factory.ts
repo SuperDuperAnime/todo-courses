@@ -49,9 +49,7 @@ export const characterTopFactory = (data: TopCharactersType): CardGeneral => {
     mal_id: data.mal_id,
     image_url: data.image_url,
     title: data.title,
-    body: {
-      name_kanji: data.name_kanji,
-    },
+    body: data.name_kanji,
   };
   return card;
 };
@@ -111,6 +109,7 @@ export const animeFullFactory = (data: FullAnimeType): CardGeneral => {
   };
   return card;
 };
+
 //todo переместить в types
 export interface CardGeneral {
   isFavorite: boolean;
@@ -119,5 +118,52 @@ export interface CardGeneral {
   mal_id: number;
   image_url: string;
   title: string;
-  body: any;
+  body: Body;
 }
+
+export type Body =
+  | ShortCharacterBody
+  | ShortAnimeBody
+  | TopAnimeBody
+  | TopCharactersType
+  | FullAnimeBody
+  | FullCharacterBody;
+export type FullCharacterBody = {
+  about: string;
+  nicknames: string[];
+  name_kanji: string;
+  animeography: {
+    mal_id: number;
+    name: string;
+    type: string;
+    url: string;
+  }[];
+};
+export type FullAnimeBody = {
+  episodes: number;
+  aired: {
+    prop: {
+      from: { day: number; month: number; year: number };
+      to: { day: number; month: number; year: number };
+    };
+  };
+  synopsis: string;
+  score: number;
+  rank: number;
+};
+
+export type ShortAnimeBody = string;
+
+export type ShortCharacterBody = {
+  mal_id: number;
+  name: string;
+  type: string;
+  url: string;
+}[];
+export type TopCharacterBody = string;
+
+export type TopAnimeBody = {
+  episodes: number;
+  rank: number;
+  score: number;
+};

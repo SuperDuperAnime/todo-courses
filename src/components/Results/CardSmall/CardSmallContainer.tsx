@@ -1,8 +1,5 @@
 import React from "react";
 import { CardSmall } from "./CardSmall";
-import {} from "../../../store/types/types";
-import { TextBlock } from "./TextBlock";
-import layoutStore from "../../../store/LayoutStore";
 import LayoutStore from "../../../store/LayoutStore";
 import store from "../../../store/store";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -39,20 +36,27 @@ export const CardSmallContainer = observer(
       ) : null;
     const onClick = () => {
       store.setContent(data);
-      LayoutStore.toggleActiveView("content");
+      LayoutStore.toggleContent(true);
     };
-    const ent = data.entity;
-    const type = data.type;
+    const title = data.title;
+
     return (
       <CardSmall
-        ent={ent}
-        type={type}
         key={data.mal_id}
+        title={title}
         img={img}
-        title={data.title}
         favorite={favorite}
         onClick={onClick}
       />
+      // <CardSmall
+      //   ent={ent}
+      //   type={type}
+      //   key={data.mal_id}
+      //   img={img}
+      //   title={data.title}
+      //   favorite={favorite}
+      //   onClick={onClick}
+      // />
     );
   }
 );
