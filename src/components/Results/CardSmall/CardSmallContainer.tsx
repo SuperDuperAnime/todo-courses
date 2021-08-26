@@ -41,83 +41,18 @@ export const CardSmallContainer = observer(
       store.setContent(data);
       LayoutStore.toggleActiveView("content");
     };
-
-    // const cardSmall = () => {
-    //   if (animeGuard(data)) {
-    //     const title = data.title;
-    //     const textDescription = (
-    //       <TextBlock
-    //         description={data.title}
-    //         category={layoutStore.categoryView}
-    //         title={title}
-    //       />
-    //     );
-    //     return (
-    //       <CardSmall
-    //         key={data.mal_id}
-    //         textDescription={textDescription}
-    //         img={img}
-    //         favorite={favorite}
-    //         onClick={onClick}
-    //       />
-    //     );
-    //   } else if (characterGuard(data)) {
-    //     const title = data.title;
-    //     const textDescription = (
-    //       <TextBlock
-    //         description={undefined}
-    //         category={layoutStore.categoryView}
-    //         title={title}
-    //       />
-    //     );
-    //     return (
-    //       <CardSmall
-    //         key={data.mal_id}
-    //         textDescription={textDescription}
-    //         img={img}
-    //         favorite={favorite}
-    //         onClick={onClick}
-    //       />
-    //     );
-    //   } else if (topAnimeGuard(data)) {
-    //     const title = data.title;
-    //     const textDescription = (
-    //       <TextBlock
-    //         description={undefined}
-    //         category={layoutStore.categoryView}
-    //         title={title}
-    //       />
-    //     );
-    //     return (
-    //       <CardSmall
-    //         key={data.mal_id}
-    //         textDescription={textDescription}
-    //         img={img}
-    //         favorite={favorite}
-    //         onClick={onClick}
-    //       />
-    //     );
-    //   } else if (topCharactersGuard(data)) {
-    //     const title = data.title;
-    //     const textDescription = (
-    //       <TextBlock
-    //         description={undefined}
-    //         category={layoutStore.categoryView}
-    //         title={title}
-    //       />
-    //     );
-    //     return (
-    //       <CardSmall
-    //         key={data.mal_id}
-    //         textDescription={textDescription}
-    //         img={img}
-    //         favorite={favorite}
-    //         onClick={onClick}
-    //       />
-    //     );
-    //   }
-    // };
-
-    return <div>{data.title}</div>;
+    const ent = data.entity;
+    const type = data.type;
+    return (
+      <CardSmall
+        ent={ent}
+        type={type}
+        key={data.mal_id}
+        img={img}
+        title={data.title}
+        favorite={favorite}
+        onClick={onClick}
+      />
+    );
   }
 );

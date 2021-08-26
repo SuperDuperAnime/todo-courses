@@ -19,8 +19,6 @@ import {
 } from "./types/guards";
 
 class Pagination {
-  textSearch = "";
-
   fetching = false;
   active: CategoriesViewType = "topAnime";
   currentPage = {
@@ -52,6 +50,7 @@ class Pagination {
   }
 
   createPaginationString() {
+    console.log("зашли в создание");
     switch (this.active) {
       case "topAnime": {
         return `https://api.jikan.moe/v3/top/anime/${this.currentPage.topAnime}`;
@@ -60,10 +59,12 @@ class Pagination {
         return `https://api.jikan.moe/v3/top/characters/${this.currentPage.topCharacters}`;
       }
       case "character": {
-        return `https://api.jikan.moe/v3/${store.action}/character?q=${store.textSearch}&limit=10&page=${this.currentPage.characters}`;
+        console.log("создан запрос для персонажей");
+        return `https://api.jikan.moe/v3/${store.action}/character?q=${store.textSearch}&limit=30&page=${this.currentPage.characters}`;
       }
       case "anime": {
-        return `https://api.jikan.moe/v3/${store.action}/anime?q=${store.textSearch}&limit=10&page=${this.currentPage.anime}`;
+        console.log("создан запрос для Аниме");
+        return `https://api.jikan.moe/v3/${store.action}/anime?q=${store.textSearch}&limit=30&page=${this.currentPage.anime}`;
       }
       case "favorite": {
         return "";
@@ -72,6 +73,7 @@ class Pagination {
   }
 
   async startPagination() {
+    console.log("pagination start");
     if (store.category !== "favorite") loaderStore.loading = true;
     await axios
       .get(
@@ -79,6 +81,7 @@ class Pagination {
         this.createPaginationString()
       )
       .then((res) => {
+        console.log(this.createPaginationString());
         if (res.data.top !== undefined) {
           return res.data.top as CardType[];
         }
@@ -105,12 +108,14 @@ class Pagination {
             return animeTopFactory(el);
           }
         });
-
+        console.log(newCards);
         if (LayoutStore.categoryView === "anime") {
+          console.log("конкат");
           store.lastAnime = store.lastAnime.concat(newCards as CardGeneral[]);
           store.data = store.lastAnime;
           this.currentPage.anime += 1;
         }
+
         if (LayoutStore.categoryView === "character") {
           //todo протипизировать нормально
           store.lastCharacter = store.lastCharacter.concat(
@@ -120,11 +125,13 @@ class Pagination {
           this.currentPage.characters += 1;
         }
         if (LayoutStore.categoryView === "topAnime") {
+          console.log("я присваиваю к топАниме");
           store.topAnime = store.topAnime.concat(newCards as CardGeneral[]);
           store.data = store.topAnime;
           this.currentPage.topAnime += 1;
         }
         if (LayoutStore.categoryView === "topCharacters") {
+          console.log("я присваиваю к топПерсонажам");
           store.topCharacter = store.topCharacter.concat(
             newCards as CardGeneral[]
           );
@@ -145,31 +152,45 @@ class Pagination {
       .finally(() => this.setFetching(false));
   }
 
-  startPaginationWithDelay() {
-    if (store.isThrottle) {
-      console.log("тротл");
-      store.isWaiting = true;
-      console.log("ждем снятия ограничения");
-      return;
-    } else {
-      console.log("startsearch");
-      store.isThrottle = true;
-      this.startPagination();
-    }
-    setTimeout(() => {
-      console.log("4сек прошло снимаем ограничение");
-      store.isThrottle = false;
-      if (store.isWaiting) {
-        console.log("ограничение снято, запрос отправлен");
-        this.startPagination();
-      } else {
-        console.log("ограничение снято, запрос не отправлялся");
+  async startPaginationWithDelay() {
+    console.log("start");
+    await setTimeout(async () => {
+      if (store.isThrottle) {
+        setTimeout(() => {
+          store.isThrottle = false;
+        }, 2000);
         return;
       }
-    }, 4000);
-
-    store.isWaiting = false;
+      await this.startPagination();
+    }, 2000);
+    store.isThrottle = true;
   }
+  // startPaginationWithDelay() {
+  //   console.log("pagination");
+  //   if (store.isThrottle) {
+  //     console.log("тротл");
+  //     store.isWaiting = true;
+  //     console.log("ждем снятия ограничения");
+  //     return;
+  //   } else {
+  //     console.log("startsearch");
+  //     store.isThrottle = true;
+  //     this.startPagination();
+  //   }
+  //   setTimeout(() => {
+  //     console.log("4сек прошло снимаем ограничение");
+  //     store.isThrottle = false;
+  //     if (store.isWaiting) {
+  //       console.log("ограничение снято, запрос отправлен");
+  //       this.startPagination();
+  //     } else {
+  //       console.log("ограничение снято, запрос не отправлялся");
+  //       return;
+  //     }
+  //   }, 4000);
+  //
+  //   store.isWaiting = false;
+  // }
 }
 
 export const paginationStore = new Pagination();

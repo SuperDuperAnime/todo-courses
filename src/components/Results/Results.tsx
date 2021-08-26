@@ -30,35 +30,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Results = observer(
-  ({ resultsTitle, data, toResultRef, scrollResult }: ResultsProp) => {
-    const classes = useStyles();
+export const Results = ({
+  resultsTitle,
+  data,
+  toResultRef,
+  scrollResult,
+}: ResultsProp) => {
+  const classes = useStyles();
 
-    //todo если нет поиска, то надо показывать всё подряд
-    const cardList = data.map((el) => {
-      if (el !== undefined)
-        return (
-          <CardSmallContainer key={`${el.mal_id}${Math.random()}`} data={el} />
-        );
-    });
+  //todo если нет поиска, то надо показывать всё подряд
+  const cardList = data.map((el) => {
+    if (el !== undefined)
+      return (
+        <CardSmallContainer key={`${el.mal_id}${Math.random()}`} data={el} />
+      );
+  });
 
-    return (
-      <Paper className={classes.root}>
-        <SearchContainer />
-        <Box className={classes.resultsLabel}>
-          <Typography variant={"button"}>{resultsTitle}</Typography>
-        </Box>
-        <div
-          ref={toResultRef}
-          onScroll={scrollResult}
-          className={classes.cardsListScroll}
-        >
-          {cardList}
-        </div>
-      </Paper>
-    );
-  }
-);
+  return (
+    <Paper className={classes.root}>
+      <SearchContainer />
+      <Box className={classes.resultsLabel}>
+        <Typography variant={"button"}>{resultsTitle}</Typography>
+      </Box>
+      <div
+        ref={toResultRef}
+        onScroll={scrollResult}
+        className={classes.cardsListScroll}
+      >
+        {cardList}
+      </div>
+    </Paper>
+  );
+};
 
 interface ResultsProp {
   resultsTitle: string;

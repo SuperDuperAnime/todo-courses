@@ -16,14 +16,21 @@ import { AnimeListFromAnime } from "./Character/AnimeListFromAnime";
 
 export const ContentContainer = observer(() => {
   const content = store.content;
+  if (content === null) {
+    return <div>ddd</div>;
+  }
+  const title = content.title;
+  const favoriteIcon = content.isFavorite ? (
+    <FavoriteIcon />
+  ) : (
+    <FavoriteBorderIcon />
+  );
+  const subtitle = "dddd";
+  const img = content.image_url;
   // let contentJSX = () => {
   //   if (content) {
   //     const img = content.image_url;
-  //     const favoriteIcon = content.isFavorite ? (
-  //       <FavoriteIcon />
-  //     ) : (
-  //       <FavoriteBorderIcon />
-  //     );
+  //
 
   //     if (animeGuard(content)) {
   //       return (
@@ -82,5 +89,15 @@ export const ContentContainer = observer(() => {
   //   }
   // };
 
-  return <div>ddd</div>;
+  return (
+    <Content title={title} favoriteIcon={favoriteIcon}>
+      <BodyContent
+        preTitle={"Title: "}
+        title={title}
+        subtitle={subtitle}
+        preSubtitle={"RANK: "}
+        img={img}
+      />
+    </Content>
+  );
 });

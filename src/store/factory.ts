@@ -15,6 +15,7 @@ import {
 import favoriteStore from "./favoriteStore";
 
 export const animeShortFactory = (data: AnimeType): CardGeneral => {
+  console.log("animeShortFactory");
   AnimeZod.parse(data);
   let card: CardGeneral = {
     isFavorite: favoriteStore.initialCheckFavorite(data.mal_id), //проверка

@@ -36,13 +36,12 @@ class store {
   constructor() {
     makeAutoObservable(this);
     this.startProgram();
+    this.getTopCharacters();
     this.getTopAnime().then(() => {
       //----------------->
       //this.data = this.topAnime
       LayoutStore.setCategoriesView("topAnime");
     });
-
-    this.getTopCharacters();
   }
 
   startProgram() {
@@ -53,17 +52,20 @@ class store {
     }
   }
 
-  setCategory(select: CategoriesType) {
+  async setCategory(select: CategoriesType) {
     this.content = null;
     this.data = [];
+    this.category = select;
     switch (select) {
       case "character":
         this.data = this.topCharacter;
         //todo сменить top
+        paginationStore.active = "topCharacters";
         LayoutStore.categoryView = "topCharacters";
         break;
       case "anime":
         this.data = this.topAnime;
+        paginationStore.active = "topAnime";
         LayoutStore.categoryView = "topAnime";
         break;
       case "favorite":
@@ -73,8 +75,6 @@ class store {
       default:
         console.error(select);
     }
-    this.category = select;
-    console.log(this.category);
   }
 
   setContent(content: CardGeneral) {
@@ -109,6 +109,7 @@ class store {
         let newCard = res.map((el) => animeTopFactory(el));
         this.topAnime = newCard;
         this.data = this.topAnime;
+        paginationStore.active = "topAnime";
         paginationStore.currentPage.topAnime = 2;
 
         this.favoriteCheck(this.topAnime);
@@ -122,13 +123,14 @@ class store {
 
   async getTopCharacters() {
     loaderStore.loading = true;
-    axios
+    await axios
       .get(`https://api.jikan.moe/v3/top/characters/1`)
       .then<TopCharactersType[]>((res) => res.data.top)
       .then((res) => {
         let newCard = res.map((el) => characterTopFactory(el));
         this.topCharacter = newCard;
         this.data = this.topCharacter;
+        paginationStore.active = "topCharacters";
         paginationStore.currentPage.topCharacters = 2;
         this.favoriteCheck(this.topCharacter);
         return newCard;
@@ -183,20 +185,23 @@ class store {
         if (this.category === "anime") {
           this.lastAnime = newCards as CardGeneral[];
           this.data = this.lastAnime;
+          paginationStore.active = "anime";
           paginationStore.currentPage.anime = 2;
         }
         if (this.category === "character") {
           this.lastCharacter = newCards as CardGeneral[];
           this.data = this.lastCharacter;
+          paginationStore.active = "character";
           paginationStore.currentPage.characters = 2;
         }
-        paginationStore.active = LayoutStore.categoryView;
+
         this.favoriteCheck(this.data);
       })
       .catch((error) => {
         ErrorStore.catchingErrors(error);
       })
       .then(() => {
+        paginationStore.setFetching(false);
         setTimeout(() => {
           loaderStore.loading = false;
         }, 500);

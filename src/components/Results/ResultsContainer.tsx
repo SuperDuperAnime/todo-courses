@@ -12,6 +12,7 @@ interface ResultsContainerProp {
 export const ResultsContainer = observer(
   ({ children }: ResultsContainerProp) => {
     const toResultRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
       toResultRef.current?.scrollTo(0, 0);
     }, [LayoutStore.categoryView]);
@@ -26,15 +27,11 @@ export const ResultsContainer = observer(
         paginationStore.setFetching(true);
       }
     }
-
     useEffect(() => {
       if (paginationStore.fetching) {
-        console.log(LayoutStore.categoryView);
-
-        paginationStore.startPaginationWithDelay();
+        paginationStore.startPagination();
       }
     }, [paginationStore.fetching]);
-
     const resultsTitle = LayoutStore.categoryView;
     //todo поменять с отображения resultsData на конкретные массивы
     let data = store.data;
