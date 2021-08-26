@@ -3,6 +3,7 @@ import { CardType, CategoriesViewType } from "./types";
 import axios from "axios";
 import store from "./store";
 import LayoutStore from "./LayoutStore";
+import loaderStore from "./loaderStore";
 
 class Pagination {
   textSearch = "";
@@ -58,7 +59,7 @@ class Pagination {
   }
 
   async startPagination() {
-    if (store.category !== "favorite") store.loading = true;
+    if (store.category !== "favorite") loaderStore.loading = true;
     await axios
       .get(
         //todo proverka
@@ -109,7 +110,7 @@ class Pagination {
       })
       .then(() => {
         setTimeout(() => {
-          store.loading = false;
+          loaderStore.loading = false;
         }, 500);
       })
       .finally(() => this.setFetching(false));

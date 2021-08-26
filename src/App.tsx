@@ -1,99 +1,89 @@
-import React, { useEffect, useState } from "react";
-import store from "./store/store";
+import React from "react";
 import { observer } from "mobx-react-lite";
-import './index.css'
+import "./index.css";
 import {
   Box,
-  Button,
-  ButtonGroup,
   Container,
   CssBaseline,
-  makeStyles,
-  Grid,
-
   Hidden,
-  CircularProgress,
-  Backdrop, Snackbar
+  makeStyles,
 } from "@material-ui/core";
 import { Appbar } from "./components/AppBar/AppBar";
 import LayoutStore from "./store/LayoutStore";
 import { Results } from "./components/Results/Results";
-import { Content } from "./components/Content/Content";
 import { Category } from "./components/Category/Category";
 import { ContentContainer } from "./components/Content/ContentContainer";
-import { MobPanel } from "./components/MobPanel";
-import {Alert} from "@material-ui/lab";
-import {ErrorAlert} from "./components/ErrorAlert";
-import {colors} from "./store/colors";
+import { MobPanel } from "./components/AppBar/MobPanel";
+import { ErrorAlert } from "./components/ErrorAlert";
+import { colors } from "./store/colors";
+import loaderStore from "./store/loaderStore";
+import { LoaderContainer } from "./components/Loader/LoaderContainer";
+import { ResultsContainer } from "./components/Results/ResultsContainer";
 
 const useStyles = makeStyles({
   root: {
-    display: "flex",
-    position: "relative",
-    width: "100vw",
-    height: "100vh",
-    background: colors.primaryBG,
-    flexDirection: "column",
-    color: colors.firstFill,
+    maxHeight: "100vh",
+    background: colors.bg,
+    color: colors.orange,
+    maxWidth: "100vw",
   },
   container: {
-    position: "relative",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   button: {
     display: "flex",
     flexDirection: "column",
-    width: "100%"
+    width: "100%",
   },
   contentWrapper: {
     position: "relative",
     flexGrow: 1,
     height: "calc(100vh - 64px)",
-    background: 'transparent'
+    background: "transparent",
   },
   backdrop: {
-    color: "rgba(0,0,0,0.3)"
+    color: "rgba(0,0,0,0.3)",
   },
   loader: {
     position: "fixed",
     zIndex: 999,
     top: "50%",
-    left: "50%"
-  }
+    left: "50%",
+  },
 });
 const App = observer(() => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      {loaderStore.loading ? <LoaderContainer /> : null}
       <CssBaseline />
       <Appbar />
-      {store.loading ? (
-        <Box className={classes.loader}>
-          <Backdrop className={classes.backdrop} open={true}>
-            <CircularProgress />
-          </Backdrop>{" "}
-        </Box>
-      ) : null}
       <Hidden mdUp>
         <MobPanel />
       </Hidden>
-      <Container maxWidth="lg" className={classes.container}>
+      <Container className={classes.container}>
         <Hidden smDown>
           <Category />
         </Hidden>
         <Hidden xsDown>
-          <Results />
+          <ResultsContainer />
         </Hidden>
         <Hidden smUp>
           <Box className={classes.contentWrapper}>
-            {LayoutStore.activeView === "content" ? (
+            {LayoutStore.isContentOpen ? (
               <ContentContainer />
             ) : (
-              <Results />
+              <ResultsContainer />
             )}
           </Box>
+          {/*  {LayoutStore.activeView === "content" ? (*/}
+          {/*    <ContentContainer />*/}
+          {/*  ) : (*/}
+          {/*    <Results />*/}
+          {/*  )}*/}
+          {/*</Box>*/}
         </Hidden>
         <Hidden xsDown>
           <Box className={classes.contentWrapper}>
@@ -101,10 +91,9 @@ const App = observer(() => {
           </Box>
         </Hidden>
       </Container>
-     <ErrorAlert/>
+      <ErrorAlert />
     </div>
   );
 });
 
 export default App;
-

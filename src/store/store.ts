@@ -17,6 +17,7 @@ import {
 import LayoutStore from "./LayoutStore";
 import ErrorStore from "./ErrorStore";
 import { paginationStore } from "./pagination";
+import loaderStore from "./loaderStore";
 
 class store {
   textSearch = "";
@@ -29,7 +30,6 @@ class store {
   lastAnime: CardType[] = [];
   lastCharacter: CardType[] = [];
   favorite: CardType[] = [];
-  loading = false;
   isThrottle = false;
   isWaiting = false;
 
@@ -99,7 +99,7 @@ class store {
   }
 
   async getTopAnime() {
-    this.loading = true;
+    loaderStore.loading = true;
     await axios
       .get<IResponseTop>(`https://api.jikan.moe/v3/top/anime/1`)
       .then((res) => {
@@ -115,12 +115,12 @@ class store {
       })
       .catch((error) => console.log(error.response))
       .then(() => {
-        this.loading = false;
+        loaderStore.loading = false;
       });
   }
 
   async getTopCharacters() {
-    this.loading = true;
+    loaderStore.loading = true;
     axios
       .get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/1`)
       .then((res) => {
@@ -134,7 +134,7 @@ class store {
       })
       .catch((error) => console.log(error.response))
       .then(() => {
-        this.loading = false;
+        loaderStore.loading = false;
       });
   }
 
@@ -176,7 +176,7 @@ class store {
       this.data = filterFavorite;
       return;
     }
-    this.loading = true;
+    loaderStore.loading = true;
 
     await axios
       .get<IResponse>(
@@ -214,7 +214,7 @@ class store {
       })
       .then(() => {
         setTimeout(() => {
-          this.loading = false;
+          loaderStore.loading = false;
         }, 500);
       });
   }

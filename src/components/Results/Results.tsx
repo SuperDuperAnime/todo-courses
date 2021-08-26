@@ -1,83 +1,52 @@
-import React, { useEffect, useRef } from "react";
-import store from "../../store/store";
+import React from "react";
 import { observer } from "mobx-react-lite";
-import { Box, makeStyles, Paper } from "@material-ui/core";
-import { AnimeSearchInput } from "./input/AnimeSearchInput";
-import LayoutStore from "../../store/LayoutStore";
+import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
 import { CardSmallContainer } from "./CardSmall/CardSmallContainer";
+import { CardType } from "../../store/types";
 import { colors } from "../../store/colors";
-import { paginationStore } from "../../store/pagination";
+import { SearchContainer } from "./Search/SearchContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "280px",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 8,
-    height: "calc(100vh - 64px - 32px)",
-    background: colors.tertiaryBG,
+
+    padding: 8,
+    minWidth: 320,
+    background: colors.primaryBG,
+    height: "calc(100vh - 64px)",
+    overflow: "hidden",
   },
   cardsList: {
-    position: "relative",
-    flexGrow: 1,
-    width: "260px",
+    overflowY: "auto",
+  },
+  resultsLabel: {
+    padding: 4,
+    color: colors.green,
   },
   cardsListScroll: {
-    position: "absolute",
-    height: "calc(100vh - 64px - 132px)",
-    width: "260px",
     overflowY: "auto",
   },
 }));
 
-export const Results = observer(() => {
-  const classes = useStyles();
+export const Results = observer(
+  ({ resultsTitle, data, toResultRef, scrollResult }: ResultsProp) => {
+    const classes = useStyles();
 
-  const toResultRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    toResultRef.current?.scrollTo(0, 0);
-  }, [LayoutStore.categoryView]);
-
-  function scrollResult(e: any) {
-    if (
-      e.target.scrollHeight -
-        (e.target.scrollTop +
-          (window.innerHeight - e.target.getBoundingClientRect().top)) <
-      100
-    ) {
-      paginationStore.setFetching(true);
-    }
-  }
-
-  useEffect(() => {
-    if (paginationStore.fetching) {
-      console.log(LayoutStore.categoryView);
-
-      paginationStore.startPaginationWithDelay();
-    }
-  }, [paginationStore.fetching]);
-
-  //todo если нет поиска, то надо показывать всё подряд
-  const cardList =
-    store.data === null ? (
-      <div>Введите данные</div>
-    ) : (
-      store.data.map((el) => {
+    //todo если нет поиска, то надо показывать всё подряд
+    const cardList = data.map((el) => {
+      if (el !== undefined)
         return (
           <CardSmallContainer key={`${el.mal_id}${Math.random()}`} data={el} />
         );
-      })
-    );
+    });
 
-  return (
-    <Paper className={classes.root}>
-      <Box className={classes.cardsList}>
-        <AnimeSearchInput />
-
-        <Box>{LayoutStore.categoryView}</Box>
-
+    return (
+      <Paper className={classes.root}>
+        <SearchContainer />
+        <Box className={classes.resultsLabel}>
+          <Typography variant={"button"}>{resultsTitle}</Typography>
+        </Box>
         <div
           ref={toResultRef}
           onScroll={scrollResult}
@@ -85,7 +54,14 @@ export const Results = observer(() => {
         >
           {cardList}
         </div>
-      </Box>
-    </Paper>
-  );
-});
+      </Paper>
+    );
+  }
+);
+
+interface ResultsProp {
+  resultsTitle: string;
+  data: (CardType | undefined)[];
+  toResultRef: React.RefObject<HTMLDivElement>;
+  scrollResult: (e: any) => void;
+}
