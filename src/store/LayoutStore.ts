@@ -8,7 +8,6 @@ import store from "./store";
 
 //todo классы лучше называть с большой буквы
 class LayoutStore {
-  activeView: ActiveViewType = "results";
   mobPanel = false;
   //todo здесь тоже, будет CategoriesType
   categoryView: CategoriesViewType = "anime";
@@ -29,9 +28,6 @@ class LayoutStore {
   }
   setCategoriesView(category: CategoriesViewType) {
     this.categoryView = category;
-  }
-  toggleActiveView(activeView: ActiveViewType) {
-    this.activeView = activeView;
   }
 }
 

@@ -36,7 +36,7 @@ export const CardSmallContainer = observer(
       ) : null;
     const onClick = () => {
       store.setContent(data);
-      LayoutStore.toggleActiveView("content");
+      LayoutStore.toggleContent(true);
     };
     const title = data.title;
 

@@ -9,6 +9,7 @@ const useStyle = makeStyles({
   specificInfo: {
     overflowY: "scroll",
     height: "calc(100vh - 25vh - 64px - 16px - 80px)",
+    padding: 8,
   },
 });
 export const Specific = ({ children }: SpecificProp) => {

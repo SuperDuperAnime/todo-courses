@@ -7,6 +7,11 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import LayoutStore from "../../store/LayoutStore";
 import { Placeholder } from "./jsx/Placeholder";
+import { Specific } from "./jsx/Specific/Specific";
+import { TopAnime } from "./jsx/Specific/TopAnime";
+import { TopCharacter } from "./jsx/Specific/TopCharacter";
+import { ShortCharacter } from "./jsx/Specific/ShortCharacter";
+import { ShortAnime } from "./jsx/Specific/ShortAnime";
 
 export const ContentContainer = observer(() => {
   const content = store.content;
@@ -25,6 +30,29 @@ export const ContentContainer = observer(() => {
   const toggleContent = () => {
     LayoutStore.toggleContent(false);
   };
+
+  const specificBody = () => {
+    switch (content.type) {
+      case "full":
+        return content.entity === "anime" ? (
+          <TopAnime data={content} />
+        ) : (
+          <TopAnime data={content} />
+        );
+      case "short":
+        return content.entity === "anime" ? (
+          <ShortAnime data={content} />
+        ) : (
+          <ShortCharacter data={content} />
+        );
+      case "top":
+        return content.entity === "anime" ? (
+          <TopAnime data={content} />
+        ) : (
+          <TopCharacter data={content} />
+        );
+    }
+  };
   return (
     <>
       <Content
@@ -34,114 +62,7 @@ export const ContentContainer = observer(() => {
         toggleFavorite={toggleFavorite}
         favoriteIcon={favoriteIcon}
       >
-        <div>
-          {" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ex
-          minus optio possimus qui reiciendis repellendus vitae. Commodi
-          molestiae natus quibusdam, quod saepe tempora voluptatem? Animi culpa
-          eligendi fugiat maxime. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Dicta, nobis, pariatur. Ab ad asperiores
-          consequuntur, cumque dolor explicabo laboriosam quaerat vitae.
-          Distinctio dolorum explicabo inventore ipsam maiores reiciendis sit{" "}
-        </div>
+        <Specific>{specificBody()}</Specific>
       </Content>
     </>
   );
