@@ -1,5 +1,9 @@
 import { makeAutoObservable, toJS } from "mobx";
-import { CategoriesType, ActiveViewType, CategoriesViewType } from "./types";
+import {
+  CategoriesType,
+  ActiveViewType,
+  CategoriesViewType,
+} from "./types/types";
 import store from "./store";
 
 //todo классы лучше называть с большой буквы

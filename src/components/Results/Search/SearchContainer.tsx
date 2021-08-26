@@ -5,6 +5,7 @@ import LayoutStore from "../../../store/LayoutStore";
 import { categories } from "../../Category/Category";
 import ErrorStore from "../../../store/ErrorStore";
 import { Search } from "./Search";
+import { paginationStore } from "../../../store/pagination";
 
 export const SearchContainer = observer(() => {
   const [textInput, setTextInput] = useState("");
@@ -23,6 +24,7 @@ export const SearchContainer = observer(() => {
   }, [textInput]);
   const activeCategory = LayoutStore.categoryView;
   const startSearch = () => {
+    paginationStore.active = activeCategory;
     store.category === "favorite" ? store.startSearch(textInput) : validator();
   };
 

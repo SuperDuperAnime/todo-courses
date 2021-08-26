@@ -1,5 +1,5 @@
 import React from "react";
-import { AnimeFromCharacterResponseType } from "../../../store/types";
+import { AnimeFromCharacterResponseType } from "../../../store/types/types";
 import { Box, Link } from "@material-ui/core";
 
 export interface AnimeListFromAnimeProp {

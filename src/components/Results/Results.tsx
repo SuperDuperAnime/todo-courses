@@ -2,9 +2,10 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
 import { CardSmallContainer } from "./CardSmall/CardSmallContainer";
-import { CardType } from "../../store/types";
+import { CardType } from "../../store/types/types";
 import { colors } from "../../store/colors";
 import { SearchContainer } from "./Search/SearchContainer";
+import { CardGeneral } from "../../store/factory";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,39 +30,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Results = observer(
-  ({ resultsTitle, data, toResultRef, scrollResult }: ResultsProp) => {
-    const classes = useStyles();
+export const Results = ({
+  resultsTitle,
+  data,
+  toResultRef,
+  scrollResult,
+}: ResultsProp) => {
+  const classes = useStyles();
 
-    //todo если нет поиска, то надо показывать всё подряд
-    const cardList = data.map((el) => {
-      if (el !== undefined)
-        return (
-          <CardSmallContainer key={`${el.mal_id}${Math.random()}`} data={el} />
-        );
-    });
+  //todo если нет поиска, то надо показывать всё подряд
+  const cardList = data.map((el) => {
+    if (el !== undefined)
+      return (
+        <CardSmallContainer key={`${el.mal_id}${Math.random()}`} data={el} />
+      );
+  });
 
-    return (
-      <Paper className={classes.root}>
-        <SearchContainer />
-        <Box className={classes.resultsLabel}>
-          <Typography variant={"button"}>{resultsTitle}</Typography>
-        </Box>
-        <div
-          ref={toResultRef}
-          onScroll={scrollResult}
-          className={classes.cardsListScroll}
-        >
-          {cardList}
-        </div>
-      </Paper>
-    );
-  }
-);
+  return (
+    <Paper className={classes.root}>
+      <SearchContainer />
+      <Box className={classes.resultsLabel}>
+        <Typography variant={"button"}>{resultsTitle}</Typography>
+      </Box>
+      <div
+        ref={toResultRef}
+        onScroll={scrollResult}
+        className={classes.cardsListScroll}
+      >
+        {cardList}
+      </div>
+    </Paper>
+  );
+};
 
 interface ResultsProp {
   resultsTitle: string;
-  data: (CardType | undefined)[];
+  data: CardGeneral[];
   toResultRef: React.RefObject<HTMLDivElement>;
   scrollResult: (e: any) => void;
 }

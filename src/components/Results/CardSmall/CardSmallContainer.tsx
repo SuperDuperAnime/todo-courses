@@ -1,21 +1,16 @@
 import React from "react";
 import { CardSmall } from "./CardSmall";
-import {
-  animeGuard,
-  CardType,
-  characterGuard,
-  topAnimeGuard,
-  topCharactersGuard,
-} from "../../../store/types";
+import {} from "../../../store/types/types";
 import { TextBlock } from "./TextBlock";
 import layoutStore from "../../../store/LayoutStore";
 import LayoutStore from "../../../store/LayoutStore";
 import store from "../../../store/store";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { observer } from "mobx-react-lite";
+import { CardGeneral } from "../../../store/factory";
 
 interface CardSmallContainerProp {
-  data: CardType;
+  data: CardGeneral;
 }
 
 function TextDescription() {
@@ -46,85 +41,18 @@ export const CardSmallContainer = observer(
       store.setContent(data);
       LayoutStore.toggleActiveView("content");
     };
-
-    const cardSmall = () => {
-      if (animeGuard(data)) {
-        const title = data.title;
-        const textDescription = (
-          <TextBlock
-            description={data.synopsis}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else if (characterGuard(data)) {
-        const title = data.name;
-        const textDescription = (
-          <TextBlock
-            description={undefined}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else if (topAnimeGuard(data)) {
-        const title = data.title;
-        const textDescription = (
-          <TextBlock
-            description={undefined}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else if (topCharactersGuard(data)) {
-        const title = data.title;
-        const textDescription = (
-          <TextBlock
-            description={undefined}
-            category={layoutStore.categoryView}
-            title={title}
-          />
-        );
-        return (
-          <CardSmall
-            key={data.mal_id}
-            textDescription={textDescription}
-            img={img}
-            favorite={favorite}
-            onClick={onClick}
-          />
-        );
-      } else {
-        let unrealType: never = data;
-      }
-    };
-
-    return <>{cardSmall()}</>;
+    const ent = data.entity;
+    const type = data.type;
+    return (
+      <CardSmall
+        ent={ent}
+        type={type}
+        key={data.mal_id}
+        img={img}
+        title={data.title}
+        favorite={favorite}
+        onClick={onClick}
+      />
+    );
   }
 );

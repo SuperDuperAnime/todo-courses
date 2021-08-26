@@ -1,48 +1,47 @@
 import { makeAutoObservable, toJS } from "mobx";
 import axios from "axios";
 import {
-  animeGuard,
-  AnimeZod,
-  CardType,
   CategoriesType,
-  characterGuard,
-  CharacterZod,
-  IResponse,
-  IResponseTop,
-  topAnimeGuard,
-  TopAnimeZod,
-  topCharactersGuard,
-  TopCharactersZod,
-} from "./types";
+  IResponseNew,
+  TopAnimeType,
+  TopCharactersType,
+} from "./types/types";
 import LayoutStore from "./LayoutStore";
 import ErrorStore from "./ErrorStore";
 import { paginationStore } from "./pagination";
 import loaderStore from "./loaderStore";
+import {
+  animeShortFactory,
+  animeTopFactory,
+  CardGeneral,
+  characterShortFactory,
+  characterTopFactory,
+} from "./factory";
+import { animeGuard, characterGuard } from "./types/guards";
 
 class store {
   textSearch = "";
   action = "search";
   category: CategoriesType = "anime";
-  content: CardType | null = null;
-  data: CardType[] = [];
-  topAnime: CardType[] = [];
-  topCharacter: CardType[] = [];
-  lastAnime: CardType[] = [];
-  lastCharacter: CardType[] = [];
-  favorite: CardType[] = [];
+  content: CardGeneral | null = null;
+  data: CardGeneral[] = [];
+  topAnime: CardGeneral[] = [];
+  topCharacter: CardGeneral[] = [];
+  lastAnime: CardGeneral[] = [];
+  lastCharacter: CardGeneral[] = [];
+  favorite: CardGeneral[] = [];
   isThrottle = false;
   isWaiting = false;
 
   constructor() {
     makeAutoObservable(this);
     this.startProgram();
+    this.getTopCharacters();
     this.getTopAnime().then(() => {
       //----------------->
       //this.data = this.topAnime
       LayoutStore.setCategoriesView("topAnime");
     });
-
-    this.getTopCharacters();
   }
 
   startProgram() {
@@ -53,17 +52,20 @@ class store {
     }
   }
 
-  setCategory(select: CategoriesType) {
+  async setCategory(select: CategoriesType) {
     this.content = null;
     this.data = [];
+    this.category = select;
     switch (select) {
       case "character":
         this.data = this.topCharacter;
         //todo сменить top
+        paginationStore.active = "topCharacters";
         LayoutStore.categoryView = "topCharacters";
         break;
       case "anime":
         this.data = this.topAnime;
+        paginationStore.active = "topAnime";
         LayoutStore.categoryView = "topAnime";
         break;
       case "favorite":
@@ -73,11 +75,9 @@ class store {
       default:
         console.error(select);
     }
-    this.category = select;
-    console.log(this.category);
   }
 
-  setContent(content: CardType) {
+  setContent(content: CardGeneral) {
     this.content = content;
     console.log(toJS(this.content));
   }
@@ -101,17 +101,19 @@ class store {
   async getTopAnime() {
     loaderStore.loading = true;
     await axios
-      .get<IResponseTop>(`https://api.jikan.moe/v3/top/anime/1`)
+      .get(`https://api.jikan.moe/v3/top/anime/1`)
+
+      .then<TopAnimeType[]>((res) => res.data.top)
+
       .then((res) => {
-        this.topAnime = res.data.top;
-        this.topAnime.forEach((el) => {
-          el.category = "topAnime";
-          TopAnimeZod.parse(el);
-        });
+        let newCard = res.map((el) => animeTopFactory(el));
+        this.topAnime = newCard;
         this.data = this.topAnime;
+        paginationStore.active = "topAnime";
         paginationStore.currentPage.topAnime = 2;
 
         this.favoriteCheck(this.topAnime);
+        return newCard;
       })
       .catch((error) => console.log(error.response))
       .then(() => {
@@ -121,16 +123,17 @@ class store {
 
   async getTopCharacters() {
     loaderStore.loading = true;
-    axios
-      .get<IResponseTop>(`https://api.jikan.moe/v3/top/characters/1`)
+    await axios
+      .get(`https://api.jikan.moe/v3/top/characters/1`)
+      .then<TopCharactersType[]>((res) => res.data.top)
       .then((res) => {
-        this.topCharacter = this.topCharacter.concat(res.data.top);
-        this.topCharacter.forEach((el) => {
-          el.category = "topCharacters";
-          TopCharactersZod.parse(el);
-        });
+        let newCard = res.map((el) => characterTopFactory(el));
+        this.topCharacter = newCard;
+        this.data = this.topCharacter;
+        paginationStore.active = "topCharacters";
         paginationStore.currentPage.topCharacters = 2;
-        this.favoriteCheck(this.topAnime);
+        this.favoriteCheck(this.topCharacter);
+        return newCard;
       })
       .catch((error) => console.log(error.response))
       .then(() => {
@@ -138,7 +141,7 @@ class store {
       });
   }
 
-  favoriteCheck(data: CardType[]) {
+  favoriteCheck(data: CardGeneral[]) {
     data.forEach((e) => {
       this.favorite
         .map((event) => {
@@ -154,22 +157,7 @@ class store {
     if (this.category === "favorite") {
       //let filterFavorite
       let filterFavorite = this.favorite.filter((item) => {
-        if (animeGuard(item)) {
-          return item.title.toLowerCase().includes(textInput.toLowerCase());
-          console.log(item);
-        }
-        if (characterGuard(item)) {
-          return item.name.toLowerCase().includes(textInput.toLowerCase());
-          console.log(item);
-        }
-        if (topAnimeGuard(item)) {
-          return item.title.toLowerCase().includes(textInput.toLowerCase());
-          console.log(item);
-        }
-        if (topCharactersGuard(item)) {
-          return item.title.toLowerCase().includes(textInput.toLowerCase());
-          console.log(item);
-        }
+        return item.title.toLowerCase().includes(textInput.toLowerCase());
       });
       // return item.title?.toLowerCase().includes(textInput.toLowerCase())
       console.log(filterFavorite);
@@ -179,40 +167,41 @@ class store {
     loaderStore.loading = true;
 
     await axios
-      .get<IResponse>(
+      .get(
         `https://api.jikan.moe/v3/${this.action}/${this.category}?q=${textInput}&limit=10&page=1`
       )
+      .then<IResponseNew>((res) => res.data)
       .then((res) => {
         this.data = [];
-        if (this.category === "anime") {
-          this.lastAnime = res.data.results;
-          this.lastCharacter.forEach((el) => AnimeZod.parse(el));
-          this.lastAnime.forEach((el) => {
-            AnimeZod.parse(el);
-            el.category = "anime";
-          });
-          this.data = this.lastAnime;
+        let newCards = res.results.map((el) => {
+          if (animeGuard(el)) {
+            return animeShortFactory(el);
+          }
+          if (characterGuard(el)) {
+            return characterShortFactory(el);
+          }
+        });
 
+        if (this.category === "anime") {
+          this.lastAnime = newCards as CardGeneral[];
+          this.data = this.lastAnime;
+          paginationStore.active = "anime";
           paginationStore.currentPage.anime = 2;
         }
         if (this.category === "character") {
-          this.lastCharacter = res.data.results;
-          this.lastCharacter.forEach((el) => {
-            CharacterZod.parse(el);
-            el.category = "character";
-          });
+          this.lastCharacter = newCards as CardGeneral[];
           this.data = this.lastCharacter;
-
+          paginationStore.active = "character";
           paginationStore.currentPage.characters = 2;
         }
 
-        paginationStore.active = LayoutStore.categoryView;
         this.favoriteCheck(this.data);
       })
       .catch((error) => {
         ErrorStore.catchingErrors(error);
       })
       .then(() => {
+        paginationStore.setFetching(false);
         setTimeout(() => {
           loaderStore.loading = false;
         }, 500);

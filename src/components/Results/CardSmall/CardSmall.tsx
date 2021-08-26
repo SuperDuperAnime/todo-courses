@@ -34,15 +34,16 @@ const useStyles = makeStyles({
 });
 
 interface ICardSmall {
-  textDescription: ReactNode;
   img: string;
   favorite: JSX.Element | null;
-
+  title: string;
   onClick: () => void;
+  ent: string;
+  type: string;
 }
 
 export const CardSmall = observer(
-  ({ img, favorite, textDescription, onClick }: ICardSmall) => {
+  ({ img, favorite, onClick, title, ent, type }: ICardSmall) => {
     const classes = useStyles();
 
     return (
@@ -52,7 +53,11 @@ export const CardSmall = observer(
           image={img}
           title="Contemplative Reptile"
         />
-        {textDescription}
+        {title}
+        ....
+        {ent}
+        ....
+        {type}
         <Box className={classes.fav}>{favorite}</Box>
       </Card>
     );
