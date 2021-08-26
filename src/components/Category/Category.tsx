@@ -4,6 +4,8 @@ import { ButtonGroup, makeStyles, Paper } from "@material-ui/core";
 import { CategoriesType } from "../../store/types/types";
 import { CategoryButton } from "./CategoryButton";
 import { colors } from "../../store/colors";
+import { FavoriteFilterBtn } from "./favoriteFilterBtn/favoriteBtnFilter";
+import store from "../../store/store";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +46,13 @@ export const Category = observer(() => {
     <Paper className={classes.root}>
       <ButtonGroup className={classes.categories}>
         {categoriesButton}
+        {
+          store.category === 'favorite' ?
+          <FavoriteFilterBtn /> : ""
+        }
+        
       </ButtonGroup>
+      
     </Paper>
   );
 });

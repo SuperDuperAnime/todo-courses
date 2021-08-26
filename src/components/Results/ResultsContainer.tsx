@@ -29,6 +29,10 @@ export const ResultsContainer = observer(
     }
     useEffect(() => {
       if (paginationStore.fetching) {
+        if (store.category === 'favorite') {
+          paginationStore.setFetching(false);
+          return
+        }
         paginationStore.startPagination();
       }
     }, [paginationStore.fetching]);

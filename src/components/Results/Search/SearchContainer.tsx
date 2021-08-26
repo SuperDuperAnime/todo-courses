@@ -9,6 +9,9 @@ import { paginationStore } from "../../../store/pagination";
 
 export const SearchContainer = observer(() => {
   const [textInput, setTextInput] = useState("");
+  const onChangeTextInput = (e: any) => {
+
+  }
   const validator = () => {
     if (textInput.length <= 3) {
       ErrorStore.changeTextError("Введите больше 3 букв");
@@ -20,7 +23,7 @@ export const SearchContainer = observer(() => {
     }
   };
   useEffect(() => {
-    if (store.category === "favorite") store.startSearch(textInput);
+    if (store.category === "favorite") store.startSearch(store.textSearch);
   }, [textInput]);
   const activeCategory = LayoutStore.categoryView;
   const startSearch = () => {

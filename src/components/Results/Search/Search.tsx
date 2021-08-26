@@ -9,6 +9,7 @@ import { observer } from "mobx-react-lite";
 import { Typography } from "@material-ui/core";
 import { colors } from "../../../store/colors";
 import { CategoriesType, CategoriesViewType } from "../../../store/types/types";
+import store from "../../../store/store";
 
 const useStyles = makeStyles({
   root: {
@@ -59,13 +60,22 @@ export const Search = observer(
     const activeCategoryText = categories.map((el) =>
       el.value === activeCategory ? el.text : null
     );
+    const onChangeText = (e: any) => {
+      store.textSearch = e;
+
+    }
     return (
-      <div className={classes.root}>
+      <form onSubmit = { (e) => {
+          e.preventDefault()
+          startSearch();
+        }
+      } className={classes.root}>
         <Typography className={classes.label}>{activeCategoryText}</Typography>
         <InputBase
-          value={textInput}
+          value={store.textSearch}
           onChange={(e) => {
             setTextInput(e.target.value);
+            onChangeText(e.target.value)
           }}
           className={classes.input}
           //todo а если не аниме?
@@ -82,7 +92,7 @@ export const Search = observer(
         >
           <SearchIcon />
         </IconButton>
-      </div>
+      </form>
     );
   }
 );
