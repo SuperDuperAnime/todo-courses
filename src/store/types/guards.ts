@@ -2,7 +2,6 @@ import {
   AnimeType,
   CardType,
   CharacterType,
-  FullCharactersType,
   TopAnimeType,
   TopCharactersType,
 } from "./types";
@@ -35,9 +34,11 @@ export function ShortCharacterBodyGuard(
 ): body is ShortCharacterBody {
   return Array.isArray(body as ShortCharacterBody);
 }
+
 export function ShortAnimeBodyGuard(body: Body): body is string {
   return typeof (body as string) === "string";
 }
+
 export function TopCharacterBodyGuard(body: Body): body is string {
   return typeof (body as string) === "string";
 }
@@ -45,16 +46,11 @@ export function TopCharacterBodyGuard(body: Body): body is string {
 export function TopAnimeGuard(body: Body): body is TopAnimeBody {
   return (body as TopAnimeBody).episodes !== undefined;
 }
+
 export function FullCharacterBodyGuard(body: Body): body is FullCharacterBody {
   return (body as FullCharacterBody).nicknames !== undefined;
 }
+
 export function FullAnimeBodyGuard(body: Body): body is FullAnimeBody {
   return (body as FullAnimeBody).aired !== undefined;
 }
-
-// | ShortCharacterBody
-// | ShortAnimeBody
-// | TopAnimeBody
-// | TopCharactersType
-// | FullAnimeBody
-// | FullCharacterBody;

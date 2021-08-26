@@ -39,12 +39,14 @@ export interface IResponse {
   request_cache_expiry: number;
   results: CardType[];
 }
+
 export interface IResponseNew {
   request_hash: string;
   request_cached: boolean;
   request_cache_expiry: number;
   results: CardType[];
 }
+
 export interface IResponseTop {
   request_hash: string;
   request_cached: boolean;

@@ -46,13 +46,8 @@ export const Category = observer(() => {
     <Paper className={classes.root}>
       <ButtonGroup className={classes.categories}>
         {categoriesButton}
-        {
-          store.category === 'favorite' ?
-          <FavoriteFilterBtn /> : ""
-        }
-        
+        {store.category === "favorite" ? <FavoriteFilterBtn /> : ""}
       </ButtonGroup>
-      
     </Paper>
   );
 });

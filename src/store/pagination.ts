@@ -165,6 +165,7 @@ class Pagination {
     }, 2000);
     store.isThrottle = true;
   }
+
   // startPaginationWithDelay() {
   //   console.log("pagination");
   //   if (store.isThrottle) {

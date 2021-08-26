@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import { Appbar } from "./components/AppBar/AppBar";
 import LayoutStore from "./store/LayoutStore";
-import { Results } from "./components/Results/Results";
 import { Category } from "./components/Category/Category";
 import { ContentContainer } from "./components/Content/ContentContainer";
 import { MobPanel } from "./components/AppBar/MobPanel";
@@ -19,7 +18,6 @@ import { colors } from "./store/colors";
 import loaderStore from "./store/loaderStore";
 import { LoaderContainer } from "./components/Loader/LoaderContainer";
 import { ResultsContainer } from "./components/Results/ResultsContainer";
-import store from "./store/store";
 
 const useStyles = makeStyles({
   root: {

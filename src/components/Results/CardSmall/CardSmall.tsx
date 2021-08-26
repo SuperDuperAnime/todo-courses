@@ -1,7 +1,6 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { observer } from "mobx-react-lite";
 import { colors } from "../../../store/colors";

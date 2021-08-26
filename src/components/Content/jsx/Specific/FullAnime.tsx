@@ -1,9 +1,6 @@
 import React from "react";
 import { CardGeneral } from "../../../../store/factory";
-import {
-  FullAnimeBodyGuard,
-  ShortAnimeBodyGuard,
-} from "../../../../store/types/guards";
+import { FullAnimeBodyGuard } from "../../../../store/types/guards";
 
 interface TopCharacterProp {
   data: CardGeneral;

@@ -1,32 +1,31 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from "mobx";
 
 class ErrorStore {
-    errorStatus: number = 0
-    errorText: string = ''
-    isOpenError = false
+  errorStatus: number = 0;
+  errorText: string = "";
+  isOpenError = false;
 
-    constructor() {
-        makeAutoObservable(this)
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    toggleAlertError(open: boolean) {
-        this.isOpenError = open
-    }
+  toggleAlertError(open: boolean) {
+    this.isOpenError = open;
+  }
 
-    changeTextError(text: string) {
-        this.errorText = text
-    }
+  changeTextError(text: string) {
+    this.errorText = text;
+  }
 
-    changeStatusError(status: number) {
-        this.errorStatus = status
-    }
+  changeStatusError(status: number) {
+    this.errorStatus = status;
+  }
 
-    catchingErrors(error: any) {
-
-        this.toggleAlertError(true)
-        this.changeStatusError(error.response.status)
-        this.changeTextError(error.response.data.message)
-    }
+  catchingErrors(error: any) {
+    this.toggleAlertError(true);
+    this.changeStatusError(error.response.status);
+    this.changeTextError(error.response.data.message);
+  }
 }
 
-export default new ErrorStore()
+export default new ErrorStore();

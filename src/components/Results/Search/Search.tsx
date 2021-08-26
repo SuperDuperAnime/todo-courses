@@ -62,20 +62,21 @@ export const Search = observer(
     );
     const onChangeText = (e: any) => {
       store.textSearch = e;
-
-    }
+    };
     return (
-      <form onSubmit = { (e) => {
-          e.preventDefault()
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
           startSearch();
-        }
-      } className={classes.root}>
+        }}
+        className={classes.root}
+      >
         <Typography className={classes.label}>{activeCategoryText}</Typography>
         <InputBase
           value={store.textSearch}
           onChange={(e) => {
             setTextInput(e.target.value);
-            onChangeText(e.target.value)
+            onChangeText(e.target.value);
           }}
           className={classes.input}
           //todo а если не аниме?

@@ -1,9 +1,6 @@
 import React from "react";
 import { CardGeneral } from "../../../../store/factory";
-import {
-  ShortCharacterBodyGuard,
-  TopCharacterBodyGuard,
-} from "../../../../store/types/guards";
+import { ShortCharacterBodyGuard } from "../../../../store/types/guards";
 import { ToggleTypeCard } from "../ToggleTypeCard";
 import { makeStyles, Typography } from "@material-ui/core";
 import { colors } from "../../../../store/colors";
@@ -11,6 +8,7 @@ import { colors } from "../../../../store/colors";
 interface TopCharacterProp {
   data: CardGeneral;
 }
+
 const useStyle = makeStyles({
   root: {
     display: "flex",

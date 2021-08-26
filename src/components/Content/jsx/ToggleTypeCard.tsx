@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, makeStyles } from "@material-ui/core";
 
 interface ToggleTypeCardProp {
   children?: React.ReactNode;
 }
+
 const useStyle = makeStyles({
   root: {},
 });

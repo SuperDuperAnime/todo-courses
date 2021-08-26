@@ -63,19 +63,19 @@ class store {
         //todo сменить top
         paginationStore.active = "topCharacters";
         LayoutStore.categoryView = "topCharacters";
-        this.textSearch = ''
+        this.textSearch = "";
         break;
       case "anime":
         this.data = this.topAnime;
         paginationStore.active = "topAnime";
         LayoutStore.categoryView = "topAnime";
-        this.textSearch = ''
+        this.textSearch = "";
         break;
       case "favorite":
         //this.data = this.favorite;
         LayoutStore.categoryView = "favorite";
-        this.textSearch = '';
-        this.startSearch(this.textSearch)
+        this.textSearch = "";
+        this.startSearch(this.textSearch);
         break;
       default:
         console.error(select);
@@ -160,28 +160,31 @@ class store {
 
   async startSearch(textInput: string) {
     if (this.category === "favorite") {
-      let filterFavorite : CardGeneral[] = []
-      switch(this.favoriteBtnFilter) {
-        case "all" :  filterFavorite = this.favorite.filter((item) => {
-          return item.title.toLowerCase().includes(textInput.toLowerCase());
-        });
-        break;
-        case "anime" : filterFavorite = this.favorite.filter((item) => {
-          return item.entity === "anime" && item.title.toLowerCase().includes(textInput.toLowerCase())
-        })
-        break;
-        case "character" : filterFavorite = this.favorite.filter((item) => {
-        
-           return item.entity === "character" && item.title.toLowerCase().includes(textInput.toLowerCase())
-         
-        })
-        break;
+      let filterFavorite: CardGeneral[] = [];
+      switch (this.favoriteBtnFilter) {
+        case "all":
+          filterFavorite = this.favorite.filter((item) => {
+            return item.title.toLowerCase().includes(textInput.toLowerCase());
+          });
+          break;
+        case "anime":
+          filterFavorite = this.favorite.filter((item) => {
+            return (
+              item.entity === "anime" &&
+              item.title.toLowerCase().includes(textInput.toLowerCase())
+            );
+          });
+          break;
+        case "character":
+          filterFavorite = this.favorite.filter((item) => {
+            return (
+              item.entity === "character" &&
+              item.title.toLowerCase().includes(textInput.toLowerCase())
+            );
+          });
+          break;
       }
 
-      // let filterFavorite = this.favorite.filter((item) => {
-      //   return item.title.toLowerCase().includes(textInput.toLowerCase());
-      // });
-      // return item.title?.toLowerCase().includes(textInput.toLowerCase())
       console.log(filterFavorite);
       this.data = filterFavorite;
       return;

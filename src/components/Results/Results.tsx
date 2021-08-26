@@ -1,8 +1,6 @@
 import React from "react";
-import { observer } from "mobx-react-lite";
 import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
 import { CardSmallContainer } from "./CardSmall/CardSmallContainer";
-import { CardType } from "../../store/types/types";
 import { colors } from "../../store/colors";
 import { SearchContainer } from "./Search/SearchContainer";
 import { CardGeneral } from "../../store/factory";
@@ -38,7 +36,6 @@ export const Results = ({
 }: ResultsProp) => {
   const classes = useStyles();
 
-  //todo если нет поиска, то надо показывать всё подряд
   const cardList = data.map((el) => {
     if (el !== undefined)
       return (

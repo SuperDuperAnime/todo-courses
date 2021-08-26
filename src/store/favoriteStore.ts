@@ -5,6 +5,7 @@ class FavoriteStore {
   constructor() {
     makeAutoObservable(this);
   }
+
   initialCheckFavorite = (mal_id: number) => {
     return store.favorite
       .map((el) => {
@@ -13,4 +14,5 @@ class FavoriteStore {
       .includes(mal_id);
   };
 }
+
 export default new FavoriteStore();

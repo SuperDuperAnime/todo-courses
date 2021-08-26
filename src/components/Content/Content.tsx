@@ -6,6 +6,7 @@ import { Specific } from "./jsx/Specific/Specific";
 import { Footer } from "./jsx/Footer";
 import { makeStyles } from "@material-ui/core";
 import { colors } from "../../store/colors";
+
 interface IContent {
   title: string;
   img: string;
@@ -14,6 +15,7 @@ interface IContent {
   toggleFavorite: () => void;
   toggleContent: () => void;
 }
+
 const useStyle = makeStyles({
   root: {
     display: "flex",
