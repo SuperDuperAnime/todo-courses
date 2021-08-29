@@ -1,6 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
 import { createTheme, MuiThemeProvider } from "@material-ui/core";
 const theme = createTheme({
   breakpoints: {
@@ -13,10 +14,9 @@ const theme = createTheme({
     },
   },
 });
-
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <App />{" "}
+ <MuiThemeProvider theme={theme}>
+    <App />
   </MuiThemeProvider>,
-  document.getElementById("root")
-);
+  document.getElementById('root')
+)
